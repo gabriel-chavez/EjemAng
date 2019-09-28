@@ -1,0 +1,61 @@
+<p class="title">SOLICITUD DE BOLETA DE GARANTIA</p>
+<div class="containheaders">
+  <p class="textheaders">Tipo de Boleta</p>
+</div>
+<app-select-type-ballot [(ngModel)]="ballotType" [disabled]="disabled"></app-select-type-ballot>
+<div class="containheaders">
+  <p class="textheaders">A. Datos del Afianzado</p>
+</div>
+<app-securing-data [(ngModel)]="ballot" [disabled]="disabled"></app-securing-data>
+<div class="containheaders">
+  <p class="textheaders">B. Datos de Fianza</p>
+</div>
+<app-bail-data [(ngModel)]="ballot" [disabled]="disabled"></app-bail-data>
+<div class="containheaders" *ngIf="handleRequiredRoe()">
+  <p class="textheaders">C. Datos de ROE</p>
+</div>
+<app-roedata [(ngModel)]="ballot" *ngIf="handleRequiredRoe()" [disabled]="disabled"></app-roedata>
+<div class="containheaders">
+  <p class="textheaders">D. Otros</p>
+</div>
+<app-others-of-ballot [(ngModel)]="ballot" [disabled]="disabled"></app-others-of-ballot>
+<div class="containheaders">
+  <p class="textheaders">E. Instrucciones de entrega de la boleta</p>
+</div>
+<app-delivery-instructions [(ngModel)]="ballot" [disabled]="disabled"></app-delivery-instructions>
+<p>
+  {{ballot|json}}
+</p>
+
+<app-approvers-and-controllers [approversRequest]="approversRequest" [currency]="ballot.currency" [amount]="ballot.amount" [disabled]="disabled"
+  [isAdministrative]="true" #approversAndControllers></app-approvers-and-controllers>
+<br>
+<!-- <div class="form-group" align=right *ngIf="Confirm">
+  <button type="button" class="btn btn-primary" (click)="handleSubmit()">Aceptar</button>
+  <button type="button" class="btn btn-danger" (click)="reload()">Cancelar</button>
+</div>
+<app-token-modal [isVisible]="isVisibleToken" (onSubmit)="handleTokenSubmit($event)" (onClose)="isVisibleToken=false"></app-token-modal>
+<app-modal [visible]="isRemoveModalVisible" (onClose)="isRemoveModalVisible=false" [size]="'md'">
+  <div class="app-modal-header"> Operación Realizada </div>
+  <div class="app-modal-body">Su operación ha sido enviada satisfactoriamente a Solicitudes Pendientes de Autorización
+    desde donde el o los usuario(s)
+    que cuenten con los permisos podrán autorizar el lote
+    <strong>N° {{processBatchNumber}}.</strong> más adelante. Una vez aprobada su operación, será enviada a Back Office
+    para su ejecución.
+    Verificar en la pantalla de Seguimiento hasta comprobar que se procesó corréctamente.</div>
+  <div class="app-modal-footer">
+    <button type="button" class="btn btn-primary" (click)="isRemoveModalVisible=false" (click)="isSave=true">Aceptar</button>
+  </div>
+</app-modal>
+<div class="form-group row" *ngIf="isSave===true">
+  <label id="Resultado">Su operación ha sido enviada satisfactoriamente a Solicitudes Pendientes de Autorización desde
+    donde el o los usuario(s)
+    que cuenten con los permisos podrán autorizar el lote
+    <strong>N° {{processBatchNumber}}.</strong> más adelante. Una vez aprobada su operación, será enviada a Back Office
+    para su ejecución.
+    Verificar en la pantalla de Seguimiento hasta comprobar que se procesó corréctamente.</label>
+  <div class="form-group row">
+    <button class="col-xs-12 col-sm-3 col-sm-offset-9  btn btn-primary" (click)="reload()"> Nuevo </button>
+    <br>
+  </div>
+</div> -->

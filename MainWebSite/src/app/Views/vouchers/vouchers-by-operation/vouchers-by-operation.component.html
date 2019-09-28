@@ -1,0 +1,48 @@
+<div class="row">
+  <div class="form-group">
+
+    <div class="col-sm-6">
+      <app-date-range-picker [(ngModel)]="dateRange" [options]="optionsDateRange"></app-date-range-picker>
+    </div>
+    <div class="col-sm-4">
+      <button type="button" class="btn btn-primary" (click)="handleSearch()">Buscar</button>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-3">
+    <div>
+      Número de operación:
+    </div>
+    <div>
+      <input type="text" class="form-control" name="operationNumber" value="" maxlength="9" [(ngModel)]="operationIdInput"/>
+    </div>
+  </div>
+  <div class="col-sm-3">
+    <div>
+      Número de lote:
+    </div>
+    <div>
+      <input type="number" class="form-control" name="batchNumber" value="" maxlength="9" [(ngModel)]="batchIdInput"/>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-6">
+    <div>
+      Proveedor:
+    </div>
+    <div>
+      <input type="text" class="form-control" name="provider" value="" maxlength="50" [(ngModel)]="providerInput"/>
+    </div>
+  </div>
+  <div class="col-sm-4">
+    <button type="button" class="btn btn-primary" (click)="handleClear()">Limpiar</button>
+  </div>
+</div>
+<br /><br />
+<div class="row" *ngIf="swTable">
+  <app-vouchers-list [vouchers]="vouchers" (onChange)="handleVouchersByOperation($event)" [vouchersDto]="vouchersDto"></app-vouchers-list>
+</div>

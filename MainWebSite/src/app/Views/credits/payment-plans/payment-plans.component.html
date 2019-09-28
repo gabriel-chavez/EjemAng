@@ -1,0 +1,47 @@
+<app-company-name></app-company-name>
+<div class="row">
+  <div class="form-group">
+    <label class="col-xs-2">Cuenta: </label>
+    <div class="col-xs-4">
+      <app-my-accounts [accountRequest]="sourceAccountDto" (onChange)="handleAccounts($event)" [companyAccounts]="true"></app-my-accounts>
+    </div>
+    <label class="col-xs-2">Moneda: </label>
+    <div class="col-xs-3">
+      <input type="text" class="form-control" readonly value="{{currencyAccount}}">
+    </div>
+    <div class="col-xs-1">
+      <app-currency-flag [visible]="true" [flag]="request.currency"></app-currency-flag>
+    </div>
+  </div>
+</div>
+<br>
+
+<div class="container">
+  <ng-container class="row" *ngIf="!emptyData">
+    <div class="form-inline">
+      <div class="form-group mb-2">
+        <label for="staticEmail2" class="sr-only"></label>
+        <span>Para exportar la información presione: <button type="submit" class="btn btn-primary mb-2" (click)="donwloadReport()">Exportar</button>
+          ó <button type="submit" class="btn btn-primary mb-2" (click)="previewVist()">Vista
+            Previa</button></span>
+      </div>
+    </div>
+  </ng-container>
+</div>
+
+<ng-container class="row" *ngIf="emptyData">
+  <app-information-panel [message]="message"></app-information-panel>
+</ng-container>
+
+<app-modal [visible]="isVisibleModal" (onClose)="isVisibleModal=false" [size]="'lg'">
+    <div class="app-modal-header">
+        <strong>Vista previa del comprobante</strong>
+    </div>
+    <div class="app-modal-body">
+        <iframe src="" width="100%" height="400px" frameborder="1" transparency="transparency"></iframe>
+    </div>
+    <div class="app-modal-footer">
+        <button type="button" class="btn btn-primary" (click)="donwloadReport()">Exportar</button>
+        <button type="button" class="btn btn-default" (click)="isVisibleModal=false">Cancelar</button>
+    </div>
+</app-modal>

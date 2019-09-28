@@ -1,0 +1,20 @@
+<div class="position-notification">
+    <div *ngFor="let message of messages">
+      <div *ngIf="!message.isModalContainer" class="alert alert-{{ cssClass(message) }} alert-dismissible fade" [ngStyle]="{'opacity': message.isVisible ? 1 : 0}" [ngClass]="{'in': message.isVisible }"
+         role="alert">
+        <button type="button" class="close" (click)="removeMessage(message)" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <strong>{{message.summary}}</strong> {{message.detail}}
+      </div>
+    </div>
+  <app-modal [visible]="currentMessage.isVisible" [size]="'md'">
+    <div class="app-modal-header">{{currentMessage.summary}}</div>
+    <div class="app-modal-body">{{currentMessage.detail}}</div>
+    <div class="app-modal-footer">
+      <button type="button" class="btn btn-primary" (click)="removeMessage(currentMessage)">Aceptar</button>
+    </div>
+  </app-modal>
+</div>
+
+<app-loader *ngIf="loading"></app-loader>

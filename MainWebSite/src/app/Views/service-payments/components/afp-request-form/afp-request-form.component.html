@@ -1,0 +1,45 @@
+
+<form class="form-horizontal" name="AFPRequestForm" novalidate #AFPRequestForm="ngForm">
+        
+    <div class="form-group">  
+                <label class="col-xs-12 col-sm-2 control-label">Tipo de documento: </label>
+                <div class="col-xs-12 col-sm-3">
+                  <select name="documentType" class="form-control" [(ngModel)]="data.Param3" #Param3="ngModel">
+                    <option *ngFor="let documentType of documentTypes" [ngValue]="documentType.value">{{ documentType.description }}</option>
+                  </select>
+                </div>
+    </div>
+        
+
+        <div class="form-group">
+                <label class="col-xs-12 col-sm-2 control-label">Numero Documento: </label>
+                <div class="col-xs-12 col-sm-3">
+        
+                    <input class="form-control" type="text" name="param2" [(ngModel)]="data.Param2" #param2="ngModel" >
+                    <app-show-errors [control]="param2"></app-show-errors>
+        
+                </div>
+                
+    </div>
+    <div class="form-group">
+            
+                  <label class="col-xs-12 col-sm-2 control-label">Seleccion AFP: </label>
+                  <div class="col-xs-12 col-sm-3">
+                    <select name="TypeCompania" class="form-control" [(ngModel)]="data.IdCompany" #IdCompany="ngModel">
+                      <option *ngFor="let TypeCompania of TypeCompanias" [ngValue]="TypeCompania.value">{{ TypeCompania.description }}</option>
+                    </select>
+                  </div>
+
+    </div>
+    <div class="form-group">
+            <label class="col-xs-12 col-sm-2 control-label">Numero Planilla: </label>
+            <div class="col-xs-12 col-sm-3">
+        
+                <input class="form-control" type="text" name="idClient"  [(ngModel)]="data.IdClient" #idClient="ngModel">
+                <app-show-errors [control]="idClient"></app-show-errors>
+        
+            </div>
+            <button class="btn btn-primary btn-xs" (click)="getDetail()" >Traer datos planilla</button>           
+       </div>
+
+

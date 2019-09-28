@@ -1,0 +1,26 @@
+/* img{
+    margin: 0 auto;
+}
+.carousel-indicators .active {
+    background-color: #FF4F10;
+    border-color: #FF4F10;
+}
+
+.carousel-indicators li {
+    border-color: #FF4F10;
+    background-color: #FFFFFF;
+}
+
+.carousel-indicators{
+    bottom: -30px;
+}
+.carousel{
+    margin-bottom: 18px;    
+} */
+
+img{
+    margin: 0 auto;
+    display: block;
+    width: 100%;
+    max-width: 280px;
+}

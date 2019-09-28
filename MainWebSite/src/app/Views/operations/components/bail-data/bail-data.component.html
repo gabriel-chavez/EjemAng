@@ -1,0 +1,110 @@
+<form class="form-horizontal" name="formComponent" #formComponent="ngForm" novalidate autocomplete="off">
+  <fieldset [disabled]="disabled">
+    <div class="form-group">
+      <label class="col-sm-12 control-label">1. Monto:</label>
+    </div>
+    <div class="form-group">
+      <div class="col-sm-12">
+        <app-currency-and-amount [disabled]="disabled" [verifyFundDeclarationAmount]="false" [isFlagVisible]="true"
+          (onChange)="handleCurrencyAndAmountChanged($event)" #currencyAndAmount [maximumDigitsAllowed]="11"></app-currency-and-amount>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-2 control-label">Literal:</label>
+      <div class="col-sm-10">
+        <textarea class="form-control rounded-0" rows="2" name="literalAmount" [(ngModel)]="ballot.literalAmount"
+          #literalAmount="ngModel" required readonly="readonly" appMaxLength="150"></textarea>
+        <app-show-errors [control]="literalAmount"></app-show-errors>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-12 control-label">2. Plazo:</label>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-12 control-label">Plazo en Días
+        <input name="radioTypeTerm" type="radio" [value]="true" [(ngModel)]="isTermInDays" (ngModelChange)="handleTypeTerm()">
+      </label>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-12 control-label">Fechas
+        <input name="radioTypeTerm" type="radio" [value]="false" [(ngModel)]="isTermInDays" (ngModelChange)="handleTypeTerm()">
+      </label>
+    </div>
+    <div class="form-group" *ngIf="isTermInDays">
+      <label class="col-sm-3 control-label">Dias:</label>
+      <div class="col-sm-3">
+        <input type="text" class="form-control" name="termInDays" [(ngModel)]="ballot.termInDays" #termInDays="ngModel"
+          required appOnlyInteger appMaxLength="7">
+        <app-show-errors [control]="termInDays"></app-show-errors>
+      </div>
+    </div>
+    <div class="form-group" *ngIf="isTermInDays">
+      <label class="col-sm-3 control-label">A partir de la Emision:</label>
+      <div class="col-sm-3">
+        <my-date-picker name="mydateInit" [options]="optionsInit" [(ngModel)]="dateInit" locale="es" required
+          #mydateInit (dateChanged)="onDateInitChanged($event)"></my-date-picker>
+        <app-show-errors [control]="mydateInit"></app-show-errors> A partir de la emisión
+      </div>
+    </div>
+    <div class="form-group" *ngIf="!isTermInDays">
+      <label class="col-sm-3 control-label">Fechas:</label>
+      <div class="col-sm-7">
+        <app-date-range-picker name="dateRange" [(ngModel)]="dateRange" (ngModelChange)="handleChangePickerRange()"
+          [options]="optionsDateRange"></app-date-range-picker>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-3 control-label">2. Beneficiario:</label>
+      <div class="col-sm-9">
+        <textarea class="form-control rounded-0" rows="2" name="beneficiary" [(ngModel)]="ballot.beneficiary"
+          #beneficiary="ngModel" required appMaxLength="255"></textarea>
+        <app-show-errors [control]="beneficiary"></app-show-errors>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-3 control-label">4. Objeto:</label>
+      <div class="col-sm-9">
+        <select class="form-control" name="object" [(ngModel)]="ballot.object" #object>
+          <option value='' disabled>Seleccione una opción</option>
+          <option *ngFor="let object of responseParameter" value="{{object.code}}">
+            {{object.description}}
+          </option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group" *ngIf="ballot.object === OBJECT_OTHER">
+      <label class="control-label col-md-3">Titulo del objeto</label>
+      <div class="col-md-9">
+        <input type="text" class="form-control" name="objectSpecification" [(ngModel)]="ballot.objectSpecification"
+          #objectSpecification="ngModel" appMaxLength="50" required>
+        <app-show-errors [control]="objectSpecification"></app-show-errors>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-md-3">Descripcion del objeto</label>
+      <div class="col-md-9">
+        <textarea class="form-control rounded-0" rows="2" name="objectDescription" [(ngModel)]="ballot.objectDescription"
+          #objectDescription="ngModel" appMaxLength="305" required></textarea>
+        <app-show-errors [control]="objectDescription"></app-show-errors>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-md-3">5. Renovación de Boleta de Garantia</label>
+      <label class="control-label col-md-1">NO
+        <input name="radioRenovation" type="radio" [value]="false" [(ngModel)]="ballot.statusRenovation"
+          (ngModelChange)="handleRadioStatusRenovation()">
+      </label>
+      <label class="control-label col-md-1">SI
+        <input name="radioRenovation" type="radio" [value]="true" [(ngModel)]="ballot.statusRenovation">
+      </label>
+      <label class="control-label col-md-2"> Con número
+      </label>
+      <div class="col-md-5">
+        <span *ngIf="ballot.statusRenovation">
+          <input type="text" class="form-control" name="numberRenovation" [(ngModel)]="ballot.numberRenovation"
+            #termInDays="ngModel" required appOnlyType="alphanumericBasicSymbols" appMaxLength="15">
+        </span>
+      </div>
+    </div>
+  </fieldset>
+</form>

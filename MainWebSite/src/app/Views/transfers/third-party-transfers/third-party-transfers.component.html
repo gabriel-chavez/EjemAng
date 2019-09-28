@@ -1,0 +1,34 @@
+<p class="description-page">Seleccione la cuenta origen, despues seleccione la cuenta destino, ingrese el monto, moneda de la transferencia, seleccione autorizadores y finalmente presione el botón ACEPTAR.</p>
+<app-company-name></app-company-name>
+<app-favorite-transfers [currency]="currencyAndAmount.data.currency" [amount]="currencyAndAmount.data.amount" [sourceAccountId]="sourceAccount.accountSelected.id"
+                        [destinationAccountNumber]="transferData.destinationAccount" [name]="transferData.favoriteName" [disabled]="isDisabledForm"
+                        (onChange)="handleChangedFavoriteTransfer($event)" #favTransfers>
+</app-favorite-transfers>
+<p class="tituloGeneral h_no-MarginBottom">CUENTA ORIGEN</p>
+<app-source-accounts [accountRequest]="accountDto" (onChange)="handleSourceAccountChanged($event)" [disabled]="isDisabledForm" [defaultAccount]="selectedAccountId" #sourceAccount></app-source-accounts>
+<p class="tituloGeneral h_no-MarginBottom">CUENTA DESTINO</p>
+<app-search-accounts [disabled]="isDisabledForm" [accountNumber]="transferData.destinationAccount" (onChange)="handleSearchAccountChanged($event)" #searchAccounts></app-search-accounts>
+<app-currency-and-amount [disabled]="isDisabledForm" [disabledAfterSave]="isDisabledForm" [amount]="transferData.amount" [currency]="transferData.currency" (onChange)="handleCurrencyAndAmountChanged($event)" #currencyAndAmount></app-currency-and-amount>
+<app-date-future [disabled]="isDisabledForm" (onChange)="handleDateFuture($event)" #futureDate></app-date-future>
+<app-ticket [sourceCurrency]="sourceAccount.accountSelected.currency" [isFutureDate]="transferData.isScheduledProcess" [destinationCurrency]="currencyAndAmount.data.currency"
+            [amount]="currencyAndAmount.data.amount" [disabled]="isDisabledForm" (onChange)="handleObtainedTicket($event)" #ticket></app-ticket>
+<app-emails-input [disabled]="isDisabledForm" (onChange)="handleEmails($event)" #emailInput></app-emails-input>
+<app-save-favorites [disabled]="isDisabledForm" [title]="'Guardar como transferencia favorita'" (onChange)="handleSaveFavoriteChanged($event)" #saveFavorite></app-save-favorites>
+<app-company-limits></app-company-limits>
+<app-approvers-and-controllers [approversRequest]="approversDto" [currency]="currencyAndAmount.data.currency" [amount]="currencyAndAmount.data.amount" [disabled]="isDisabledForm" (onChange)="handleApproversOrControllersChanged($event)" #approversAndControllers></app-approvers-and-controllers>
+<div *ngIf="isTransferSuccessful"><p>{{successfulTransferMessage}} {{processBatchNumber}}.</p></div>
+<div class="panel-button">
+  <button *ngIf="!isTransferSuccessful" class="btn btn-primary" (click)="handleValidate(
+    currencyAndAmount.handleValidate(), futureDate.handleValidate(),
+    emailInput.handleValidate(), ticket.handleValidate(), approversAndControllers.handleValidate(),
+    saveFavorite.handleValidate(), approversAndControllers.validateApproversLimit(), searchAccounts.handleValidate(), sourceAccount.handleValidate())">
+    Aceptar
+  </button>
+  <button class="btn btn-primary" [routerLink]="['/transfers/third-party']">Nuevo</button>
+</div>
+<app-token-modal [disabled]="isTokenFormDisabled" [isVisible]="isVisibleToken" (onSubmit)="handleTokenSubmit($event)" (onClose)="isVisibleToken=false"></app-token-modal>
+<app-modal [visible]="excedeedAmount" (onClose)="excedeedAmount=false" [size]="'md'">
+  <div class="app-modal-header">Saldo insuficiente</div>
+  <div class="app-modal-body">Estimado cliente, su operación será rechazada si no cuenta con fondos suficientes al momento de realizar la autorización.</div>
+  <div class="app-modal-footer"><button type="button" class="btn btn-primary" (click)="excedeedAmount=false; showToken();">Aceptar</button></div>
+</app-modal>

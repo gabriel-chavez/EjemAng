@@ -1,0 +1,6 @@
+D:\CW\CredinetWeb19112018\Core\Core.Validation\bin\Release\Core.Validation.dll
+D:\CW\CredinetWeb19112018\Core\Core.Validation\bin\Release\Core.Validation.pdb
+D:\CW\CredinetWeb19112018\Core\Core.Validation\obj\Release\Core.Validation.csprojAssemblyReference.cache
+D:\CW\CredinetWeb19112018\Core\Core.Validation\obj\Release\Core.Validation.csproj.CoreCompileInputs.cache
+D:\CW\CredinetWeb19112018\Core\Core.Validation\obj\Release\Core.Validation.dll
+D:\CW\CredinetWeb19112018\Core\Core.Validation\obj\Release\Core.Validation.pdb

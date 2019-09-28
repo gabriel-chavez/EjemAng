@@ -1,0 +1,28 @@
+<p class="description-page">
+  Seleccione fecha inicial, fecha final, escoja transferencias enviadas o recibidas y presione el botón Buscar para buscar
+  las operaciones realizadas.
+</p>
+<app-company-name></app-company-name>
+<div class="row">
+  <div class="col-sm-5">
+    <app-date-range-picker [(ngModel)]="dateRange" [options]="optionsDateRange"></app-date-range-picker>
+  </div>
+  <div class="col-sm-5">
+    <app-filter-type-transfers (onChange)="handleChangeFilter($event)"></app-filter-type-transfers>
+  </div>
+  <div class="col-sm-2">
+    <button type="button" class="btn btn-primary" (click)="handleSearch()" [disabled]="!dateRange.isValid">Buscar</button>
+  </div>
+</div>
+<div class="row" *ngIf="swifts.totalItems>0 && filterType==='send'">
+  <app-pagination [totalItems]="swifts.totalItems" [maxSize]="swifts.pageSize" [returnFirstChange]="false" (onChange)="handleChangePagination($event)"></app-pagination>
+</div>
+<div class="row" *ngIf="swifts.totalItems>0 && filterType==='send'">
+  <app-list-swift-sent [swifts]="swifts.transfersAbroadSwiftResult"></app-list-swift-sent>
+</div>
+<div class="row" *ngIf="received.length>0 && filterType!=='send'">
+  <app-pagination [totalItems]="received.length" [maxSize]="10" (onChange)="handleChangePaginationReceived($event)"></app-pagination>
+</div>
+<div class="row" *ngIf="received.length>0 && filterType!=='send'">
+  <app-list-swift-received [received]="receivedPage" [message]="''"></app-list-swift-received>
+</div>

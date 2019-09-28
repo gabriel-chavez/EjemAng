@@ -1,0 +1,40 @@
+.rowKey{
+    width: 315px;
+}
+
+.itemKey{
+    width: 10%;
+    display: inline-block;
+}
+
+button{
+    margin: 1px;
+    padding: 0.5rem 1px;
+    width: 30px;
+}
+
+.img-delete{
+    position: relative;
+    top: 1px;
+    width: 28px;
+    right: 1px;
+}
+
+button {
+    color: #000000;
+    background-color: #e7e7ef;
+    border: 1px solid #ffffff;
+}
+
+.keyboard{
+    border: 1px solid #888888;
+    width: 317px;
+    border-radius: 4px;
+    margin: auto;
+    margin-right: 0;
+    background-color:#f4f4f4;
+}
+
+.keyboard button{
+    color: #000;
+}

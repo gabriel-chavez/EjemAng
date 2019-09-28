@@ -1,0 +1,18 @@
+<form class="form-horizontal" name="DatePickerForm" novalidate #DatePickerForm="ngForm" novalidate>
+  <fieldset [disabled]="false">
+    <div class="form-group">
+      <div class="form-group col-sm-12" no-padding>
+          <label for="currency" class="col-sm-2">Fecha Inicial</label>
+          <my-date-picker name="mydateIni" class="col-sm-3" [options]="myDatePickerOptionsIni" [(ngModel)]="dateInit.dateValue"
+          (dateChanged)="handleChangeDPIni($event)" placeholder="Ingrese fecha inicial"  required #mydateIni>
+          </my-date-picker>
+      </div>
+      <div class="form-group col-sm-12" no-padding>
+          <label for="currency" class="col-sm-2">Fecha Final</label>
+          <my-date-picker name="mydateEnd" class="col-sm-3" [options]="myDatePickerOptionsEnd" [(ngModel)]="dateEnd.dateValue"
+          (dateChanged)="handleChangeDPEnd($event)" placeholder="Ingrese fecha final" required #mydateEnd>
+          </my-date-picker>
+      </div>
+    </div>
+  </fieldset>
+</form>

@@ -1,0 +1,31 @@
+<fieldset [disabled]="disabled">
+  <div class="row">
+    <button type="button" class="btn btn-primary" (click)="handleNewRow()" [disabled]="isDisableAdd">
+      <span class="icon-afiliacion icono-naranjo"></span>
+      Insertar Fila
+    </button>
+  </div>
+</fieldset>
+<app-pagination [totalItems]="detail.detail.length" [maxSize]="10" (onChange)="handlePageChanged($event)"></app-pagination>
+<br>
+<fieldset [disabled]="disabled">
+  <div class="table-responsive">
+    <table class="table table-condensed table-bordered table-striped table-hover">
+      <thead>
+        <tr>
+          <th scope="col">Banco</th>
+          <th scope="col">Ciudad</th>
+          <th scope="col">Cuenta Destino</th>
+          <th scope="col">Razon Beneficiario</th>
+          <th scope="col">Monto</th>
+          <th scope="col">Detalle</th>
+          <th scope="col">E-Mail Proveedor</th>
+          <th scope="col" colspan="2">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let row of detailPerPage" app-row-payment-ach [detail]="row" (action)="handleActionRow($event)"> </tr>
+      </tbody>
+    </table>
+  </div>
+</fieldset>

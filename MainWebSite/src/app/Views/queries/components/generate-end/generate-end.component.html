@@ -1,0 +1,65 @@
+
+<form class="form-horizontal" name="formHistEnd" #formHistEnd="ngForm" novalidate autocomplete="off">
+<fieldset [disabled]="valueGlobalTwo">
+    <div class="form-group col-sm-12">
+
+      <div class="form-group col-sm-12">
+        <app-source-accounts [accountRequest]="sourceAccountDto" [disabled]="false" (onChange)="handleSourceAccountChange($event)"
+        [loadFirstAccount]="true" [showBalances]="false" #sourceAccount></app-source-accounts>
+      </div>
+      <div class="form-group col-sm-12">
+        <div class="form-group col-sm-12">
+          <label class="col-xs-2 col-sm-2 control-label">Tipo certficacion:</label>
+          <div class="col-sm-3">
+            <select name="dpCertif" class="form-control" [(ngModel)]="CertificateSelect" (change)="handleChangeDdpCertif(CertificateSelect)">
+                <option *ngFor="let liscertif of ListParamGroup" [ngValue]="liscertif">
+                  {{ liscertif.description }}
+                </option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group col-sm-12">
+          <label class="col-xs-2 col-sm-2 control-label">Dirección de entrega:</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" name="direction" [(ngModel)]="directions" #amount="ngModel" maxlength="99" required>
+          </div>
+        </div>
+      </div>
+    </div>
+    <app-approvers-and-controllers [isVisible]="true" [approversRequest]="approversRequest" (onChange)="handleApproversOrControllersChanged($event)"
+    [isAdministrative]="true" #approversAndControllers></app-approvers-and-controllers>
+
+    <div class="form-group row">
+      <button class="col-xs-12 col-sm-3 col-sm-offset-9  btn btn-primary"  (click)=" approversAndControllers.handleValidate() && handleTocken()"
+        [disabled]="swBtnAceptaVer">Aceptar
+      </button>
+    </div>
+    <div class="form-group row">
+    <button class="col-xs-12 col-sm-3 col-sm-offset-9  btn btn-primary"  (click)="back()">
+        <span class="icon-calendario icono-naranjo"> </span>Nuevo
+    </button>
+    <br>
+  </div>
+<!--
+<div class="form-group col-sm-12">
+<p *ngIf=swNumberIdProcess class="text-danger">
+    Su operación ha sido enviada satisfactoriamente a “Solicitudes Pendientes de Confirmación” desde donde el o los usuario(s) que cuenten con los permisos podrán confirmar el lote <strong> {{numProcesBatch}} </strong>  más adelante. Una vez aprobada su operación, será enviada a Back Office para su ejecución. Verificar en la pantalla hasta comprobar que se procesó correctamente.
+</p>
+</div>-->
+</fieldset>
+</form>
+<app-modal [visible]="isRemoveModalVisible" (onClose)="isRemoveModalVisible=false" [size]="'md'">
+  <div class="app-modal-header"> Operación Realizada </div>
+  <div class="app-modal-body">
+    Su operación ha sido enviada satisfactoriamente a “Solicitudes Pendientes de Confirmación” desde donde el o los usuario(s) que cuenten con los permisos podrán confirmar el lote <strong> {{numProcesBatch}} </strong>  más adelante. Una vez aprobada su operación, será enviada a Back Office para su ejecución. Verificar en la pantalla hasta comprobar que se procesó correctamente.
+  </div>
+  <div class="app-modal-footer">
+    <button type="button" class="btn btn-primary" (click)="isRemoveModalVisible=false">Aceptar</button>
+  </div>
+</app-modal>
+
+<app-token-modal  [isVisible]="isVisibleToken" (onSubmit)="handleTokenSubmit($event)"
+      (onClose)="isVisibleToken=false">
+ </app-token-modal>
+
+

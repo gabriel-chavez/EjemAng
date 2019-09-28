@@ -1,0 +1,170 @@
+<br><app-company-name></app-company-name><br>
+<div align="center"><label class="title"><h1>SOLICITUD DE RECLAMO</h1></label></div><br>
+<label class="title"><h2>DATOS DEL CASO</h2></label><br><br>
+<label ><h3>Datos personales</h3></label><br>
+<form class="form-group" class="border" ><br>
+  <div>
+          <table style="width: 819px"><tbody>
+              <tr><td style="width: 141px"> <label >&emsp; Departamento : </label>
+                  <select name="department" [(ngModel)]="claimRequestDto.department" *ngIf="!isValidConfirm">
+                    <option value="BE">BENI</option>
+                    <option value="CH">CHUQUISACA</option>
+                    <option value="CB">COCHABAMBA</option>
+                    <option value="LP">LA PAZ</option>
+                    <option value="OR">ORURO</option>
+                    <option value="PA">PANDO</option>
+                    <option value="PO">POTOSI</option>
+                    <option value="SC">SANTA CRUZ</option>
+                    <option value="TJ">TARIJA</option>
+                    </select>
+                    <input name="department" type="text" [(ngModel)]="claimRequestDto.department" *ngIf="isValidConfirm" readonly="readonly">
+                </td></tr><br>
+              <tr><td style="width: 135px"> <label >&emsp; Dirección : </label>&emsp;&emsp;&emsp; <input name="address" style="width:316px;" type="text" maxlength="50" [(ngModel)]="claimRequestDto.address" *ngIf="!isValidConfirm"><input name="address" style="width:316px;" type="text" maxlength="50" [(ngModel)]="address1" *ngIf="isValidConfirm" readonly="readonly"></td>
+                  <td style="width: 175px"> <label > No. : </label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; <input name="number" style="width:55px;" type="text" appOnlyType = "integer" required only-number maxlength="5" *ngIf="!isValidConfirm" [(ngModel)]="claimRequestDto.number"> <input name="number" style="width:55px;" type="text" appOnlyType = "integer" required only-number maxlength="5" [(ngModel)]="claimRequestDto.number" *ngIf="isValidConfirm" readonly="readonly"></td>
+              </tr><br>
+              <tr><td style="width: 135px"> <label >&emsp; Teléfono : </label>&emsp;&emsp;&emsp; <input name="phone" type="text" appOnlyType = "integer" required only-number maxlength="8" [(ngModel)]="claimRequestDto.phone" *ngIf="!isValidConfirm"><input name="phone" type="text" appOnlyType = "integer" required only-number maxlength="8" [(ngModel)]="phone1" *ngIf="isValidConfirm" readonly="readonly"></td>
+                  <td style="width: 175px"> <label > Teléfono Trabajo : </label>&emsp; <input name="phones" type="text" appOnlyType = "integer" required only-number maxlength="8" [(ngModel)]="claimRequestDto.phones" *ngIf="!isValidConfirm"><input name="phones" type="text" appOnlyType = "integer" required only-number maxlength="8" [(ngModel)]="claimRequestDto.phones" *ngIf="isValidConfirm" readonly="readonly"></td>
+              </tr><br>
+              <tr><td style="width: 135px"> <label >&emsp; Celular : </label>&emsp;&emsp;&emsp;&emsp; <input name="cellPhone" type="text" appOnlyType = "integer" required only-number maxlength="8" [(ngModel)]="claimRequestDto.cellPhone" *ngIf="!isValidConfirm"> <input name="cellPhone" type="text" appOnlyType = "integer" required only-number maxlength="8" [(ngModel)]="cellPhone1" *ngIf="isValidConfirm" readonly="readonly"></td>
+                  <td style="width: 175px"> <label > Celular Trabajo : </label>&emsp;&emsp; <input name="cellPhones" type="text" appOnlyType = "integer" required only-number maxlength="8" [(ngModel)]="claimRequestDto.cellPhones" *ngIf="!isValidConfirm"><input name="cellPhones" type="text" appOnlyType = "integer" required only-number maxlength="8" [(ngModel)]="claimRequestDto.cellPhones" *ngIf="isValidConfirm" readonly="readonly"></td>
+              </tr><br>
+              <tr><td style="width: 135px"> <label >&emsp; Fax : </label>&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp; <input name="fax" style="width: 267px" type="text" maxlength="15" [(ngModel)]="claimRequestDto.fax" *ngIf="!isValidConfirm"><input name="fax" style="width: 267px" type="text" maxlength="15" [(ngModel)]="claimRequestDto.fax" *ngIf="isValidConfirm" readonly="readonly"></td>
+                  </tr><br>
+              <tr><td ><label for="EnvioCorreo">&emsp; Envío de respuesta por correo Electrónico</label>
+                    <input name="checkMoreEmail" [(ngModel)]="checkMoreEmail" type="checkbox" (click)="setradio('optCor')" *ngIf="!isValidConfirm">
+                    <input name="checkMoreEmail" [(ngModel)]="checkMoreEmail" type="checkbox" (click)="setradio('optCor')" *ngIf="isValidConfirm" disabled></td>
+              </tr><br>
+              <tr *ngIf=CE><td style="width: 100px" *ngIf="checkMoreEmail"> &emsp; Correo electrónico :&emsp;&emsp;&emsp;&emsp;&emsp;<input name="email" style="width:300px;" type="text" maxlength="50" [(ngModel)]="claimRequestDto.email" appValidate="email" *ngIf="!isValidConfirm"><input name="email" style="width:300px;" type="text" maxlength="50" [(ngModel)]="claimRequestDto.email" appValidate="email" *ngIf="isValidConfirm" readonly="readonly"></td>
+                </tr><br>
+              <tr *ngIf=CE><td style="width: 100px" *ngIf="checkMoreEmail"> &nbsp; Confirmar Correo electrónico :&emsp;<input name="emails" style="width:300px;" type="text" maxlength="50" [(ngModel)]="claimRequestDto.emails" *ngIf="!isValidConfirm"><input name="emails" style="width:300px;" type="text" maxlength="50" [(ngModel)]="claimRequestDto.emails" *ngIf="isValidConfirm" readonly="readonly"></td></tr>
+            </tbody></table><br> 
+</div></form> <br> <br>
+
+<label ><h3> Producto</h3></label>
+  <!-- <img src="assets/img/cw/ayuda.jpg" style="height:22px;width:25px;border-width:2px;" alt="('Si no encontrara concordancia con el producto o Servicio, objeto de su reclamo, se le solicita pasar por plataforma de las oficinas de Banco de Crédito.'" > -->
+  <br>
+<form class="border"><br>
+    <div>
+            <table style="width: 100%;"><tbody>
+                <tr><td style="width: 128px;"> <label >&emsp; Tipo Producto:</label></td>
+                    <td><select name="productName" [(ngModel)]="claimRequestDto.productName" *ngIf="!isValidConfirm">
+                    <option selected="selected" [value]="SEL" disabled>--Seleccione una cuenta--</option>
+                    <option value="AHO">CUENTA AHORROS</option>
+                    <option value="CRE">CREDITO</option>
+                    <option value="CTE">CUENTA CORRIENTE</option>
+                    <option value="TRJCR">TARJETA DE CREDITO</option>
+                    <option value="ALC">ATENCION AL CLIENTE/USUARIO</option>
+                    <option value="BPI">BANCA POR INTERNET</option>
+                    <option value="BMO">BANCA MOVIL</option>
+                    </select>
+                    <input name="productName"  type="text" [(ngModel)]="claimRequestDto.productName" *ngIf="isValidConfirm" readonly="readonly">
+                </td></tr><br>
+                <tr><td style="width: 128px;"> <label >&emsp; Número de cuenta:</label></td>
+                    <td  style="width:7px;"><app-my-accounts [loadFirstAccount]="false" [accountRequest]="accountRequest" [returnBalances]="true" [selectedAccount]="selectedAccountId" [isAwait]="isAwait" (onChange)="handleAccountChanged($event)" [defaultAccount]="defaultAccount" *ngIf="!isValidConfirm"></app-my-accounts>
+                                            <input name="accountNumber" type="text" [(ngModel)]="claimRequestDto.accountNumber" *ngIf="isValidConfirm" readonly="readonly">
+                </td> </tr><br>
+                <tr><td style="width: 135px"> <label >&emsp; Número de tarjeta:</label></td><td><input name="cardNumber"  readonly="readonly" type="text" maxlength="16" [(ngModel)]="claimRequestDto.cardNumber"></td>
+                </tr><br>
+                <tr><td style="width: 128px"><label class="radio-inline">&emsp; 
+                        <input name="optByClaim" type="radio" [value]="'REC'" (change)="setradio('optRec')" [(ngModel)]="claimRequestDto.claimType">Reclamo</label>&nbsp;&nbsp;
+                        <!-- <img src="assets/img/cw/ayuda.jpg" style="height:22px;width:25px;border-width:0px;" alt=" ('RECLAMOS: Regularización o rectificación de una operación o acción que el cliente: * No solicito. 
+                        * Se realizó de manera defectuosa o incompleta. * No se efectuó luego de ser solicitada. * Oportunidad de mejora.')"> -->
+                    </td>
+                    <td><label *ngIf=R>Tipo:</label>
+                        <ng-container *ngIf=RCA>
+                        <select name="serviceName" [(ngModel)]="claimRequestDto.serviceName" *ngIf="!isValidConfirm">
+                        <option [value]="seleccionar" disabled>seleccionar...</option>
+                        <option *ngIf="claimRequestDto.productName==='AHO' || claimRequestDto.productName==='CRE' || claimRequestDto.productName==='TRJCR'" selected="selected" value="386">INTERESES</option>
+                        <option *ngIf="claimRequestDto.productName==='CTE' || claimRequestDto.productName==='TRJCR'" selected="selected" value="324">ATM DINERO NO DISPENSADO</option>
+                        <option *ngIf="claimRequestDto.productName==='TRJCR'" value="326">PAGO NO REGISTRADO</option>
+                        <option *ngIf="claimRequestDto.productName==='ALC'" selected="selected" value="202">MALA ATENCION</option>
+                        <option *ngIf="claimRequestDto.productName==='ALC'" value="206">CORRESPONDENCIA NO ENTREGADA</option>
+                        <option *ngIf="claimRequestDto.productName==='BPI' || claimRequestDto.productName==='BMO'" selected="selected" value="213">PROBLEMA EN EL SERVICIO</option>
+                        </select>
+                        <input name="serviceName" type="text" [(ngModel)]="claimRequestDto.serviceName" *ngIf="isValidConfirm" readonly="readonly">
+                    </ng-container>
+                        
+                    </td><td></td></tr><br>
+                <tr>
+                    <td style="width: 128px" > <label class="radio-inline">&emsp; 
+                     <input name="optByQuery" type="radio" [value]="'CON'" (change)="setradio('optCon')" [(ngModel)]="claimRequestDto.claimType">Consulta</label>&nbsp;&nbsp;
+                     <!-- <img src="assets/img/cw/ayuda.jpg" style="height:22px;width:25px;border-width:2px;">  -->
+                    </td>
+                    <td><label *ngIf=C>Tipo:</label>
+                        <ng-container *ngIf=CCA>
+                        <select name="serviceName" [(ngModel)]="claimRequestDto.serviceName" *ngIf="!isValidConfirm">
+                        <option selected="selected" [value]="seleccionar" disabled>seleccionar...</option>
+                        <option *ngIf="claimRequestDto.productName==='AHO' || claimRequestDto.productName==='CRE' || claimRequestDto.productName==='TRJCR'" value="386">INTERESES</option>
+                        <option *ngIf="claimRequestDto.productName==='AHO' || claimRequestDto.productName==='CRE' || claimRequestDto.productName==='CTE' || claimRequestDto.productName==='TRJCR'" value="387">CARACTERISTICA DEL PRODUCTO</option>
+                        <option *ngIf="claimRequestDto.productName==='AHO' || claimRequestDto.productName==='CTE'" value="407">DETALLE DE ABONO O DEBITO</option>
+                        <option *ngIf="claimRequestDto.productName==='CRE'" value="409">PAGO DUPLICADO</option>
+                        <option *ngIf="claimRequestDto.productName==='TRJCR'" value="408">SALDO ACREEDOR</option>
+                        <option *ngIf="claimRequestDto.productName==='ALC'" value="376">SOLICITUD INTERNA</option>
+                        <option *ngIf="claimRequestDto.productName==='BPI' || claimRequestDto.productName==='BMO'" value="403">INFORMATIVO</option>
+                        <option *ngIf="claimRequestDto.productName==='CRE' || claimRequestDto.productName==='TRJCR'" value="393">OTROS</option>
+                        </select>
+                        <input name="serviceName" type="text" [(ngModel)]="claimRequestDto.serviceName" *ngIf="isValidConfirm" readonly="readonly">
+                    </ng-container>
+                        
+                    </td><td></td></tr><br><br>
+                </tbody></table>
+</div>
+<div *ngIf="claimRequestDto.productName==='AHO' && claimRequestDto.serviceName==='387' || claimRequestDto.productName==='CRE' && claimRequestDto.serviceName==='386' || claimRequestDto.productName==='CRE' && claimRequestDto.serviceName==='387'
+ || claimRequestDto.productName==='TRJCR' && claimRequestDto.serviceName==='386' && claimRequestDto.ClaimType==='CON' || claimRequestDto.productName==='ALC' && claimRequestDto.serviceName==='202' || claimRequestDto.productName==='ALC' && claimRequestDto.serviceName==='206'
+ || claimRequestDto.productName==='ALC' && claimRequestDto.serviceName==='376' || claimRequestDto.productName==='BPI' && claimRequestDto.serviceName==='213' || claimRequestDto.productName==='BPI' && claimRequestDto.serviceName==='403' || claimRequestDto.productName==='BMO' && claimRequestDto.serviceName==='213'">
+    <table style="width: 100%;">
+        <tbody><br>
+            <tr><td style="height: 31px;"><label>&emsp; Fecha Transacción : </label>
+                <input name="transactionDate" type="text" maxlength="10" [(ngModel)]="claimRequestDto.transactionDate">
+                &emsp;<label >Formato : dd/mm/aaaa</label></td></tr>
+            <tr><td style="height: 31px;"><label >&emsp; Hora Transacción : </label>&nbsp;
+                <input name="transactionTime" type="text" [(ngModel)]="claimRequestDto.transactionTime" *ngIf="!isValidConfirm">
+                <input name="transactionTime" type="text" [(ngModel)]="claimRequestDto.transactionTime" *ngIf="isValidConfirm" readonly="readonly">
+                &emsp;<label >Formato : HH:mm:ss</label></td></tr>
+    </tbody></table><br>
+</div>
+<div *ngIf="claimRequestDto.productName==='CRE' && claimRequestDto.serviceName==='409' || claimRequestDto.productName==='TRJCR' && claimRequestDto.serviceName==='324'">
+    <table style="width: 100%;"><tbody><tr>
+            <td><app-currency-and-amount [amount]="amount" [disabled]="isDisabledAfterSave" [isFlagVisible]="true" (onChange)="handleCurrencyAndAmountChanged($event)" #currencyAndAmount ></app-currency-and-amount>
+                <!-- <input name="amount" type="text" [(ngModel)]="claimRequestDto.amount" *ngIf="isValidConfirm" readonly="readonly"> -->
+            </td><td style="width: 135px"></td></tr>
+        <tr><td  style="height: 31px;"><label>&emsp; Fecha Transacción : </label>
+            <!-- <my-date-picker name="transactionDate" [options]="options" locale="es" [(ngModel)]="claimRequestDto.transactionDate" ></my-date-picker> -->
+            <!-- <app-date-range-picker name="dateRange" [(ngModel)]="dateRange" [options]="optionsDateRange" [optionsGrid]="[5,4,5,4]"></app-date-range-picker> -->
+            <input name="transactionDate" type="text" maxlength="10" [(ngModel)]="claimRequestDto.transactionDate">
+            &emsp;<label >Formato : dd/mm/aaaa</label></td></tr>
+        <tr><td style="height: 31px;"><label >&emsp; Hora Transacción : </label>&nbsp;
+            <input name="transactionTime" type="text" [(ngModel)]="claimRequestDto.transactionTime" *ngIf="!isValidConfirm">
+            <input name="transactionTime" type="text" [(ngModel)]="claimRequestDto.transactionTime" *ngIf="isValidConfirm" readonly="readonly">
+            &emsp;<label >Formato : HH:mm:ss</label></td></tr>
+    </tbody></table><br>
+</div>
+</form><br><br>
+
+<label ><h3> Descripción de Reclamo</h3></label><br>
+<form class="border">
+  <div>
+          <table style="width: 100%;"><tbody><br>
+              <tr><td style="width: 14%;"><label >&emsp; Descripción: &emsp; </label></td>
+                  <td style="width: 476px" rowspan="4">
+                      <textarea name="description" style="height:81px;width:382px;" onkeyup="return checkMaxLen(this,450)" rows="2" cols="20" [(ngModel)]="claimRequestDto.description" *ngIf="!isValidConfirm"></textarea><br>
+                      <textarea name="description" style="height:81px;width:382px;" onkeyup="return checkMaxLen(this,450)" rows="2" cols="20" [(ngModel)]="claimRequestDto.description" *ngIf="isValidConfirm" readonly="readonly"></textarea><br>
+                      <label >La descripción de su reclamo o consulta debe ser extensa y completa para poder ser atendida correctamente.</label>
+                  </td></tr>
+          </tbody></table><br><br>
+</div></form><br><br>
+<app-approvers-and-controllers [approversRequest]="approversRequest" (onChange)="handleApproversOrControllersChanged($event)" [disabled]="isDisabledAfterSave" [isAdministrative]="true" #approversAndControllers></app-approvers-and-controllers><br>
+    <div align=left class="form-group row">
+      <button class=" btn btn-primary" (click)="handleSubmit()" *ngIf="!isValidConfirm"> Aceptar</button>
+      <button class=" btn btn-primary" (click)="reload()"> Nuevo </button>
+    </div><br>
+    <app-token-modal [isVisible]="isVisibleToken" (onSubmit)="handleTokenSubmit($event)" (onClose)="isVisibleToken=false"></app-token-modal>
+    <app-modal [visible]="isRemoveModalVisible" (onClose)="isRemoveModalVisible=false" [size]="'md'">
+        <div class="app-modal-header"> Operación Realizada </div>
+        <div class="app-modal-body">Su operación ha sido enviada satisfactoriamente a Solicitudes Pendientes de Autorización desde donde el o los usuario(s) que cuenten con los permisos podrán autorizar el lote <strong>N° {{processBatchNumber}}.</strong> más adelante. Una vez aprobada su operación, será enviada a Back Office para su ejecución. Verificar en la pantalla de Seguimiento hasta comprobar que se procesó corréctamente.</div>
+        <div class="app-modal-footer"> 
+            <button type="button" class="btn btn-primary" (click)="newFin=true" (click)="isRemoveModalVisible=false" (click)="isVisibleAuthandControllers=false" (click)="val0=false">Aceptar</button>
+        </div></app-modal>
+    <div class="form-group row" *ngIf="newFin==true">
+    <label id="Resultado">Su operación ha sido enviada satisfactoriamente a Solicitudes Pendientes de Autorización desde donde el o los usuario(s) que cuenten con los permisos podrán autorizar el lote <strong>N° {{processBatchNumber}}.</strong> más adelante. Una vez aprobada su operación, será enviada a Back Office para su ejecución. Verificar en la pantalla de Seguimiento hasta comprobar que se procesó corréctamente.</label>
+    </div>

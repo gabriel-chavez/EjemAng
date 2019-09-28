@@ -1,0 +1,18 @@
+<p class="tituloGeneral h_no-MarginBottom">DETALLE DE TRANSFERENCIAS AL EXTERIOR</p>
+<p class="tituloGeneral h_no-MarginBottom">Datos del Solicitante</p>
+<app-requester-form-abroad [charges]="parameters.chargesType" [(ngModel)]="requester" #requesterForm [disabled]="true"></app-requester-form-abroad>
+<div class="separator"></div>
+<p class="tituloGeneral h_no-MarginBottom">Datos del Beneficiario</p>
+<app-beneficiary-form-abroad [(ngModel)]="beneficiary" [documentTypes]="parameters.documentsType" #beneficiaryForm [disabled]="true"></app-beneficiary-form-abroad>
+<div class="separator"></div>
+<p class="tituloGeneral h_no-MarginBottom">Categoría transferencia ASFI</p>
+<app-transfer-categories-asfi [parametersASFI]="parametersASFIResult" [categoryAsfiData]="categoryAsfi"
+    #categoryAsfiForm [disabled]="true"></app-transfer-categories-asfi>
+<div class="separator"></div>
+<p class="tituloGeneral h_no-MarginBottom">Datos del Banco Pagador</p>
+<app-banks-searcher [bankSelectedDetail]="payerBank" #payerBankForm [disabled]="true"></app-banks-searcher>
+<div class="separator"></div>
+<p class="tituloGeneral h_no-MarginBottom" *ngIf="intermediaryBank.isBankIntermediary">Datos del Banco Intermediario</p>
+<app-intermediary-bank-form-abroad [bankIntermediary]="intermediaryBank" #intermediaryBankForm [disabled]="true"></app-intermediary-bank-form-abroad>
+<div class="separator"></div>
+<button type="button" class="btn btn-success" (click)="handlePreview()">Regresar</button>

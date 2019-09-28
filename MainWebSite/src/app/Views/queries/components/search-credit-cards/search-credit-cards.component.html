@@ -1,0 +1,53 @@
+
+<div class="fluid-container">
+    <div class="row">
+        <h5>Para ver el detalle de los movimientos de una Tarjeta de Crédito presione el ícono  
+          <span class="icon-Lupa icono-naranjo" aria-hidden="true">
+            </span><b>VER MOVIMIENTOS</b> (Nota. La información corresponde al día anterior) </h5>
+    </div>
+    <app-company-name></app-company-name>
+    <div class="row">
+        <app-pagination [totalItems]="totalItems" [maxSize]="10" (onChange)="handleChangePage($event)"></app-pagination>
+    </div>
+    
+    <div class="table-responsive" *ngIf="isVisible">
+      <table class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>Nro. Cuenta</th>
+                <th>Usuario</th>
+                <th>Moneda</th>
+                <th>Linea de Credito</th>
+                <th>Disponible</th>
+                <th>Utilizado</th>
+                <th>Fecha Cuota</th>
+                <th>Monto Cuota</th>
+                <th>Ver Movimientos</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let account of Response">
+              <td>{{account.accountNumber}}</td>
+              <td>{{account.userName}}</td>
+              <td>{{account.currency}}</td>
+              <td>{{account.creditLine | number:0}}</td>
+              <td>{{account.availableBalance | number:0}}</td>
+              <td>{{account.amountUsed | number:0}}</td>
+              <td>{{account.quotaDate | date:'yyyy-MM-dd'}}</td>
+              <td>{{account.quotaAmount | number:0}}</td>
+              <td>
+                <a class="btn btn-primary btn-block icon-Lupa icon-Flecha-siguiente icono-naranjo" (click)="handleShowDetails(account.id)">
+                </a>
+              </td>
+            </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="description-page" *ngIf="!isVisible">
+        <div class="tituloGeneral h_no-MarginBottom"> 
+          No existen Tarjetas de crédito en la cuenta
+          </div>
+    </div>
+    <br>
+</div>

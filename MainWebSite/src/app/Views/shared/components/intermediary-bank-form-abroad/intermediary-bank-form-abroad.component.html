@@ -1,0 +1,42 @@
+<form class="form-horizontal" name="formIsIntermediary" #formIsIntermediary="ngForm" novalidate>
+  <fieldset [disabled]="disabled" *ngIf="!disabled">
+    <div class="form-group">
+      <div class="col-sm-4">
+        <div class="checkbox">
+          <label>
+            ¿Desea utilizar un banco intermediario?
+          </label>
+        </div>
+      </div>
+      <div class="col-sm-2">
+        <div class="checkbox">
+          <label>
+            <input class="form-check-input" type="radio" name="isBankIntermediary" [value]="true" [(ngModel)]="bankIntermediary.isBankIntermediary">Si:
+          </label>
+        </div>
+      </div>
+      <div class="col-sm-2">
+        <div class="checkbox">
+          <label>
+            <input class="form-check-input" type="radio" name="isBankIntermediary" [value]="false" [(ngModel)]="bankIntermediary.isBankIntermediary">No:
+          </label>
+        </div>
+      </div>
+    </div>
+  </fieldset>
+</form>
+<app-banks-searcher *ngIf="bankIntermediary.isBankIntermediary" [bankSelectedDetail]="bankIntermediary.destinationBankResult"
+  (onChange)="handleChangeBank($event)" [disabled]="disabled">
+</app-banks-searcher>
+<form class="form-horizontal" name="accountIntermediaryForm" #accountIntermediaryForm="ngForm" novalidate>
+  <fieldset [disabled]="disabled">
+    <div class="form-group" *ngIf="bankIntermediary.isBankIntermediary">
+      <label class="col-sm-2 control-label">Nro.Cuenta Banco Pag/IBAN(Europa):</label>
+      <div class="col-sm-3">
+        <input type="text" name="account" [(ngModel)]="bankIntermediary.numberAccount" (ngModelChange)="handleAccountChange()" class="form-control"
+          #account="ngModel" [appOnlyType]="'otherAlphanumeric'">
+        <app-show-errors [control]="account"></app-show-errors>
+      </div>
+    </div>
+    </fieldset>
+</form>

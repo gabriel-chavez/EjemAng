@@ -1,0 +1,49 @@
+<form class="form-horizontal" name="currencyAmountAbroadForm" novalidate #currencyAmountAbroadForm="ngForm" autocomplete="off">
+  <fieldset [disabled]="disabled">
+    <div class="form-group">
+      <label for="amountTransfer" class="col-sm-2 control-label">Monto a Transferir:</label>
+      <div class="col-sm-3">
+        <input class="form-control" type="text" name="amountTransfer" [(ngModel)]="data.amountTransfer" #amountTransfer="ngModel"
+        [maxLength]="22" required mask-money appValidate="majorZero">
+        <app-show-errors [control]="amountTransfer"></app-show-errors>
+      </div>
+      <label for="currencyTransfer" class="col-sm-2 control-label">Moneda del abono:</label>
+      <div class="col-xs-10 col-sm-3">
+        <select class="form-control" [(ngModel)]="data.currencyTransfer" name="currencyTransfer" required #currencyTransfer="ngModel"
+          disabled="disabled">
+          <option *ngFor="let item of currenciesTransfer" value="{{item.value}}">{{item.name}}</option>
+        </select>
+        <app-show-errors [control]="currencyTransfer"></app-show-errors>
+      </div>
+      <div class="col-xs-2">
+        <app-currency-flag [flag]="data.currencyTransfer" [visible]="true"></app-currency-flag>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="amountDestiny" class="col-sm-2 control-label">Importe Destino:</label>
+      <div class="col-sm-3">
+        <input class="form-control" type="text" name="amountDestiny" [(ngModel)]="data.amountDestiny" #amountDestiny="ngModel" [maxLength]="22" required
+          mask-money>
+        <app-show-errors [control]="amountDestiny"></app-show-errors>
+      </div>
+      <label for="currencyDestiny" class="col-sm-2 control-label">Moneda Destino:</label>
+      <div class="col-xs-10 col-sm-3">
+        <select class="form-control" [(ngModel)]="data.currencyDestiny" name="currencyDestiny" (change)="handleCurrencyDestiny()"
+          #currencyDestiny="ngModel" required>
+          <option *ngFor="let item of currencies" value="{{item.currency}}">{{item.description}}</option>
+        </select>
+        <app-show-errors [control]="currencyDestiny"></app-show-errors>
+      </div>
+      <div class="col-xs-2">
+        <app-currency-flag [flag]="currencyFlag" [visible]="true"></app-currency-flag>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="description" class="col-sm-2 control-label">Descripción:</label>
+      <div class="col-sm-5">
+        <input class="form-control" type="text" name="description" [(ngModel)]="data.description" #description="ngModel" required [appOnlyType]="'otherAlphanumeric'">
+        <app-show-errors [control]="description"></app-show-errors>
+      </div>
+    </div>
+  </fieldset>
+</form>

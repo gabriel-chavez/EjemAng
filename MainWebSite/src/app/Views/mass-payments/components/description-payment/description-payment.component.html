@@ -1,0 +1,12 @@
+<form class="form-horizontal" name="descriptionForm" novalidate #descriptionForm="ngForm">
+  <fieldset [disabled]="disabled">
+    <div class="form-group">
+      <label for="description" class="col-sm-2 control-label">Descripción:</label>
+      <div class="col-sm-5">
+        <input type="text" class="form-control" name="description" [(ngModel)]="description" (ngModelChange)="handleSendDescription()" #txtDescription="ngModel" required autocomplete="off"
+        appValidate="alphanumericBasicSymbols" appOnlyType="alphanumericBasicSymbols" minlength="5" maxlength="30">
+        <app-show-errors [control]="txtDescription"></app-show-errors>
+      </div>
+    </div>
+  </fieldset>
+</form>

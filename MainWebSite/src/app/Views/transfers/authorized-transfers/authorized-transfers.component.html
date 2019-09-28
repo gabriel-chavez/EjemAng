@@ -1,0 +1,27 @@
+<p class="description-page">Seleccione la cuenta origen, despues seleccione la cuenta destino, ingrese el monto, moneda de la transferencia, seleccione autorizadores y finalmente presione el botón ACEPTAR.</p>
+<p class="tituloGeneral h_no-MarginBottom">CUENTA ORIGEN</p>
+<app-source-accounts [accountRequest]="sourceAccountDto" [disabled]="isDisabledForm" (onChange)="handleSourceAccountChanged($event)" #sourceAccount></app-source-accounts>
+<p class="tituloGeneral h_no-MarginBottom">CUENTA DESTINO</p>
+<app-target-accounts [disabled]="isDisabledForm" [accountRequest]="targetAccountDto" (onChange)="handleDestinationAccountChanged($event)" #targetAccounts></app-target-accounts>
+<app-currency-and-amount [disabled]="isDisabledForm" [disabledAfterSave]="isDisabledForm" [isFlagVisible]="false" (onChange)="handleCurrencyAndAmountChanged($event)" #currencyAndAmount></app-currency-and-amount>
+<app-date-future (onChange)="handleDateFuture($event)" [disabled]="isDisabledForm" #futureDate></app-date-future>
+<app-ticket [disabled]="isDisabledForm" [isFutureDate]="transferData.isScheduledProcess" [sourceCurrency]="sourceAccount.accountSelected.currency" [destinationCurrency]="currencyAndAmount.data.currency"
+            [amount]="currencyAndAmount.data.amount" (onChange)="handleObtainedTicket($event)" #ticket></app-ticket>
+<app-emails-input [disabled]="isDisabledForm" (onChange)="handleEmails($event)" #emailInput></app-emails-input>
+<app-company-limits></app-company-limits>
+<app-approvers-and-controllers [approversRequest]="approversDto" [currency]="currencyAndAmount.data.currency" [amount]="currencyAndAmount.data.amount" [disabled]="isDisabledForm"
+                               (onChange)="handleApproversOrControllersChanged($event)" #approversAndControllers></app-approvers-and-controllers>
+<div *ngIf="isTransferSuccessful"><p>{{successfulTransferMessage}} {{processBatchNumber}}.</p></div>
+<div class="panel-button">
+  <button *ngIf="!isTransferSuccessful" class="btn btn-primary" (click)="handleValidate(currencyAndAmount.handleValidate(), futureDate.handleValidate(),
+    ticket.handleValidate(), approversAndControllers.handleValidate(), approversAndControllers.validateApproversLimit())">
+    Aceptar
+  </button>
+  <button class="btn btn-primary" [routerLink]="['/transfers/authorized']">Nuevo</button>
+</div>
+<app-token-modal [disabled]="isTokenFormDisabled" [isVisible]="isVisibleToken" (onSubmit)="handleTokenSubmit($event)" (onClose)="isVisibleToken=false"></app-token-modal>
+<app-modal [visible]="excedeedAmount" (onClose)="excedeedAmount=false" [size]="'md'">
+  <div class="app-modal-header">Saldo insuficiente </div>
+  <div class="app-modal-body">Estimado cliente, su operación será rechazada si no cuenta con fondos suficientes al momento de realizar la autorización.</div>
+  <div class="app-modal-footer"><button type="button" class="btn btn-primary" (click)="excedeedAmount=false; showToken();">Aceptar</button></div>
+</app-modal>

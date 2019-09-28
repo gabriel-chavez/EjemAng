@@ -1,0 +1,316 @@
+<p class="tituloGeneral h_no-MarginBottom text-center">FORMULARIO DE SOLICITUD DE MODIFICACIONES</p><br />
+
+<app-information-panel *ngIf="!validateRol" [message]="validateRolMessage"></app-information-panel>
+
+<div *ngIf="validateRol">
+<p>
+  EL CONTRATO DE AFILIACION AL SERVICIO DE CREDINET WEB, suscrito entre el Banco de Crédito de Bolivia S.A. como BANCO y la empresa de referencia
+  en el punto 1, como CLIENTE, por el cual se modifica o adiciona perfiles de usuarios al servicio de CREDINET WEB.
+</p><br />
+<div class="row">
+  <div class="col-md-8 col-md-offset-2">
+    <div class="table-responsive">
+      <table class="table table-condensed table-bordered table-striped table-hover">
+        <thead class="thead-light">
+          <tr>
+            <th class="text-center" colspan="2">ANEXO FULL ACCESO</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>NOMBRE O RAZÓN SOCIAL</td>
+            <td>{{modificationData.companyInformations.name}}</td>
+          </tr>
+          <tr>
+            <td>IDC</td>
+            <td>{{modificationData.companyInformations.idc}}</td>
+          </tr>
+          <tr>
+            <td>EMAIL</td>
+            <td>{{modificationData.companyInformations.email}}</td>
+          </tr>
+          <tr>
+            <td>DIRECCIÓN</td>
+            <td>{{modificationData.companyInformations.address}}</td>
+          </tr>
+          <tr>
+            <td>TELÉFONO</td>
+            <td>{{modificationData.companyInformations.phone}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div><br />
+<p>
+  Como representantes legales del CLIENTE, al momento de realizar la autorización declaramos que conocemos y aceptamos todos los términos y condiciones del
+  CONTRATO DE AFILIACIÓN AL SERVICIO CREDINET WEB y asimismo el presente ANEXO tiene el objeto de:
+</p><br />
+<div class="row">
+  <div class="col-md-8 col-md-offset-4">
+    <form class="form-horizontal" novalidate>
+      <fieldset [disabled]="isOperationSelected">
+        <div class="form-group">
+          <label class="col-sm-3 control-label"><input class="form-check-input" type="radio" name="radio" (change)="isModification=true; isOperationSelected=true"> MODIFICAR</label>
+          <label class="col-sm-3 control-label"><input class="form-check-input" type="radio" name="radio" (change)="isModification=false; isOperationSelected=true"> ADICIONAR</label>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+</div>
+<div *ngIf="isOperationSelected">
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2">
+      <fieldset [disabled]="!isModification || disabled">
+        <div class="table-responsive">
+          <table class="table table-condensed table-bordered table-striped table-hover">
+            <thead class="thead-light">
+              <tr>
+                <th class="text-center">DATOS GENERALES</th>
+                <th class="text-center">VALOR ACTUAL</th>
+                <th class="text-center" *ngIf="isModification">NUEVO VALOR</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>NRO. DE AUTORIZADORES</td>
+                <td class="text-center">{{modificationData.companyInformations?.authorizersNumber}}</td>
+                <td *ngIf="isModification"><input class="form-control text-center" type="text" name="newAuthorizersNumber" [(ngModel)]="modificationData.companyInformations.newAuthorizerNumber"  maxlength="2" appOnlyInteger  /></td>
+              </tr>
+              <tr>
+                <td>NRO. DE CONTROLADORES</td>
+                <td class="text-center">{{modificationData.companyInformations?.controllersNumber}}</td>
+                <td *ngIf="isModification"><input class="form-control text-center" type="text" name="newControllersNumber" [(ngModel)]="modificationData.companyInformations.newControllerNumber" maxlength="2" appOnlyInteger /></td>
+              </tr>
+              <tr>
+                <td>LÍMITE DE LA EMPRESA (USD)</td>
+                <td class="text-center">{{modificationData.companyInformations?.limit}}</td>
+                <td *ngIf="isModification"><input class="form-control text-center" type="text" name="newLimit" [(ngModel)]="modificationData.companyInformations.newLimit"  maxlength="10" mask-money /></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </fieldset>
+    </div>
+  </div>
+  <div class="pull-right">
+    <button type="button" class="btn btn-primary" (click)="showRequestDetail=true" [disabled]="disabled" >Ver Solicitud</button>
+    <div class="btn-group" *ngIf="!isModification">
+      <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" [disabled]="disabled">Adicionar <span class="caret"></span></button>
+      <ul class="dropdown-menu">
+        <li><a (click)="addUserHasBeenRequested=true">Nuevo usuario</a></li>
+        <li><a (click)="addAccountHasBeenRequested=true">Nueva cuenta</a></li>
+      </ul>
+    </div>
+  </div>
+  <p class="tituloGeneral h_no-MarginBottom">USUARIOS</p>
+  <br />
+  <fieldset [disabled]="disabled">
+    <div class="table-responsive">
+      <table class="table table-condensed table-bordered table-striped table-hover">
+        <thead class="thead-light">
+          <tr>
+            <th>NOMBRE COMPLETO</th>
+            <th>ACCIÓN</th>
+            <th [attr.colspan]="isModification?3:1" class="text-center">OPERACIONES</th>
+          </tr>
+        <tbody>
+          <tr *ngFor="let user of usersPerPage">
+            <td>{{user.fullName}}</td>
+            <td>{{actions[user.action ? user.action : 0].description}}</td>
+            <td class="text-center" *ngIf="isModification"><button type="button" class="btn btn-primary btn-sm icon-afiliacion icono-naranjo" (click)="handleShowUserDetail(user.id)"></button></td>
+            <td class="text-center" *ngIf="isModification"><button type="button" class="btn btn-primary btn-sm icon-eliminar icono-naranjo" (click)="handleDeleteUser(user.id)"></button></td>
+            <td class="text-center"><button type="button" class="btn btn-primary btn-sm icon-Usuario icono-naranjo" (click)="handleShowRoles(user.id);pagination.reset()"></button></td>
+          </tr>
+        </tbody>
+      </table>
+      <app-pagination [totalItems]="users.length" [maxSize]="pageItemsForUsers" (onChange)="handleUsersPageChanged($event)"></app-pagination>
+    </div>
+  </fieldset>
+</div>
+<!-- {{modificationData | json}} -->
+<app-approvers-and-controllers [isVisible]="true" [approversRequest]="approversDto" (onChange)="handleApproversOrControllersChanged($event)" [isAdministrative]="true" [disabled]="disabled" #approversAndControllers></app-approvers-and-controllers>
+<div *ngIf="isOperationSuccessful">
+  <p>
+    Su operación ha sido enviada satisfactoriamente a "Solicitudes Pendientes de Autorización" desde donde el o los usuario(s) que cuenten con los permisos podrán autorizar el lote <b> Nro. {{processBatchId}} </b> más adelante.
+    Una vez aprobada su operación, será enviada a Back Office para su ejecución. Verificar en la pantalla de Seguimiento hasta comprobar que se procesó corréctamente.
+  </p>
+</div>
+<div class="panel-button">
+  <button *ngIf="!isOperationSuccessful" class="btn btn-primary" [disabled]="!((isOperationSelected && changesInformation.length>0) ||
+          +modificationData.companyInformations.newAuthorizerNumber !== 0 || +modificationData.companyInformations.newControllerNumber !== 0 ||
+          +modificationData.companyInformations.newLimit !== 0 || handleIsThereDeletedUsers())" (click)="handleValidate(approversAndControllers.handleValidate())">Aceptar</button>
+  <button class="btn btn-primary" [routerLink]="['/operations/modification-request']">Nuevo</button>
+</div>
+</div>
+
+
+<app-modal [visible]="addUserHasBeenRequested" (onClose)="addUserHasBeenRequested=false" [manualCloseModal]="true" [size]="'lg'">
+  <div class="app-modal-header">INFORMACIÓN DEL USUARIO</div>
+  <div class="app-modal-body">
+    <form class="form-horizontal" name="userForm" novalidate #userForm="ngForm" autocomplete="off">
+      <fieldset [disabled]="isModification">
+        <div class="form-group">
+          <label for="fullName" class="col-sm-1 control-label">Usuario</label>
+          <div class="col-sm-11">
+            <input class="form-control" type="text" name="amount" [(ngModel)]="selectedUser.fullName" #fullName="ngModel" maxlength="60" required>
+            <app-show-errors [control]="fullName"></app-show-errors>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="documentNumber" class="col-sm-1 control-label">Doc.</label>
+          <div class="col-sm-2">
+            <input class="form-control" type="text" name="documentNumber" [(ngModel)]="selectedUser.documentNumber" #documentNumber="ngModel" maxlength="10" required>
+            <app-show-errors [control]="documentNumber"></app-show-errors>
+          </div>
+          <label for="idcComplement" class="col-sm-1 control-label">Compl.</label>
+          <div class="col-sm-1">
+            <input class="form-control" type="text" name="idcComplement" [(ngModel)]="selectedUser.idcComplement" #idcComplement="ngModel" maxlength="3">
+          </div>
+          <label for="idcType" class="col-sm-1 control-label">Tipo</label>
+          <div class="col-sm-2">
+            <select class="form-control" [(ngModel)]="selectedUser.idcType" name="idcType" required #idcType="ngModel">
+              <option *ngFor="let documentType of documentTypes" [ngValue]="documentType.code">{{documentType.description}}</option>
+            </select>
+          </div>
+          <ng-container *ngIf="selectedUser.idcType == 'Q'">
+            <label class="col-md-1 control-label" for="extension">Ext:</label>
+            <div class="col-md-3">
+              <select class="form-control" name="extension" [(ngModel)]="selectedUser.idcExtension" required #extension="ngModel">
+                <option *ngFor="let extension of idcExtensions" [ngValue]="extension.code">{{extension.description}}</option>
+              </select>
+              <app-show-errors [control]="extension"></app-show-errors>
+            </div>
+          </ng-container>
+          <ng-container *ngIf="selectedUser.idcType == 'P'">
+            <label class="col-md-1 control-label" for="country">Ext:</label>
+            <div class="col-md-3">
+              <select class="form-control" name="country" [(ngModel)]="selectedUser.idcExtension" required #country="ngModel">
+                <option *ngFor="let country of countries" [ngValue]="country.code">{{country.description}}</option>
+              </select>
+              <app-show-errors [control]="country"></app-show-errors>
+            </div>
+          </ng-container>
+        </div>
+        <div class="form-group">
+          <label for="email" class="col-sm-1 control-label">Email</label>
+          <div class="col-sm-5">
+            <input class="form-control" type="text" name="email" [(ngModel)]="selectedUser.email" maxlength="50" >
+          </div>
+          <label for="limit" class="col-sm-1 control-label">Límite</label>
+          <div class="col-sm-5">
+            <input class="form-control" type="text" name="limit" [(ngModel)]="selectedUser.limit" mask-money maxlength="10">
+          </div>
+        </div>
+      </fieldset>
+      <div class="form-group" *ngIf="isModification">
+        <label for="newEmail" class="col-sm-1 control-label">Nuevo email</label>
+        <div class="col-sm-5">
+          <input class="form-control" type="text" name="newEmail" [(ngModel)]="selectedUser.newEmail" #newEmail="ngModel" maxlength="50">
+        </div>
+        <label for="newLimit" class="col-sm-1 control-label">Nuevo límite</label>
+        <div class="col-sm-5">
+          <input class="form-control" type="text" name="newLimit" [(ngModel)]="selectedUser.newLimit" #newLimit="ngModel" mask-money maxlength="10">
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="app-modal-footer">
+    <button type="button" class="btn btn-primary" (click)="handleSaveUserInformation()">Guardar</button>
+    <button type="button"  class="btn btn-default" (click)="addUserHasBeenRequested=false">Cancelar</button>
+  </div>
+</app-modal>
+<app-modal [visible]="addAccountHasBeenRequested" (onClose)="addAccountHasBeenRequested=false" [manualCloseModal]="true" [size]="'lg'">
+  <div class="app-modal-header">INFORMACIÓN DE LA CUENTA</div>
+  <div class="app-modal-body">
+    <form class="form-horizontal" name="accountForm" novalidate #accountForm="ngForm" autocomplete="off">
+      <div class="form-group">
+        <label for="number" class="col-sm-3 control-label">Número de cuenta</label>
+        <div class="col-sm-6">
+          <input class="form-control" type="text" name="number" [(ngModel)]="newAccount" maxlength="18" appOnlyInteger required>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="app-modal-footer">
+    <button type="button" class="btn btn-primary" (click)="handleSaveAccountInformation()">Guardar</button>
+    <button type="button"  class="btn btn-default" (click)="addAccountHasBeenRequested=false">Cancelar</button>
+  </div>
+</app-modal>
+<app-modal [visible]="changeRolesHasBeenRequested" (onClose)="changeRolesHasBeenRequested=false" [manualCloseModal]="true"  [size]="'lg'">
+  <div class="app-modal-header">ADICIONAR ROLES DE USUARIO</div>
+  <div class="app-modal-body">
+    <form class="form-horizontal" name="userForm" novalidate #userForm="ngForm" autocomplete="off">
+      <div class="form-group">
+        <label for="operationTypes" class="col-sm-3 control-label">Tipo de operación</label>
+        <div class="col-sm-6">
+          <select class="form-control" name="operationTypes" [(ngModel)]="selectedOperation" (change)="handleSetRolesByOperation();pagination.reset()">
+            <option *ngFor="let operationType of operationTypes" [ngValue]="operationType">{{operationType.name}}</option>
+          </select>
+        </div>
+      </div>
+    </form>
+    <div class="table-responsive">
+      <app-pagination [totalItems]="rolesByOperation?.account?.length" [maxSize]="pageItems" (onChange)="handleRolesPageChanged($event)" #pagination></app-pagination>
+      <table class="table table-condensed table-bordered table-striped table-hover">
+        <thead class="thead-light">
+          <tr>
+            <th class="text-center">CUENTA</th>
+            <th class="text-center">CONSULTA</th>
+            <th class="text-center" >PREPARACIÓN</th>
+            <th class="text-center" >CONTROL</th>
+            <th class="text-center" >AUTORIZACIÓN</th>
+          </tr>
+        <tbody>
+          <tr *ngFor="let account of rolesByOperationPerPage?.account">
+            <td>{{account.formattedNumber}}</td>
+            <td *ngFor="let role of account.role" class="text-center">
+              <input type="checkbox" class="form-check-input" *ngIf="(rolesByOperation?.operationTypeId!==12 || role.id===2) && (role.id===2 || account.accountUse==='D') && (rolesByOperation?.operationTypeId===12 || role.id!==2)"
+                     [(ngModel)]="role.isSelected" (click)="handleChecked()" [disabled]="(!role.isSelected && isModification && !role.isEditable) || (role.isSelected && !isModification && role.isEditable)">
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="app-modal-footer">
+    <button type="button" class="btn btn-default" (click)="changeRolesHasBeenRequested = false">Cerrar</button>
+  </div>
+</app-modal>
+<app-modal [visible]="showRequestDetail" (onClose)="showRequestDetail=false" [manualCloseModal]="true" [size]="'lg'">
+  <div class="app-modal-header">DETALLE DE CAMBIOS</div>
+  <div class="app-modal-body">
+    <div class="table-responsive" *ngIf="changesInformationPerPage.length > 0">
+      <app-pagination [totalItems]="changesInformation.length" [maxSize]="pageItems" (onChange)="handleChangesInformationPageChanged($event)"></app-pagination>
+      <table class="table table-condensed table-bordered table-striped table-hover">
+        <thead class="thead-light">
+          <tr>
+            <th class="text-center">CUENTA</th>
+            <th class="text-center">CONSULTA</th>
+            <th class="text-center">PREPARACIÓN</th>
+            <th class="text-center">CONTROL</th>
+            <th class="text-center">AUTORIZACIÓN</th>
+            <th class="text-center">OPERACIÓN</th>
+            <th class="text-center">USUARIO</th>
+          </tr>
+        <tbody>
+          <tr *ngFor="let change of changesInformationPerPage">
+            <td>{{change.account}}</td>
+            <td *ngFor="let role of change.roles" class="text-center">
+              <input type="checkbox" class="form-check-input" [disabled]="true" [checked]="role.status === 2 && role.isSelected">
+            </td>
+            <td>{{change.operationType}}</td>
+            <td>{{change.user}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div *ngIf="changesInformationPerPage.length === 0">
+      <app-information-panel [message]="'Aún no se registraron cambios'"></app-information-panel>
+    </div>
+  </div>
+  <div class="app-modal-footer">
+    <button type="button" class="btn btn-default" (click)="showRequestDetail=false">Cerrar</button>
+  </div>
+</app-modal>
+<app-token-modal [disabled]="isTokenFormDisabled" [isVisible]="isVisibleToken" (onSubmit)="handleTokenSubmit($event)" (onClose)="isVisibleToken=false"></app-token-modal>

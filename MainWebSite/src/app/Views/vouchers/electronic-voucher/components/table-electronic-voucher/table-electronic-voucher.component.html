@@ -1,0 +1,28 @@
+<div class="table-responsive">
+  <table class="table table-condensed table-bordered table-striped table-hover">
+    <thead>
+        <tr>
+            <th scope="col">CODIGO</th>
+            <th scope="col">FECHA</th>
+            <th scope="col">TIPO COMPROBANTE</th>
+            <th scope="col">MONEDA</th>
+            <th scope="col">IMPORTE</th>
+            <th>DETALLE</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let list of listElectronicVoucher">
+            <td>{{list.code}}</td>
+            <td>{{list.date}}</td>
+            <td>{{list.typeVoucher}}</td>
+            <td>{{list.currency}}</td>
+            <td>{{list.amount}}</td>
+            <td>
+              <button type="button" class="btn btn-default notas--icono" (click)="handleGetReport(list)">
+                <i class="icon-Descargar icono-naranjo"></i>
+              </button>
+            </td>
+        </tr>
+    </tbody>
+  </table>
+</div>

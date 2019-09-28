@@ -1,0 +1,47 @@
+<form class="form-horizontal" name="detailForm" novalidate #detailForm="ngForm">
+  <fieldset [disabled]="true">
+    <div class="form-group">
+      <label for="processBatchId" class="col-sm-2 control-label">Numero de Lote:</label>
+      <div class="col-sm-3">
+        <input class="form-control" type="text" name="processBatchId" [(ngModel)]="detail.processBatchId">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="sourceAccount" class="col-sm-2 control-label">Cuenta de Origen:</label>
+      <div class="col-sm-6">
+        <input class="form-control" type="text" name="sourceAccount" [(ngModel)]="detail.sourceAccount">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="amount" class="col-sm-2 control-label">Monto:</label>
+      <div class="col-sm-3">
+        <input class="form-control" type="text" name="amount" [(ngModel)]="detail.amount" mask-money>
+      </div>
+      <label for="currency" class="col-sm-2 control-label">Moneda:</label>
+      <div class="col-xs-10 col-sm-3">
+        <input class="form-control" type="text" name="currency" [(ngModel)]="detail.currency">
+      </div>
+      <!-- <div class="col-xs-2">
+        <app-currency-flag [flag]="detail.currency" [visible]="true"></app-currency-flag>
+      </div> -->
+    </div>
+    <div class="form-group">
+      <label for="serviceType" class="col-sm-2 control-label">Tipo de Servicio:</label>
+      <div class="col-sm-3">
+        <input class="form-control" type="text" name="serviceType" [(ngModel)]="detail.serviceType">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="afp" class="col-sm-2 control-label">AFP:</label>
+      <div class="col-sm-5">
+        <input class="form-control" type="text" name="afp" [(ngModel)]="detail.afp">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="paymentConcept" class="col-sm-2 control-label">Concepto:</label>
+      <div class="col-sm-5">
+        <input class="form-control" type="text" name="paymentConcept" [(ngModel)]="detail.concept">
+      </div>
+    </div>
+  </fieldset>
+</form>

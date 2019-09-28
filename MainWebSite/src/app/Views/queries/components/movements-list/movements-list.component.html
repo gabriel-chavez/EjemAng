@@ -1,0 +1,93 @@
+<app-company-name></app-company-name>
+<div class="form-horizontal">
+  <div class="form-group">
+    <div class="col-sm-6">
+      <label class="control-label col-sm-4">Cuenta</label>
+      <div class="col-sm-8">
+        <input class="form-control" disabled value={{account.number}}>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <label class="control-label col-sm-4">Tipo de cuenta</label>
+      <div class="col-sm-8">
+        <input class="form-control" disabled value={{account.type}}>
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-6">
+      <label class="control-label col-sm-4">Propietario</label>
+      <div class="col-sm-8">
+        <input class="form-control" disabled value={{account.owner}}>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <label class="control-label col-sm-4">Moneda</label>
+      <div class="col-sm-8">
+        <input class="form-control" disabled value={{account.currency}}>
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-6">
+      <label class="control-label col-sm-4">Saldo disponible</label>
+      <div class="col-sm-8">
+        <input class="form-control" disabled value="{{account.availableBalance | number: '1.2-2'}}">
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <label class="control-label col-sm-4">Estado</label>
+      <div class="col-sm-8">
+        <input class="form-control" disabled value={{account.status}}>
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-6">
+      <label class="control-label col-sm-4">Sal. disp. mas SG</label>
+      <div class="col-sm-8">
+        <input class="form-control" disabled value="{{account.overdraftBalance | number: '1.2-2'}}">
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <label class="control-label col-sm-4">ITF</label>
+      <div class="col-sm-8">
+        <input class="form-control" disabled value="{{account.itfAmount | number: '1.2-2'}}">
+      </div>
+    </div>
+  </div>
+</div>
+<br>
+<div class="summary-card" *ngIf="movements.length == 0">
+  <header><i class="icon-info icono-naranjo"></i><span class="title">La cuenta no tiene movimientos.</span></header>
+</div>
+<br>
+<div *ngIf="movements.length > 0" class="table-responsive">
+  <table class="table table-condensed table-bordered table-striped table-hover">
+    <thead class="thead-light">
+      <tr>
+        <th>Fecha</th>
+        <th>Glosa</th>
+        <th>Importe</th>
+        <th>Saldo contable</th>
+        <th>Saldo disponible</th>
+        <th>Suc/Age</th>
+        <th>Usuario</th>
+        <th>Nro. de operación</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let detail of movements">
+        <td>{{detail.date | date: 'dd/MM/yyyy'}}</td>
+        <td>{{detail.description}}</td>
+        <td>{{detail.amount| number: '1.2-2'}}</td>
+        <td>{{detail.accountingBalance | number: '1.2-2'}}</td>
+        <td>{{detail.availableBalance| number: '1.2-2'}}</td>
+        <td>{{detail.branch}}</td>
+        <td>{{detail.user}}</td>
+        <td>{{detail.transactionNumber}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<button type="button" class="btn btn-primary" [routerLink]="['/queries/balances']">Atras</button>

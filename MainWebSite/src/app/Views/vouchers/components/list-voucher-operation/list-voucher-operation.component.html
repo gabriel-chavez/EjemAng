@@ -1,0 +1,65 @@
+<div class="row">
+  <!--app-pagination-cw [totalItems]="totalVouchers" [maxSize]="pageItems" (onChange)="handlePageChanged($event)"></app-pagination-cw-->
+  <br> 
+</div>
+  <div class="table-responsive">
+  <table class="table table-condensed table-bordered table-striped table-hover">
+  <thead>
+    <tr>
+      <th>Lote</th>
+      <th>Tipo de Operación</th>
+      <th>Cuenta Origen</th>
+      <th>Moneda Oper.</th>
+      <th>Monto Oper.</th>
+      <th>Fecha Operación</th>
+      <th>Ver Comprobante</th>
+      <th>Ver Detalle</th>
+      <th>Ver Fraccionado</th>
+      <th>Exp. Txt.</th>
+    </tr>
+  </thead>
+  <tbody *ngIf="listDetailVoucher">
+    <tr *ngFor="let detail of listDetailVoucher;let i = index">
+      <td>{{detail.id}}</td>
+      <td>{{detail.nameOperation}}</td>
+      <td>{{detail.formattedAccount}}</td>
+      <td>{{detail.currency}}</td>
+      <td>{{detail.amount}}</td>
+      <td>{{detail.dateCreation | date:'dd-MM-yyyy h:mm:ss a'}}</td>
+      <td class="text-center">
+        <div *ngIf="detail.operationTypeId==7||detail.operationTypeId==8||detail.operationTypeId==9||detail.operationTypeId==10||detail.operationTypeId==13||
+                    detail.operationTypeId==14||detail.operationTypeId==16||detail.operationTypeId==20||detail.operationTypeId==21||detail.operationTypeId==23||
+                    detail.operationTypeId==24||detail.operationTypeId==25||detail.operationTypeId==26||detail.operationTypeId==26||detail.operationTypeId==27||
+                    detail.operationTypeId==28||detail.operationTypeId==29">
+          <button class="btn btn-primary btn-xs" value="btn-xs" (click)="verificationUser(detail, 1)"><i class="icon-Pdf icono-naranjo"></i></button>
+          <input type="checkbox" class="form-check-input" (change)="getChecking($event, detail,1)" [(ngModel)]="vouchersCheckeds[i]">
+        </div>
+      </td>
+      <td class="text-center">
+        <div *ngIf="detail.operationTypeId==7||detail.operationTypeId==8||detail.operationTypeId==16||detail.operationTypeId==20||detail.operationTypeId==23||
+                    detail.operationTypeId==24||detail.operationTypeId==25||detail.operationTypeId==26||detail.operationTypeId==26||detail.operationTypeId==27||
+                    detail.operationTypeId==28||detail.operationTypeId==29">
+          <button class="btn btn-primary btn-xs" (click)="verificationUser(detail,2)"><i class="icon-Pdf icono-naranjo"></i></button>
+          <input type="checkbox" class="form-check-input" (change)="getChecking($event, detail,2)" [(ngModel)]="vouchersDetailCheckeds[i]">
+        </div>
+      </td>
+      <td class="text-center">
+        <div *ngIf="detail.operationTypeId==8||detail.operationTypeId==16||detail.operationTypeId==20||detail.operationTypeId==23||
+                    detail.operationTypeId==24||detail.operationTypeId==25||detail.operationTypeId==26||detail.operationTypeId==26||detail.operationTypeId==27||
+                    detail.operationTypeId==28||detail.operationTypeId==29">
+          <button class="btn btn-primary btn-xs" (click)="verificationUser(detail,3)"><i class="icon-Pdf icono-naranjo"></i></button>
+          <input type="checkbox" class="form-check-input" (change)="getChecking($event, detail,3)" [(ngModel)]="vouchersFractionatedCheckeds[i]">
+        </div> 
+      </td>
+      <td class="text-center">
+        <div *ngIf="detail.operationTypeId==8||detail.operationTypeId==16||detail.operationTypeId==20||detail.operationTypeId==23||
+                    detail.operationTypeId==24||detail.operationTypeId==25||detail.operationTypeId==26||detail.operationTypeId==26||detail.operationTypeId==27||
+                    detail.operationTypeId==28||detail.operationTypeId==29">
+            <button class="btn btn-primary btn-xs" (click)="verificationUser(detail,4)"><i class="icon-Shape icono-naranjo"></i></button>
+          <input type="checkbox" id="checkedTxt" name="checkedTxt" class="form-check-input" (change)="getChecking($event, detail,4)" [(ngModel)]="vouchersTextCheckeds[i]">
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+</div>

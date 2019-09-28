@@ -1,0 +1,17 @@
+<form class="form-horizontal" name="dateRangeForm" novalidate #dateRangeForm="ngForm">
+  <fieldset [disabled]="disabled">
+    <div class="form-group">
+      <label for="amount" class="col-sm-{{options.isHorizontal?optionsGrid[0]:6}} control-label ">Fecha Inicial:</label>
+      <div class="col-sm-{{options.isHorizontal?optionsGrid[1]:6}}">
+        <my-date-picker name="mydateInit" [options]="optionsInit" [(ngModel)]="dateInit" locale="es" required #mydateInit (dateChanged)="onDateInitChanged($event)"></my-date-picker>
+        <app-show-errors [control]="mydateInit"></app-show-errors>
+      </div>
+      <label for="amount" class="col-sm-{{options.isHorizontal?optionsGrid[2]:6}} control-label ">Fecha Final:</label>
+      <div class="col-sm-{{options.isHorizontal?optionsGrid[3]:6}}">
+        <my-date-picker name="mydateEnd" [options]="optionsEnd" [(ngModel)]="dateEnd" locale="es" required #mydateEnd (dateChanged)="onDateEndChanged($event)"></my-date-picker>
+        <app-show-errors [control]="mydateEnd"></app-show-errors>
+      </div>
+    </div>
+  </fieldset>
+</form>
+

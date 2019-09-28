@@ -1,0 +1,160 @@
+<header class="menu--desktop">
+  <!-- Logo -->
+  <div class="col-xs-6 col-sm-2 col-md-2">
+    <div class="header--logo">
+      <a href="www.bcp.com.bo">
+        <img src="assets/img/logo-bcp.svg" class="logo--imagen" alt="BCP">
+          </a>
+    </div>
+  </div>
+  <!-- Info Sesión -->
+  <div class="hidden-xs col-sm-4 col-md-4 ">
+    <!-- <div class="header--sesion">
+      <p>Tipo de cambio: compra: <span class="bold"> 7.00</span> venta:<span class="bold"> 6.88</span></p>
+    </div> -->
+  </div>
+  <!-- Info Usuario -->
+  <div class="col-xs-6 col-sm-6 col-md-6 ">
+    <div class="header--usuario">
+      <div class="hidden-xs col-sm-11 col-md-11">
+        <div class="usuario--nombre">
+          <!-- <div class="nombre">Carlos Marcelo Fuentes</div> <i class="icon-flecha_usuario nombre--icono"></i> -->
+          <div class="btn-group">
+            <button type="button" class="button--user btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <div class="hidden-xs">
+                  {{currentUser.user_name}}<i class="icon-flecha_usuario nombre--icono"></i>
+                </div>
+              </button>
+            <ul class="dropdown-menu dropdown-menu-right">
+              <div class="list-roles">
+                <p class="title-roles">Roles</p>
+                <ul>
+                  <li *ngFor="let rol of this.currentUser.role"><span class="text-muted">{{rol}}</span></li>
+                </ul>
+              </div>
+              <li role="separator" class="divider"></li>
+              <li><a (click)="handleShowModalCloseSession()">Cerrar Sesion</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="hidden-xs col-sm-1 col-md-1 col-no-padding">
+        <div class="usuario--cerrarSesion" (click)="handleShowModalCloseSession()">
+          <button type="button" class="button-closeSession btn btn-default">
+            <i class="icon-cerrar cerrarSesion--icono"></i>
+          </button>
+        </div>
+      </div>
+      <div class="col-xs-12 visible-xs  col-sm-1 col-md-1 col-no-padding">
+        <div class="usuario--iconoUsuario">
+          <div class="btn-group">
+            <button type="button" class="button--user btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <div class="visible-xs">
+                  <i class="icon-Usuario icono--usuario"></i>
+                </div>
+              </button>
+            <ul class="dropdown-menu dropdown-menu-right">
+              <div class="list-roles">
+                <p class="title-roles"> {{currentUser.user_name}}</p>
+                <p class="title-roles">Roles</p>
+                <ul>
+                  <li *ngFor="let rol of this.currentUser.role"><span class="text-muted">{{rol}}</span></li>                  
+                </ul>
+              </div>
+              <li role="separator" class="divider"></li>
+              <li><a (click)="handleShowModalCloseSession()">Cerrar Sesion</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+<div class="row ambiente-seguro hidden-xs">
+  <div class="col-sm-4 col-md-4">
+    <div id="help-points" class="notas--bloque">
+      <ul>
+        <li>
+          <div class="notas--icono">
+            <i class="icon-Seguridad icono-naranjo"></i>
+          </div>
+          <div class="notas--txt">
+            <p>Este es un ambiente seguro</p>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="col-sm-5 col-md-5">
+    <div class="notas--bloque">
+      <ul>
+        <li>
+          <div class="notas--icono">
+            <i class="icon-Credito icono-naranjo"></i>
+          </div>
+          <div class="notas--txt">
+            <p>Tipo de cambio: compra: <span class="bold"> {{currentUser.exchange_buy}}</span> venta:<span class="bold"> {{currentUser.exchange_sale}}</span></p>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="col-sm-3 col-md-3">
+    <div class="notas--bloque">
+      <ul>
+        <li>
+          <div class="notas--icono">
+            <i class="icon-Sello icono-naranjo"></i>
+          </div>
+          <div class="notas--txt">
+            <div class="action-link">
+              <a href="http://www.bcp.com.bo/">
+                <p>www.bcp.com.bo</p>
+              </a>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed button-toogle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+        aria-expanded="false">
+        <i class="icon-Shape"></i>
+      </button>
+      <p class="hidden-sm hidden-md hidden-lg title-toogle">
+        CredinetWeb
+      </p>
+    </div>
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+          <a class="nav-link" routerLink="/">Inicio</a>
+        </li>
+        <li class="dropdown" *ngFor="let itemMenu of menu" [routerLinkActive]="['active']">
+          <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{itemMenu.label}} <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li *ngFor="let subMenu of itemMenu.items" [routerLinkActive]="['active']" routerLink="/{{subMenu.module}}/{{subMenu.routerLink}}">
+              <a>{{subMenu.label}}</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<app-bread-crumb></app-bread-crumb>
+<app-modal [visible]="isVisibleCloseSession" (onClose)="isVisibleCloseSession=false">
+  <div class="app-modal-header">
+    Cerrar Sesion.
+  </div>
+  <div class="app-modal-body">
+    ¿Esta Seguro de salir de CredinetWeb?
+  </div>
+  <div class="app-modal-footer">
+    <button type="button" class="btn btn-primary" (click)="handleCloseSession()"> Si </button>
+    <button type="button" class="btn btn-default" (click)="handleCloseModal()"> No </button>
+  </div>
+</app-modal>

@@ -1,0 +1,44 @@
+<mat-sidenav-container fullscreen>
+  <mat-sidenav #appDrawer class="sw-sidenav" mode="over">
+    <mat-nav-list>
+      <app-elemento-menu *ngFor="let item of navItems" [item]="item"></app-elemento-menu>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-toolbar color="primary" #toolbar>
+    <mat-toolbar-row>
+      <button type="button"
+              mat-icon-button
+              (click)="appDrawer.open()"
+              title="Open sidenav">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span><img src="./assets/logo.JPG" width="160"></span>
+      <div fxFlex fxLayout fxLayoutAlign="flex-end">
+        <ul fxLayout fxLayoutGap="20px">
+          <li>
+            <button mat-icon-button>
+              <mat-icon>info</mat-icon>
+            </button>
+          </li>
+          <li>
+            <button mat-icon-button>
+              <mat-icon>drafts</mat-icon>
+            </button>
+          </li>
+          <li>
+            <button mat-icon-button [matMenuTriggerFor]="menu">
+              <mat-icon>account_circle</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item><mat-icon>lock</mat-icon> Cambiar contraseña</button>
+              <button mat-menu-item><mat-icon>exit_to_app</mat-icon> Cerrar sesión</button>
+            </mat-menu>
+          </li>
+        </ul>
+      </div>
+    </mat-toolbar-row>
+  </mat-toolbar>
+  <div class="content" #main>
+    <router-outlet></router-outlet>
+  </div>
+</mat-sidenav-container>

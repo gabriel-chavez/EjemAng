@@ -1,0 +1,15 @@
+<p class="tituloGeneral h_no-MarginBottom">
+    Generación de tu clave de internet
+</p>
+<div class="panel-right">
+    <button type="button" class="btn {{currentStep===1?'btn-primary':'btn-secondary'}}">1</button>
+    <button type="button" class="btn {{currentStep===2?'btn-primary':'btn-secondary'}}">2</button>
+    <button type="button" class="btn {{currentStep===3?'btn-primary':'btn-secondary'}}">3</button>
+</div>
+<ng-container [ngSwitch]="currentStep">
+    <app-validate-pin *ngSwitchCase="1" [accessNumber]="accessNumber" [isVisibleCancel]="true" (onSubmit)="handleSubmitStep1($event)"></app-validate-pin>
+    <app-create-password *ngSwitchCase="2" [accessNumber]="newUserPassword.accessNumber" (onSubmit)="handleSubmitStep2($event)"
+        [readOnlyAccessNumber]="true"></app-create-password>
+    <app-validate-pin *ngSwitchCase="3" [accessNumber]="newUserPassword.accessNumber" [isVisibleCancel]="true" (onSubmit)="handleSubmitStep3($event)"
+        [readOnlyAccessNumber]="true"></app-validate-pin>
+</ng-container>

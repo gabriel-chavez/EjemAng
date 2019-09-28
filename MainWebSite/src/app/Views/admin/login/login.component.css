@@ -1,0 +1,17 @@
+
+.contenido--login {
+    margin-top: 10px;
+    padding: 1em;
+}
+
+.img-keyboard{
+    height: 22px;
+    top: -4px;
+    position: relative;
+}
+
+.img-boleta {
+  width: 100%;
+  max-width: 700px;
+  max-height: 700px;
+}

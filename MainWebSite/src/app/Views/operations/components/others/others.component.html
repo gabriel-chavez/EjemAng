@@ -1,0 +1,214 @@
+<div class="form-horizontal">
+  <div class="form-group">
+    <div class="col-xs-12 col-md-4">
+      <label><strong>1. Garantias</strong></label>
+      <select class="form-control" name="typeWarranty" [(ngModel)]="ballotOfWarrantyData.typeWarranty" (ngModelChange)="handleTypeWarrantySelected(ballotOfWarrantyData.typeWarranty)">
+        <option value='' disabled>Seleccione una garantía</option>
+        <option *ngFor="let date of responseParameterWarranties" [ngValue]="date.code">
+          {{date.description}}
+        </option>
+      </select>
+    </div><br>
+    <div class="form-inline" *ngIf="ballotOfWarrantyData.typeWarranty === 'LRC'">
+        <label> <strong>Tasa acordada con su funcionario de negocios : </strong> </label>
+      <div class="input-group"  *ngIf="isVisibleCreditLine">
+        <input type="text" class="form-control" name="cupRate" [(ngModel)]="ballotOfWarrantyData.cupRate" (ngModelChange)="handleCupRateT()"
+          aria-describedby="basic-addon2" mask-money required #cupRate="ngModel">
+        <span class="input-group-addon" id="basic-addon2">%</span>
+        <app-show-errors [control]="cupRate"></app-show-errors>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="table-responsive" *ngIf="isVisibleCreditLine">
+  <!-- <app-pagination [totalItems]="numberOfRows" [maxSize]="10" (onChange)="handleChangePage($event)"> </app-pagination>-->
+  <br> Mensaje de notificación Linea de Credito
+  <table class="table table-striped table-bordered">
+    <thead>
+      <tr>
+        <th>Nro Escritura</th>
+        <th>Fecha</th>
+        <th>Notaria de Fe Pública</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of publicDetailResult">
+        <td>{{data.publicWritingNumber}}</td>
+        <td>{{data.datePublicWriting}}</td>
+        <td>{{data.nameOfNotaryPublicFaith}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="form-inline" *ngIf="isVisiblePignorationFound">
+  <div class="form-group">
+    <label class="col-md-5">Cobro de comisión: </label><label class="col-md-5">
+    <select class="form-control" name="comissionType" [(ngModel)]="ballotOfWarrantyData.preferentialComissionType" (ngModelChange)="handleBallotOfWarrantyData()">
+      <option value='' seleted disabled>Seleccione Tipo de Comisión</option>
+      <option value="T">Tarifario</option>
+      <option value="CP">Comisión preferencial</option>
+    </select></label>
+  </div>
+  <div class="form-group" *ngIf="ballotOfWarrantyData.preferentialComissionType === 'CP'">
+    <form>
+      <label class="radio-inline">
+        <input name="RadioComissionType1" type="radio" [value]="'M'" [(ngModel)]="ballotOfWarrantyData.comissionType"
+         (change)="handleComissionType('M')"> Monto
+      </label>
+      <label class="radio-inline">
+        <input name="RadioComissionType2" type="radio" [value]="'P'" [(ngModel)]="ballotOfWarrantyData.comissionType"
+         (change)="handleComissionType('P')"> Porcentaje
+      </label>
+    </form>
+  </div>
+  <div class="form-group" *ngIf="ballotOfWarrantyData.preferentialComissionType === 'T'">
+    <!-- <label> Tasa acordada con su funcionario de negocios:</label> -->
+    <label> Comisión Tarifario:</label>
+    <div class="input-group">
+      <input type="text" class="form-control" name="cupRate" [(ngModel)]="ballotOfWarrantyData.cupRate" (ngModelChange)="handleCupRateT()"
+        aria-describedby="basic-addon2" #cupRate="ngModel" required mask-money>
+      <span class="input-group-addon" id="basic-addon2">%</span>
+      <app-show-errors [control]="cupRate"></app-show-errors>
+    </div>
+  </div>
+  <div class="form-group" *ngIf="ballotOfWarrantyData.preferentialComissionType === 'CP'">
+    <label> Comisión Tarifario:</label>
+    <div class="input-group">
+      <input type="text" class="form-control" name="cupRate" [(ngModel)]="ballotOfWarrantyData.cupRate" (ngModelChange)="handleCupRateCP()"
+        aria-describedby="basic-addon2" #cupRate="ngModel" mask-money>
+      <span class="input-group-addon" id="basic-addon2" *ngIf="ballotOfWarrantyData.comissionType === 'P'">%</span>
+      <app-show-errors [control]="cupRate"></app-show-errors>
+    </div>
+  </div>
+
+  <div >
+    <div class="form-group">
+      <div class="col-md-5">
+        <label class="control-label">Monto:</label>
+      </div>
+      <div class="col-md-5">
+        <input type="text" class="form-control" name="amount" [(ngModel)]="amountVerify.amount" #amount="ngModel" disabled>
+      </div>
+    </div>
+  </div>
+
+
+</div>
+<div class="row" *ngIf="isVisiblePignorationFound">
+  <app-source-accounts [accountRequest]="sourceAccountDto" [companyAccounts]="true" (onChange)="handleSourceAccountNumberAccountIdChanged($event)"
+    #sourceAccount></app-source-accounts>
+</div>
+
+<ng-container *ngIf="isVisibleDepositPlace">
+
+  <div class="row">
+    <label class="control-label col-xs-12 col-md-2">
+      <strong>DPF's: </strong>
+    </label>
+    <div class="col-xs-12 col-md-9">
+      <select class="form-control" name="DPF" [(ngModel)]="DPF" (ngModelChange)="handleTimeDeposit(DPF)">
+        <option *ngFor="let date of timeDeposits" [ngValue]="date">
+          {{date.longDescription}}
+        </option>
+      </select>
+    </div>
+  </div>
+  <br><label class="control-label">Debidamente endosado a favor del BANCO de acuerdo al siguiente detalle:</label><br>
+  <div class="form-inline">
+    <div class="form-group">
+      <div class="row">
+        <label class="control-label">Monto:</label>
+      </div>
+      <div class="col-xs-12 col-md-6">
+        <input type="text" class="form-control" name="amount" [(ngModel)]="amountVerify.amount" #amount="ngModel" disabled>
+      </div>
+    </div>
+  </div><br>
+  <div class="row">
+    <div class="col-md-2">
+      <label class="control-label">Numero:</label>
+    </div>
+    <div class="col-md-9">
+      <input type="text" class="form-control" name="numberDPF" [(ngModel)]="ballotOfWarrantyData.numberDPF" (ngModelChange)="handleBallotOfWarrantyData()"
+        #numberDPF="ngModel" required mask-money appMaxLength="19">
+      <app-show-errors [control]="numberDPF"></app-show-errors>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-2">
+      <label class="control-label">Banco:</label>
+    </div>
+    <div class="col-md-10">
+      <input type="text" class="form-control" name="bank" [(ngModel)]="ballotOfWarrantyData.bank" (ngModelChange)="handleBallotOfWarrantyData()"
+        #bank="ngModel" required appMaxLength="25">
+      <app-show-errors [control]="bank"></app-show-errors>
+    </div>
+  </div>
+  <div class="row">
+    <div class="form-group col-xs-12 col-md-2">
+      <label>1: Titular</label>
+    </div>
+    <div class="form-group col-xs-12 col-md-6">
+      <input type="text" class="form-control" name="firstTitular" [(ngModel)]="ballotOfWarrantyData.firstTitular" (ngModelChange)="handleBallotOfWarrantyData()"
+        #firstTitular="ngModel" required appMaxLength="25">
+      <app-show-errors [control]="bank"></app-show-errors>
+    </div>
+    <div class="form-group">
+      <div class="form-group col-xs-12 col-md-1">
+        <label>C.I.</label>
+      </div>
+      <div class="form-group col-xs-12 col-md-3">
+        <input type="text" class="form-control" name="firstDocumentCI" [(ngModel)]="ballotOfWarrantyData.firstDocumentCI" (ngModelChange)="handleBallotOfWarrantyData()"
+          #firstDocumentCI="ngModel" required appMaxLength="14">
+        <app-show-errors [control]="firstDocumentCI"></app-show-errors>
+      </div>
+    </div>
+    <br>
+    <div class="form-group col-xs-12 col-md-2">
+      <label>2: Titular</label>
+    </div>
+    <div class="form-group col-xs-12 col-md-6">
+      <input type="text" class="form-control" name="secondTitular" [(ngModel)]="ballotOfWarrantyData.secondTitular" (ngModelChange)="handleBallotOfWarrantyData()"
+        #secondTitular="ngModel" required appMaxLength="25">
+      <app-show-errors [control]="secondTitular"></app-show-errors>
+    </div>
+    <div class="form-group">
+      <div class="form-group col-xs-12 col-md-1">
+        <label>C.I.</label>
+      </div>
+      <div class="form-group col-xs-12 col-md-3">
+        <input type="text" class="form-control" name="secondDocumentCI" [(ngModel)]="ballotOfWarrantyData.secondDocumentCI" (ngModelChange)="handleBallotOfWarrantyData()"
+          #secondDocumentCI="ngModel" required appMaxLength="14">
+        <app-show-errors [control]="secondDocumentCI"></app-show-errors>
+      </div>
+    </div>
+    <br>
+    <div class="form-group col-xs-12 col-md-2">
+      <label>3: Titular</label>
+    </div>
+    <div class="form-group col-xs-12 col-md-6">
+      <input type="text" class="form-control" name="thirdTitular" [(ngModel)]="ballotOfWarrantyData.thirdTitular" (ngModelChange)="handleBallotOfWarrantyData()"
+        #thirdTitular="ngModel" required appMaxLength="25">
+      <app-show-errors [control]="thirdTitular"></app-show-errors>
+    </div>
+    <div class="form-group">
+      <div class="form-group col-xs-12 col-md-1">
+        <label>C.I.</label>
+      </div>
+      <div class="form-group col-xs-12 col-md-3">
+        <input type="text" class="form-control" name="thirdDocumentCI" [(ngModel)]="ballotOfWarrantyData.thirdDocumentCI" (ngModelChange)="handleBallotOfWarrantyData()"
+          #thirdDocumentCI="ngModel" required appMaxLength="14">
+        <app-show-errors [control]="thirdDocumentCI"></app-show-errors>
+      </div>
+    </div>
+  </div>
+</ng-container>
+<ng-container>
+    <!-- <ng-container *ngIf="accountsVisible"> -->
+  <div class="form-group">
+    <label class="control-label"><strong>2. Forma de pago de las comisiones :</strong></label>
+  </div> Débito en cuenta:
+  <app-source-accounts [accountRequest]="sourceAccountDto" [companyAccounts]="true" (onChange)="handleSourceAccountAccountDebitIdChanged($event)"
+    #sourceAccount></app-source-accounts>
+</ng-container>

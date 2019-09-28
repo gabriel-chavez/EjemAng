@@ -1,0 +1,38 @@
+<form class="form-horizontal" name="frecuentTransfersForm" #frecuentTransfersForm="ngForm" novalidate>
+    <div class="form-group">
+        <div class="checkbox">
+            <label class="col-sm-4 control-label">
+                Elija una transferencia frecuente (opcional)
+            </label>
+            <div class="col-sm-3">
+                <select class="form-control" name="drpfrecuentTransfer" [(ngModel)]="frecuentSelected" (change)="handleChangedFrecuentTransfer()">
+                    <option value="null" disabled>Seleccione una opción</option>
+                    <option *ngFor="let item of frecuents" [ngValue]="item">{{item.description}}</option>
+                </select>
+            </div>
+            <div *ngIf="frecuentSelected" class="col-sm-2">
+                <input type="checkbox" class="form-check-input" name="frecuentTransfer" [(ngModel)]="isCheckedFrecuentTransfer">Guardar Cambios
+            </div>
+            <div *ngIf="frecuentSelected && isCheckedFrecuentTransfer" class="col-sm-3">
+                <button class="btn btn-primary btn-xs" (click)="handleUpdatefrecuentTransfer()">Guardar Frecuente</button>
+                <button class="btn btn-primary btn-xs" (click)="showRemoveModal()">Eliminar Frecuente</button>
+            </div>
+        </div>
+    </div>
+</form>
+<app-modal [visible]="isRemoveModalVisible" (onClose)="isRemoveModalVisible=false" [size]="'sm'">
+    <div class="app-modal-header">
+        Eliminación de información
+    </div>
+    <div class="app-modal-body">
+        <select class="form-control" name="drpfrecuentTransfer" [(ngModel)]="frecuentDeleteSelected">
+            <option value="null" disabled>Seleccione una opción</option>
+            <option *ngFor="let item of frecuents" [ngValue]="item">{{item.description}}</option>
+        </select>
+        ¿Está seguro de eliminar esta transferencia de sus favoritas?
+    </div>
+    <div class="app-modal-footer">
+        <button type="button" class="btn btn-default" (click)="isRemoveModalVisible=false">Cancelar</button>
+        <button type="button" class="btn btn-primary" (click)="handleRemovefrecuentTransfer()">Eliminar</button>
+    </div>
+</app-modal>

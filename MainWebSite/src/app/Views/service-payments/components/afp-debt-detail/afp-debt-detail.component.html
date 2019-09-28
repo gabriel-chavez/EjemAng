@@ -1,0 +1,47 @@
+
+<fieldset [disabled]="disabled"> 
+<form class="form-horizontal" >
+    <div class="form-group">
+        <label class="col-xs-12 col-sm-2 control-label">Periodo: </label>
+        <div class="col-xs-12 col-sm-3">              
+            <input class="form-control" type="text" name="periodo" [(ngModel)]="periodo" >             
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-xs-12 col-sm-2 control-label">Total FCI: </label>
+        <div class="col-xs-12 col-sm-3">              
+            <input class="form-control" type="text" name="TCI" [(ngModel)]="TCI" >             
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <label class="col-xs-12 col-sm-2 control-label">Total FVP: </label>
+        <div class="col-xs-12 col-sm-3">              
+            <input class="form-control" type="text" name="TVP" [(ngModel)]="TVP" >             
+        </div>
+    </div>
+
+    <div class="form-group" >
+        <label class="col-xs-12 col-sm-2 control-label" *ngIf="isvisible">Total FVL: </label>
+        <div class="col-xs-12 col-sm-3">              
+            <input class="form-control" type="text" name="TVL" [(ngModel)]="TVL" *ngIf="isvisible">             
+        </div>
+    </div>
+    <div class="form-group" >
+        <label class="col-xs-12 col-sm-2 control-label" *ngIf="!isvisible">Total FSOL: </label>
+        <div class="col-xs-12 col-sm-3">              
+            <input class="form-control" type="text" name="TSOL" [(ngModel)]="TSOL" *ngIf="!isvisible">             
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-xs-12 col-sm-2 control-label">Total a pagar: </label>
+        <div class="col-xs-12 col-sm-3">              
+            <input class="form-control" type="text" name="Total" [(ngModel)]="Total" >             
+        </div>
+    </div>
+
+</form>
+</fieldset>
+    

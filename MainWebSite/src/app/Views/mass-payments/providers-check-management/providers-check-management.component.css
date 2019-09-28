@@ -1,0 +1,35 @@
+.container{
+    border: solid #4D4DB1;
+    border-width: .2rem;
+}
+
+h1 {
+    color: #071896;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 709%;
+  }
+
+
+  h5 {
+    color: #EE730F;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 107%;
+    }
+  
+  h2 {
+    color: #EE730F;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 379%;
+  }
+  
+  h3 {
+    /* color: #071896; */
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 109%;
+  }
+  
+  h4 {
+    color: #D10D07;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 107%;
+  }

@@ -1,0 +1,11 @@
+<form class="form-comtrol" action="formMultipleDebit" #formMultipleDebit="ngForm" novalidate>
+  <fieldset [disabled]="disabled">
+    <br><br> Débito por Operación
+    <div class="radio">
+      <label><input type="radio" name="radio"  (click)="handleChangeChecked(false)" checked="true" >Un solo débito </label>
+    </div>
+    <div class="radio">
+      <label><input type="radio" name="radio"  (click)="handleChangeChecked(true)">Débito múltiple</label>
+    </div>
+  </fieldset>
+</form>

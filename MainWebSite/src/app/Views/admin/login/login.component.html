@@ -1,0 +1,72 @@
+<div class="row">
+  <p class="tituloGeneral h_no-MarginBottom">
+    Ingrese a CredinetWeb
+  </p>
+  <p class="subtituloGeneral hidden-xs">
+    Para ingresar al sitio debes ingresar tu Número de Acceso y clave de Internet.
+  </p>
+</div>
+<div class="row">
+  <div class="credenciales">
+    <form name="form" #f="ngForm" (ngSubmit)="f.valid && captcha.isValid() && login()" novalidate autocomplete="off">
+      <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
+        <label for="username">Número de Acceso</label>
+        <input type="text" class="form-control" name="username" tabindex="1" autofocus [(ngModel)]="model.username"
+          #username="ngModel" appMaxLength="16" appOnlyNumber required autofocus />
+        <div *ngIf="f.submitted && !username.valid" class="help-block">El usuario es obligatorio</div>
+      </div>
+      <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
+        <label for="password">Ingresa tu clave de internet</label>
+        <div class="input-group">
+          <input type="text" class="form-control" name="password" tabindex="2" [ngModel]="maskPassword" (ngModelChange)="handlePasswordChange(passwordElement)"
+            #password="ngModel" #passwordElement required />
+          <span class="input-group-btn">
+            <button class="btn btn-secondary" type="button" (click)="handleShowKeyboard()">
+              <img class="img-keyboard" src="assets/img/cw/teclado.png">
+            </button>
+          </span>
+        </div>
+        <div *ngIf="f.submitted && !password.valid" class="help-block">La contraseña es obligatoria</div>
+      </div>
+      <div class="form-group">
+        <app-virtual-path *ngIf="isVisibleKeyboard" (onKeyChange)="handleKeyboard($event)"></app-virtual-path>
+      </div>
+      <div class="form-group">
+        <app-captcha [tabIndex]="'3'" #captcha></app-captcha>
+      </div>
+      <div class="form-group">
+        <button class="btn btn-primary btn-lg btn-block" [disabled]="loading" tabindex="4" (click)="captcha.validateCaptcha()">Iniciar
+          sesión</button>
+        <!-- <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="
+        /> -->
+      </div>
+      <!-- <div class="alert alert-danger">{{f.value|json}}</div> -->
+    </form>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12">
+    <p class="centrarTextoLogin">
+      ¿Aún no tienes tu usuario y clave de internet?
+      <br />
+      <a class="link" routerLink="/login/generateKey">
+        Crea tu usuario y clave
+      </a>
+    </p>
+    <p class="recomienda centrarTextoLogin centrarTextoLogin--noMobile centrarTextoLogin--bold text-muted">
+      El BCP te recomienda que realices el cambio de tu Clave de Internet cada 90 días.
+    </p>
+  </div>
+</div>
+<app-modal [visible]="isVisibleInitialMessage" (onClose)="isVisibleInitialMessage=false" [size]="'lg'" [onlyImage]="true">
+  <div class="app-modal-body">
+    <img class="img-boleta" src="assets/img/cw/boleta.jpg" alt="">
+  </div>
+  <div class="app-modal-footer">
+    <div class="row">
+      <div class="col-md-3 col-md-offset-9">
+        <button type="button" class="btn btn-primary" (click)="isVisibleInitialMessage=false">Continuar</button>
+      </div>
+    </div>
+  </div>
+</app-modal>

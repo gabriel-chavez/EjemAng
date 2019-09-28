@@ -1,0 +1,110 @@
+<app-company-name></app-company-name>
+<div class="row">
+  <div class="form-group">
+    <div class="form-group col-xs-3">
+      <input type="radio" [value]="true" [(ngModel)]="isDateOrMonths" (ngModelChange)="ResetComponents()"> Por Fechas
+    </div>
+    <div class="form-group col-xs-3">
+      <input type="radio" [value]="false" [(ngModel)]="isDateOrMonths" (ngModelChange)="ResetComponents()"> Por Meses
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="form-group col-xs-6">
+    <label>Titular de la Cuenta</label>
+    <input type="text" class="form-control" value={{titularUser.company_name}} readonly>
+  </div>
+  <div class="col-xs-6">
+    <br>
+    <button type="button" class="btn btn-primary" (click)="SearchBill()" [disabled]="!isDisabled">Buscar</button>
+  </div>
+</div>
+<div class="row">
+  <div class="form-group col-xs-12" *ngIf="isDateOrMonths">
+    <div class="container-fluid">
+      <app-date-range-picker [(ngModel)]="dateRange" (ngModelChange)="handleDates()"></app-date-range-picker>
+    </div>
+  </div>
+
+  <div class="form-group col-xs-12" *ngIf="!isDateOrMonths">
+    <app-list-of-months [quantity]="12" (onChange)="handleGetMonths($event)"></app-list-of-months>
+  </div>
+</div>
+
+
+<div class="row" *ngIf="isVisibleDetail">
+  <div class="summary-card" *ngIf="!isDateOrMonths">
+    <header>
+      <i class="icon-info icono-naranjo"></i><span class="title">Total Facturas Encontradas: {{totalBills}}</span>
+      <p *ngIf="totalBills <= 200">
+        <span class="title">- Para descargar todas las facturas en formato RAR Presione <button type="button" class="btn btn-primary"
+            (click)="handleDonwloadRarDetail()">Descargar
+          </button></span>
+      </p>
+    </header>
+  </div>
+  <div class="row" *ngIf="isDateOrMonths">
+    <div class="summary-card">
+      <header>
+        <i class="icon-info icono-naranjo"></i><span class="title">Total Facturas Encontradas: {{totalBills}}</span>
+      </header>
+    </div>
+  </div>
+  <div class="row" *ngIf="isDateOrMonths">
+    <div class="form-inline">
+      <div class="form-group mb-2">
+        <label for="staticEmail2" class="sr-only"></label>
+        <span>Para exportar la información selecciones el Formato:</span>
+      </div>
+      <div class="form-group mx-sm-3 mb-2">
+        <select class="form-control" name="reportType" [(ngModel)]="requestHeader.reportType">
+          <option [ngValue]="true">PDF</option>
+          <option [ngValue]="false">EXCEL</option>
+        </select>
+      </div>
+      y Presione: <button type="submit" class="btn btn-primary mb-2" (click)="handleExportListBill()">Exportar</button>
+    </div>
+  </div>
+  <br>
+  <div class="table-responsive">
+    <app-pagination [totalItems]="totalBills" [maxSize]="10" (onChange)="handlePageChanged($event)"></app-pagination>
+    <br>
+    <table class="table table-striped table-bordered">
+      <thead>
+        <tr>
+          <th>Nro Factura</th>
+          <th>Fecha</th>
+          <th>Nro. Autorización</th>
+          <th>Código</th>
+          <th>Importe Bs.</th>
+          <th>Ver Detalle</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let detail of responseHeaderPerPage">
+          <td>{{detail.number}}</td>
+          <td>{{detail.dateBill}}</td>
+          <td>{{detail.authorizationNumber}}</td>
+          <td>{{detail.code}}</td>
+          <td>{{detail.amount}}</td>
+          <td> <a class="btn btn-primary btn-block icon-Lupa icon-Flecha-siguiente icono-naranjo" (click)="handleShowDetails(detail.number, detail.code)"></a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="row" *ngIf="isPanelVisible">
+  <app-information-panel [message]="message"></app-information-panel>
+</div>
+<app-modal [visible]="isModalVisible" (onClose)="isModalVisible=false" [size]="'sm'">
+  <div class="app-modal-header">
+    <strong>Información</strong>
+  </div>
+  <div class="app-modal-body">
+    La cantidad facturas encontradas ({{totalBills}}) excede el monto permitido de (200), no podrá generar el archivo
+    RAR
+  </div>
+  <div class="app-modal-footer">
+    <button type="button" class="btn btn-primary" (click)="isModalVisible=false">Aceptar</button>
+  </div>
+</app-modal>

@@ -1,0 +1,82 @@
+<form class="form-horizontal" name="formComponent" #formComponent="ngForm" novalidate autocomplete="off">
+  <fieldset [disabled]="disabled">
+    <div class="form-group">
+      <div class="col-sm-12">
+        <label>Persona Natural
+          <input name="radioTypePerson" type="radio" [value]="constants.TYPE_NATURAL_PERSON" [(ngModel)]="ballot.personType">
+        </label>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-sm-12">
+        <label>Persona Juridica
+          <input name="radioTypePerson" type="radio" [value]="constants.TYPE_LEGAL_PERSON" [(ngModel)]="ballot.personType"
+            (ngModelChange)="handlePersonTypeChanged()">
+        </label>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-12 control-label">1. Nombre solicitante:</label>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-3 control-label">1.1 Apellido paterno, materno, nombre/Nombre de la empresa:</label>
+      <div class="col-sm-5">
+        <input type="text" name="nameThirdPerson" [(ngModel)]="ballot.nameThirdPerson" class="form-control" required
+          #nameThirdPerson="ngModel" [appOnlyType]="'alphanumericBasicSymbols'" [maxLength]="200">
+        <app-show-errors [control]="nameThirdPerson"></app-show-errors>
+      </div>
+      <label class="col-sm-1 control-label">{{ballot.personType===constants.TYPE_NATURAL_PERSON?'CI':'NIT'}}:</label>
+      <div class="col-sm-3">
+        <input type="text" name="documentCIThirdPerson" [(ngModel)]="ballot.documentCIThirdPerson" class="form-control"
+          required #documentCIThirdPerson="ngModel" [maxLength]="15" #documentCIThirdPerson="ngModel" [appOnlyType]="'alphanumericNotSymbols'">
+        <app-show-errors [control]="documentCIThirdPerson"></app-show-errors>
+      </div>
+    </div>
+    <div class="form-group" *ngIf="ballot.personType===constants.TYPE_NATURAL_PERSON">
+      <label class="col-sm-3 control-label">Estado Civil:</label>
+      <div class="col-sm-3">
+        <select class="form-control" name="civilState" [(ngModel)]="ballot.civilState" required>
+          <option value=null disabled>Seleccione un estado civil</option>
+          <option *ngFor="let state of civilStates" value="state.code">
+            {{state.description}}
+          </option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-3 control-label">1.2 Dirección:</label>
+      <div class="col-sm-9">
+        <input type="text" name="address" [(ngModel)]="ballot.address" class="form-control" required #address="ngModel"
+          [maxLength]="50">
+        <app-show-errors [control]="address"></app-show-errors>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-12 control-label">2. Datos Adicionales:</label>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-3 control-label">Ingreso Anual en Bs.:</label>
+      <div class="col-sm-3">
+        <input type="text" name="annualIncome" [(ngModel)]="ballot.annualIncome" class="form-control" required
+          #annualIncome="ngModel" mask-money appMaxLength="25">
+        <app-show-errors [control]="annualIncome"></app-show-errors>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-3 control-label">Patrimonio en Bs.:</label>
+      <div class="col-sm-3">
+        <input type="text" name="heritage" [(ngModel)]="ballot.heritage" class="form-control" required #heritage="ngModel"
+          mask-money appMaxLength="25">
+        <app-show-errors [control]="heritage"></app-show-errors>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-3 control-label">Numero de empleados (empresa):</label>
+      <div class="col-sm-3">
+        <input type="text" name="numberOfEmployees" [(ngModel)]="ballot.numberOfEmployees" class="form-control"
+          required #numberOfEmployees="ngModel" required mask-money appMaxLength="7">
+        <app-show-errors [control]="numberOfEmployees"></app-show-errors>
+      </div>
+    </div>
+  </fieldset>
+</form>

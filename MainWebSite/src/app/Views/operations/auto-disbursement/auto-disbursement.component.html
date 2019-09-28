@@ -1,0 +1,92 @@
+<!-- <p>  auto-disbursement works!</p>
+<app-company-name></app-company-name><br>
+<div align="center"><span style="color:rgb(8, 62, 155);"><h2>Registro de operaciones de Autodesembolso</h2></span></div><br>
+<span style="color:rgb(223, 84, 10);"><h3>Ingreso de datos</h3></span><br>
+<span style="color:rgb(223, 84, 10);"><h4>Datos Generales de la operación</h4></span><br>
+<table style="width: 100%;">
+    <tbody><br>
+        <tr><td style="width: 9%;">&nbsp;<span>Nit: </span></td>
+        <td><span>00183590LP </span></td>
+    </tr>
+    <tr><td style="width: 9%;">&nbsp;<span>Nombre:</span></td>
+        <td><span>HILAQUITA MAMANI REMBERTO </span></td>
+    </tr>
+    <tr><td style="width: 17%;">&nbsp;<span>Monto Total Disponible:</span></td>
+        <td><span>50000.00</span></td>
+    </tr>
+    <tr><td style="width: 9%;">&nbsp;<span>Dirección</span></td>
+        <td><span>AV.VILLEGS NO.6700</span></td>
+    </tr><br>
+    <tr><td style="width: 9%;">&nbsp;<span>Estado Civil</span></td>
+        <td><select name="EstadoCivil" style="width: 183px;" >
+        <option selected="selected" value="SEL">-- Seleccione estado civil --</option>
+        <option value="C">CASADO</option>
+        <option value="D">DIVORCIADO</option>
+        <option value="S">SOLTERO</option>
+        <option value="V">VIUDO(A)</option>
+        </select></td></tr><br>
+    <tr><td style="width: 17%;"><span>Tipo de Línea de Crédito</span></td>
+        <td><select name="TipoLinea"  style="width: 183px;">
+        <option selected="selected" value="SEL">--Seleccionar Tipo Linea--</option>
+        <option value="INVENTARIO001">INVENTARIO 001</option>
+        <option value="FIANZA CUMPLIMIENTO001">FIANZA CUMPLIMIENTO 001</option>
+        </select></td></tr><br>
+    <tr><td style="width: 17%;"><span>Espacio por Línea:</span></td>
+        <td><input name="EspacioPorLinea" type="text" readonly="readonly"></td>
+    </tr><br>
+    <tr><td style="width: 17%;"><span>Moneda de Línea Crédito:</span></td>
+        <td><input name="MonedaLinea_credito" type="text" readonly="readonly"></td>
+    </tr><br>
+    <tr><td style="width: 19%;"><span>Monto Maximo Línea:</span></td>
+        <td><input name="MontoMax" type="text" readonly="readonly"></td>
+    </tr><br>
+    </tbody></table><br>
+                
+    <span style="color:rgb(223, 84, 10);"><h4>Condiciones preferenciales</h4></span><br>
+    <div style="width: 109%;">
+            <app-currency-and-amount [amount]="amount" [optionTextAmount]="'Importe Solicitado:'" [optionTextCurrency]="'Moneda Solicitada:'" [disabled]="isDisabledAfterSave" [isFlagVisible]="true" (onChange)="handleCurrencyAndAmountChanged($event)" #currencyAndAmount></app-currency-and-amount>
+        </div>
+    <table style="width: 100%;">
+        <tbody>
+        <tr><td style="width: 19%;"><span>Plazo en meses:</span></td>
+            <td><input name="Plazo" onkeypress="return validarDigitosMasPunto(event)" type="text" maxlength="6" value="0" autocomplete="off"></td>
+        </tr><br>
+        <tr><td style="width: 19%;"><span>Tasa moneda:</span></td>
+            <td><input name="TasaMoneda" style="width: 56px;" type="text" maxlength="5" value="0.0" autocomplete="off">
+                <span style="color: rgb(0, 28, 77); font-size: medium; font-style: italic; font-weight: bold;">    %</span></td>
+        </tr><br>
+        <tr><td style="width: 19%;"><span>Fiador:</span></td>
+            <td><input name="Fiador" style="width: 589px;" type="text" maxlength="50" autocomplete="off">
+                <input name="ctl00$ctl00$MainContent$SubMainContent$ValidatorCalloutExtender1_ClientState" id="ctl00_ctl00_MainContent_SubMainContent_ValidatorCalloutExtender1_ClientState" type="hidden">
+            </td>
+        </tr><br>
+        <tr><td style="width: 19%;"><span>Finalidad Préstamo:</span></td>
+            <td><textarea name="FinalidadPrestamo" style="width: 596px; height: 77px;" onkeyup="return checkMaxLen(this,450)" rows="2" cols="20" autocomplete="off"></textarea>
+                <input name="ClientState" type="hidden"></td>
+        </tr><br>
+    </tbody></table>
+    <app-source-accounts [showBalances] = "false" [accountRequest]="request" (onChange)="handleSourceAccountChanged($event)" #source></app-source-accounts><br><br>   
+    <button class=" btn btn-primary" (click)="handleSubmit()"> Confirmar</button><br><br>
+    <app-approvers-and-controllers [approversRequest]="approversRequest" 
+(onChange)="handleApproversOrControllersChanged($event)"
+ [disabled]="isDisabledAfterSave" [isAdministrative]="true"
+#approversAndControllers></app-approvers-and-controllers>
+    <br>
+    <div align=left class="form-group row">
+      <button class=" btn btn-primary" (click)="handleSubmit()"> Aceptar</button>
+      <button class=" btn btn-primary" (click)="reload()"> Cancelar </button>
+          <button class=" btn btn-primary" (click)="reload()"> Nuevo </button>
+    </div><br><br>
+    <app-token-modal [isVisible]="isVisibleToken" (onSubmit)="handleTokenSubmit($event)" (onClose)="isVisibleToken=false"></app-token-modal>
+    <app-modal [visible]="isRemoveModalVisible" (onClose)="isRemoveModalVisible=false" [size]="'md'">
+        <div class="app-modal-header"> Operación Realizada </div>
+        <div class="app-modal-body">
+            Su operación ha sido enviada satisfactoriamente a Solicitudes Pendientes de Autorización desde donde el o los usuario(s) que cuenten con los permisos podrán autorizar el lote <strong>N° {{processBatchNumber}}.</strong> más adelante. Una vez aprobada su operación, será enviada a Back Office para su ejecución. Verificar en la pantalla de Seguimiento hasta comprobar que se procesó corréctamente.
+        </div>
+        <div class="app-modal-footer"> 
+            <button type="button" class="btn btn-primary" (click)="newFin=true" (click)="isRemoveModalVisible=false" (click)="isVisibleAuthandControllers=false" (click)="val0=false">Aceptar</button>
+        </div>
+    </app-modal>
+    <div class="form-group row" *ngIf="newFin==true">
+    <span id="Resultado">Su operación ha sido enviada satisfactoriamente a Solicitudes Pendientes de Autorización desde donde el o los usuario(s) que cuenten con los permisos podrán autorizar el lote <strong>N° {{processBatchNumber}}.</strong> más adelante. Una vez aprobada su operación, será enviada a Back Office para su ejecución. Verificar en la pantalla de Seguimiento hasta comprobar que se procesó corréctamente.</span>
+    </div> -->

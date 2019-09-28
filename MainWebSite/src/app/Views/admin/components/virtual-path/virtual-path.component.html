@@ -1,0 +1,15 @@
+<div class="keyboard">
+  <div class="rowKey" *ngFor="let columnKey of keyboard">
+    <div class='itemKey' *ngFor="let key of columnKey">
+      <ng-container [ngSwitch]="key[select]">
+        <button *ngSwitchCase="'shift'" type="button" class="btn btn-secondary" (click)="handleKeyPress(key[select])">
+          <img  src="assets/img/cw/flechaarriba.png">
+      </button>
+        <button *ngSwitchCase="'back'" type="button" class="btn btn-secondary" (click)="handleKeyPress(key[select])">
+          <img class="img-delete" src="assets/img/cw/flechaborrar.png">
+      </button>
+        <button *ngSwitchDefault type="button" class="btn btn-secondary" (click)="handleKeyPress(key[select])">{{key[select]}}</button>
+      </ng-container>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,13 @@
+<br>
+<app-company-name></app-company-name><br>
+<app-filter-voucher-operation (onChangeFilter)="handleVoucherChanged($event)" [voucherCheckedList]="voucherCheckedList"
+    [inputValue]="inputValue"></app-filter-voucher-operation>
+
+<div class="row" *ngIf="isPanelVisible">
+    <app-information-panel [message]="message"></app-information-panel>
+</div>
+<div *ngIf="totalVouchers > 0">
+    <app-pagination [totalItems]="totalVouchers" [maxSize]="pageItems" (onChange)="handlePageChanged($event)"></app-pagination>
+    <!-- <app-list-voucher-operation [listDetailVoucher]="listDetailVoucher" (onChange)="handleProcessBatches($event)" (voucherChecked)="handleChecked($event)" (listVoucherChecked)="handleListChecked($event)"></app-list-voucher-operation> -->
+    <app-list-voucher-operation [listDetailVoucher]="listDetailVoucher" (listVoucherChecked)="handleListChecked($event)"></app-list-voucher-operation>
+</div>

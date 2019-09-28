@@ -1,0 +1,105 @@
+<app-company-name></app-company-name>
+<p class="description-page">
+    Este formulario le permite preparar la configuración de sus pagos preferidos en: Pago de Haberes, Pago a
+    Proveedores Abono
+    en Cuenta, Pago a Proveedores Efectivo, Pago a Proveedores Abono en otro Banco.
+</p>
+<p class="description-page">
+    Cada actualizacion de los pagos debera ser autorizada para su uso nuevamente, se podrán utilizar los pagos
+    favoritos que
+    no hayan sido modificados y/o creados
+</p>
+<p class="description-page">
+   Se considera como cambio en el lote a la creación de nuevos pagos.
+</p>
+
+<br>
+<div align="center">
+    <button class="btn btn-info" *ngIf="isVisibleButton" (click)="handleButtonFile()">
+        <img src="assets/img/cw/importararchivotxt.gif">
+    </button> 
+    <button class="btn btn-info" *ngIf="isVisibleButton" (click)="handleButtons()">
+        <img src="assets/img/cw/crearplanilla.gif">
+    </button>
+</div>
+<br>
+<app-import-files *ngIf="isVisibleComponentFile" (action)="handleFile($event)">
+</app-import-files>
+<app-list-of-payments-schedules [disabled]="isDisabledAfterSave" *ngIf="isVisibleComponentSelector" (onChange)="handleList($event)">
+</app-list-of-payments-schedules>
+<ng-container *ngIf="paymentTypeHAB === 'HAB'">
+    <app-form-payments-of-assets *ngIf="!isValidHAB" [disabled]="isDisabledAfterSave" [detail]="detailSalaries"
+        [typeOfLoad]="typeOfLoad" (action)="handleActionRowAssetPayment($event)" (actionData)="dataHandlerAssetPayment($event)"
+        (actionRemoved)="handleRemovedAssetsPayment($event)" (dataVerify)="handleDataAsset($event)">
+    </app-form-payments-of-assets>
+    <br>
+</ng-container>
+<ng-container *ngIf="paymentTypePROV === 'PROV'">
+    <app-form-providers-payments *ngIf="!isValidPROV" [disabled]="isDisabledAfterSave" [detail]="detailProviders"
+        [typeOfLoad]="typeOfLoad" (action)="handleActionRowProvidersPayment($event)" (actionData)="dataHandlerProviderPayment($event)"
+        (actionRemoved)="handleRemovedProvidersPayment($event)" (dataVerify)="handleDataProviders($event)">
+    </app-form-providers-payments>
+    <br>
+</ng-container>
+<ng-container *ngIf="paymentTypeEFE === 'EFE'">
+    <app-form-cash-payments *ngIf="!isValidEFE" [disabled]="isDisabledAfterSave" [detail]="detailCash" [typeOfLoad]="typeOfLoad"
+        (action)="handleActionRowCashPayment($event)" (actionData)="dataHandlerCashPayment($event)" (actionRemoved)="handleRemovedCashPayment($event)"
+        (dataVerify)="handleDataCash($event)">
+    </app-form-cash-payments>
+    <br>
+</ng-container>
+<ng-container *ngIf="paymentTypeACH === 'ACH'">
+    <app-form-achpayments *ngIf="!isValidACH" [disabled]="isDisabledAfterSave" [detail]="detailAch" [typeOfLoad]="typeOfLoad"
+        (action)="handleActionRowACHPayment($event)" (actionData)="dataHandlerACHPayment($event)" (actionRemoved)="handleRemovedACHPayment($event)"
+        (dataVerify)="handleDataACH($event)">
+    </app-form-achpayments>
+    <br>
+</ng-container>
+<app-company-limits [isVisible]="verifyAmount"></app-company-limits>
+<app-approvers-and-controllers [isVisible]="verifyAmount" [approversRequest]="approversRequest"  [amount]="favoritePaymentData.amount" [disabled]="isDisabledAfterSave" [isAdministrative]="true"
+    #approversAndControllers></app-approvers-and-controllers>
+<div *ngIf="isPaymentSuccessful">
+    <p>
+        Su operación ha sido enviada satisfactoriamente a Pagos Masivos Pendientes desde donde el(los) usuario(s) que
+        cuente(n) con
+        los permisos, podrán controllar y/o autorizar la transacción. Una vez aprobada su operación, es muy importante
+        que
+        pueda verificar en la pantalla de “Seguimiento” hasta comprobar que su operación se procesó correctamente
+        <strong>N° Lote {{processBatchNumber}}.</strong> El tiempo de proceso será máximo 15 minutos. Las lineas de
+        Pago a Proveedores
+        en Efectivo se realizan en batch(lote) y estaran disponibles para su cobro al dia siguiente hábil.
+    </p>
+    <p class="tituloGeneral h_no-MarginBottom center">
+        La última operación enviada satisfactoriamente sera válida para su autorización
+    </p>
+</div>
+<br>
+<div class="form-group row" *ngIf="isVisibleButtonSend">
+    <button class="col-xs-12 col-sm-3 col-sm-offset-9  btn btn-primary" (click)="handleSubmit(approversAndControllers.handleValidate())" *ngIf="!isPaymentSuccessful">
+        <span class="icon-Selected icono-naranjo"> </span>Aceptar
+    </button>
+</div>
+<div class="form-group row" *ngIf="!isVisibleButton">
+    <button class="col-xs-12 col-sm-3 col-sm-offset-9  btn btn-primary" [routerLink]="['/operations/favoritePaymentsSettings']">
+        <span class="icon-calendario icono-naranjo"> </span>Nuevo
+    </button>
+    <br>
+</div>
+
+<app-token-modal [isVisible]="isVisibleToken" (onSubmit)="handleTokenSubmit($event)" (onClose)="isVisibleToken=false"></app-token-modal>
+<app-modal [visible]="isRemoveModalVisible" (onClose)="isRemoveModalVisible=false" [size]="'md'">
+    <div class="app-modal-header"> Operación Realizada </div>
+    <div class="app-modal-body">
+        Su operación ha sido enviada satisfactoriamente a Pagos Masivos Pendientes desde donde el(los) usuario(s) que
+        cuente(n) con
+        los permisos, podrán controllar y/o autorizar la transacción. Una vez aprobada su operación, es muy importante
+        que
+        pueda verificar en la pantalla de “Seguimiento” hasta comprobar que su operación se procesó correctamente
+        <strong>N° Lote {{processBatchNumber}}.</strong> El tiempo de proceso será máximo 15 minutos. Las lineas de
+        Pago a Proveedores
+        en Efectivo se realizan en batch(lote) y estaran disponibles para su cobro al dia siguiente hábil.
+    </div>
+    <div class="app-modal-footer">
+        <button type="button" class="btn btn-primary" (click)="isRemoveModalVisible=false">Aceptar</button>
+    </div>
+</app-modal>

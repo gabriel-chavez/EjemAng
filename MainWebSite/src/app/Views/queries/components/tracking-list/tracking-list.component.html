@@ -1,0 +1,78 @@
+<div class="table-responsive">
+  <div class="col-sm-3"></div>
+  <div class="col-sm-6">
+    <app-pagination [totalItems]="tracks.length" [maxSize]="pageSize" (onChange)="handlePageChanged($event)"></app-pagination>
+  </div>
+  <div class="col-sm-3">
+    <select name="TipoExportar" class="form-control" [(ngModel)]="formatSelected">
+      <option value=undefined disabled>Seleccione formato</option>
+      <option value="xls">Excel</option>
+      <option value="pdf">PDF</option>
+    </select>
+    <img src="../../../../assets/img/cw/exportar.gif" (click)="getReport()" alt="">
+  </div>
+  <table class="table table-condensed table-bordered table-striped table-hover">
+    <thead class="thead-light">
+      <tr>
+        <th>Lote</th>
+        <th>Operación</th>
+        <th>Cuenta Origen</th>
+        <th>Monto</th>
+        <th>Moneda</th>
+        <th>Fecha Ingreso</th>
+        <th>Fecha Proceso</th>
+        <th>Estado</th>
+        <th>Ver Det</th>
+        <th>Aut</th>
+        <th>Ctrl</th>
+        <th>Fecha Programada</th>
+        <th>Fecha Futura</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let tracktransfer of listTracks">
+        <td class="text-right">{{tracktransfer.id}}</td>
+        <td>{{tracktransfer.name}}</td>
+        <td>{{tracktransfer.formattedAccount}}</td>
+        <td class="text-right">{{tracktransfer.amount}}</td>
+        <td>{{tracktransfer.currency}}</td>
+        <td class="text-center">{{tracktransfer.dateCreation | date: 'dd/MM/yyyy'}}</td>
+        <td class="text-center">{{tracktransfer.dateProcess | date: 'dd/MM/yyyy HH:mm'}}</td>
+        <td>{{tracktransfer.description}}</td>
+        <td>
+          <a class="btn btn-primary btn-sm icon-Lupa icono-naranjo" (click)="handleShowBatchDetail(tracktransfer)"></a>
+        </td>
+        <td>
+          <div *ngIf="tracktransfer.isAuth">
+            <a class="btn btn-primary btn-sm icon-Usuario icono-naranjo" (click)="handleShowBatchAuthorizersOrControllers(tracktransfer, 'authorizers')"></a>
+          </div>
+        </td>
+        <td>
+          <div *ngIf="tracktransfer.isCtrl">
+            <a class="btn btn-primary btn-sm icon-Usuario icono-naranjo" (click)="handleShowBatchAuthorizersOrControllers(tracktransfer, 'controllers')"></a>
+          </div>
+        </td>
+        <td class="text-center">{{tracktransfer.isScheduledProcess ? 'SI' : 'NO'}}</td>
+        <td class="text-center">{{tracktransfer.isScheduledProcess ? (tracktransfer.scheduledProcess | date:
+          'dd/MM/yyyy') :
+          '' }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<app-modal [visible]="showBatchDetail" (onClose)="showBatchDetail=false" [size]="'lg'">
+  <div class="app-modal-header">
+    <p class="tituloGeneral h_no-MarginBottom">{{operationType}}</p>
+  </div>
+  <div class="app-modal-body">
+    <app-batch-detail [batchId]="batchId" [operation]="operationType" [operationTypeId]="operationTypeId" [isShow]="showBatchDetail"></app-batch-detail>
+  </div>
+  <div class="app-modal-footer"><button type="button" class="btn btn-primary" (click)="showBatchDetail=false">Cerrar</button></div>
+</app-modal>
+<app-modal [visible]="showAuthorizersOrControllers" (onClose)="showAuthorizersOrControllers=false" [size]="'lg'">
+  <div class="app-modal-header">{{operationType}}</div>
+  <div class="app-modal-body">
+    <app-approvers-and-controllers [showOnly]="role" [approversRequest]="approversDto" [showApproversNumber]="true" [isAdministrative] ="isAdministrative"></app-approvers-and-controllers>
+  </div>
+  <div class="app-modal-footer"><button type="button" class="btn btn-primary" (click)="showAuthorizersOrControllers=false">Cerrar</button></div>
+</app-modal>

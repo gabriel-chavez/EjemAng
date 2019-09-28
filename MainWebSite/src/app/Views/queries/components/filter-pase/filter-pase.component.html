@@ -1,0 +1,67 @@
+<app-loader *ngIf="loading"></app-loader>
+    <div>|    
+        <label class="estilo_Descripcion">Recaudaciones de la fecha, seleccione la cuenta de servicio, seleccione las fechas y haga clic en el boton "Actualizar Reporte"
+                </label>
+                <p>
+                   <label class="margen_nombre_empresa">Empresa: </label>
+                   <label class="subtitulo_nombre">{{NameCompany}} </label>
+               </p>
+
+        <div class="row">
+
+            <div class="form-group col-sm-12">
+                <label class="radio-inline">
+                  <input type="radio" name="RadTip" id="RadTip1" value="optFec" (change)="setradio('optFec')" checked> Por fechas
+            </label>
+                <label class="radio-inline">
+                  <input type="radio" name="RadTip" id="RadTip2" value="optMes" (change)="setradio('optMes')"> Por meses
+            </label>
+            </div>
+
+        </div>
+        <div  class="form-group col-sm-12">
+            <label class="control-label col-sm-3" >Numero de Cuenta: </label>
+            
+<div class="col-sm-3"> 
+            <select name="Acount" class="form-control" 
+             placeholder="Seleccione una cuenta."
+                    [(ngModel)]="AcountSelected">
+             <option *ngFor="let responseModelAccount of ResponseModelAccount" 
+                     [ngValue]="responseModelAccount"> 
+                    {{responseModelAccount.name}}
+             </option>
+            </select>
+</div>
+        </div>
+        
+        <div  class="form-group col-sm-12" *ngIf=val1>
+            <label class="control-label col-sm-3">Seleccione las fechas: </label>
+            
+            <label class="col-sm-1">Fecha Inicial: </label>
+            <form class="form-group col-sm-3">
+                <my-date-picker name="mydateIni" [options]="myDatePickerIni" placeholder="Ingrese fecha de inicio."
+                (dateChanged)="handleChangeDPIni($event)" [(ngModel)]="modelIniDate" required></my-date-picker>
+            </form>
+            <label class="col-sm-1">Fecha Final: </label>
+            <form class="form-group col-sm-3">
+                <my-date-picker name="mydateEnd" [options]="myDatePickerEnd" placeholder="Ingrese fecha final."
+                (dateChanged)="handleChangeDPEnd($event)" [(ngModel)]="modelEndDate" required></my-date-picker>
+            </form>
+
+        </div>
+        <div class="form-group col-sm-12" *ngIf=val2>
+            <label class="control-label col-sm-3">Seleccione el mes: </label>
+            <div class="col-sm-3">
+            <select name="dpMonth"  [(ngModel)]="MonthSelected" (change)="handleChangedDrpMonth()" class="form-control" >
+                    <option *ngFor="let Responsemonth of ResponseModelDate" [ngValue]="Responsemonth" >
+                     {{Responsemonth.description}}                     
+                    </option>
+            </select>            
+            </div>
+        </div>
+        <div >
+            <button class="btn btn-primary" (click)="ShowDetail()" >Actualizar Reportes</button>
+        </div>
+
+    </div>
+

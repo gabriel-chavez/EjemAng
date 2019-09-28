@@ -1,0 +1,172 @@
+<!--Haberes-->
+<ng-container *ngIf="isVisibleSalaries">
+  <p class="tituloGeneral h_no-MarginBottom" align="center">
+    PAGO DE HABERES
+  </p>
+  <div class="table-responsive">
+    <app-pagination [totalItems]="detail.speeadsheet.formSalariesPayments.length" [maxSize]="3" (onChange)="handlePageChangedSalaries($event)"></app-pagination>
+    <br>
+    <table class="table table-striped table-bordered">
+      <thead>
+        <tr>
+          <th scope="col">Estado</th>
+          <th scope="col">Linea</th>
+          <th scope="col">Monto</th>
+          <th scope="col">Cuenta Destino</th>
+          <th scope="col">Tipo Documento</th>
+          <th scope="col">Documento </th>
+          <th scope="col">Ext. Doc</th>
+          <th scope="col">Titular</th>
+          <th scope="col">Detalle 1</th>
+          <th scope="col">Detalle 2</th>
+          <th scope="col">E-mail Proveedor</th>
+          <th scope="col">Nro de Celular</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of payments.speeadsheet.formSalariesPayments">
+          <td><span class="label label-{{data.isDeleted ? 'danger': data.operationStatusId == 1 ? 'success' : ''}}">{{data.isDeleted
+              ? 'Eliminado': data.operationStatusId == 1 ? 'Solicitado' : ''}}</span></td>
+          <td>{{data.line}}</td>
+          <td>{{data.amount}}</td>
+          <td>{{data.accountNumber}}</td>
+          <td>{{data.documentType}}</td>
+          <td>{{data.documentNumber}}</td>
+          <td>{{data.documentExtension}}</td>
+          <td>{{data.titularName}}</td>
+          <td>{{data.firstDetail}}</td>
+          <td>{{data.secondDetail}}</td>
+          <td>{{data.mail}}</td>
+          <td>{{data.telephoneNumber}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</ng-container>
+<!--Proveedores>-->
+<ng-container *ngIf="isVisibleProviders">
+  <p class="tituloGeneral h_no-MarginBottom" align="center">
+    PAGO A PROVEEDORES
+  </p>
+  <div class="table-responsive">
+    <app-pagination [totalItems]="detail.speeadsheet.formProvidersPayments.length" [maxSize]="3" (onChange)="handlePageChangedProviders($event)"></app-pagination>
+    <br>
+    <table class="table table-striped table-bordered">
+      <thead>
+        <tr>
+          <th scope="col">Estado</th>
+          <th scope="col">Linea</th>
+          <th scope="col">Monto</th>
+          <th scope="col">Cuenta Destino</th>
+          <th scope="col">Tipo Documento</th>
+          <th scope="col">Documento </th>
+          <th scope="col">Ext. Doc</th>
+          <th scope="col">Titular</th>
+          <th scope="col">Detalle 1</th>
+          <th scope="col">Detalle 2</th>
+          <th scope="col">E-mail Proveedor</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of payments.speeadsheet.formProvidersPayments">
+          <td><span class="label label-{{data.isDeleted ? 'danger': data.operationStatusId == 1 ? 'success' : ''}}">{{data.isDeleted
+              ? 'Eliminado': data.operationStatusId == 1 ? 'Solicitado' : ''}}</span></td>
+          <td>{{data.line}}</td>
+          <td>{{data.amount}}</td>
+          <td>{{data.accountNumber}}</td>
+          <td>{{data.documentType}}</td>
+          <td>{{data.documentNumber}}</td>
+          <td>{{data.documentExtension}}</td>
+          <td>{{data.titularName}}</td>
+          <td>{{data.firstDetail}}</td>
+          <td>{{data.secondDetail}}</td>
+          <td>{{data.mail}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</ng-container>
+<!--Efectivo-->
+<ng-container *ngIf="isVisibleCash">
+  <p class="tituloGeneral h_no-MarginBottom" align="center">
+    PAGO EN EFECTIVO
+  </p>
+  <div class="table-responsive">
+    <app-pagination [totalItems]="detail.speeadsheet.formCashPayments.length" [maxSize]="3" (onChange)="handlePageChangedCash($event)"></app-pagination>
+    <br>
+    <table class="table table-striped table-bordered">
+      <thead>
+        <tr>
+          <th scope="col">Estado</th>
+          <th scope="col">Linea</th>
+          <th scope="col">Monto</th>
+          <th scope="col">Razon Beneficiario</th>
+          <th scope="col">Apellido Paterno</th>
+          <th scope="col">Apellido Materno</th>
+          <th scope="col">Tipo Documento</th>
+          <th scope="col">Documento </th>
+          <th scope="col">Instrucciones</th>
+          <th scope="col">Ciudad</th>
+          <th scope="col">Detalle</th>
+          <th scope="col">E-mail Proveedor</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of payments.speeadsheet.formCashPayments">
+          <td><span class="label label-{{data.isDeleted ? 'danger': data.operationStatusId == 1 ? 'success' : ''}}">{{data.isDeleted
+              ? 'Eliminado': data.operationStatusId == 1 ? 'Solicitado' : ''}}</span></td>
+          <td>{{data.line}}</td>
+          <td>{{data.amount}}</td>
+          <td>{{data.titularName}}</td>
+          <td>{{data.firstLastName}}</td>
+          <td>{{data.secondLastName}}</td>
+          <td>{{data.documentType}}</td>
+          <td>{{data.documentNumber}}</td>
+          <td>{{data.instruccionsPayment}}</td>
+          <td>{{data.branchOfficeDescription}}</td>
+          <td>{{data.firstDetail}}</td>
+          <td>{{data.mail}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</ng-container>
+<!--ACH-->
+<ng-container *ngIf="isVisibleAch">
+  <p class="tituloGeneral h_no-MarginBottom" align="center">
+    PAGO ABONO EN OTRO BANCO
+  </p>
+  <div class="table-responsive">
+    <app-pagination [totalItems]="detail.speeadsheet.formAchPayments.length" [maxSize]="3" (onChange)="handlePageChangedAch($event)"></app-pagination>
+    <br>
+    <table class="table table-striped table-bordered">
+      <thead>
+        <tr>
+          <th scope="col">Estado</th>
+          <th scope="col">Linea</th>
+          <th scope="col">Monto</th>
+          <th scope="col">Cuenta Destino</th>
+          <th scope="col">Razon Beneficiario</th>
+          <th scope="col">Banco</th>
+          <th scope="col">Ciudad</th>
+          <th scope="col">Detalle</th>
+          <th scope="col">E-mail</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of payments.speeadsheet.formAchPayments">
+          <td><span class="label label-{{data.isDeleted ? 'danger': data.operationStatusId == 1 ? 'success' : ''}}">{{data.isDeleted
+              ? 'Eliminado': data.operationStatusId == 1 ? 'Solicitado' : ''}}</span></td>
+          <td>{{data.line}}</td>
+          <td>{{data.amount}}</td>
+          <td>{{data.accountNumber}}</td>
+          <td>{{data.titularName}}</td>
+          <td>{{data.bankDescription}}</td>
+          <td>{{data.branchOfficeDescription}}</td>
+          <td>{{data.firstDetail}}</td>
+          <td>{{data.mail}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</ng-container>

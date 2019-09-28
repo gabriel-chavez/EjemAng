@@ -1,0 +1,71 @@
+<form class="form-horizontal" name="formComponent" #formComponent="ngForm" novalidate autocomplete="off">
+  <fieldset [disabled]="disabled">
+    <div class="form-group">
+      <label class="col-sm-3 control-label">Nombres:</label>
+      <div class="col-sm-4">
+        <input type="text" class="form-control" name="entityName" [(ngModel)]="ballot.entityName" #entityName="ngModel"
+          required appMaxLength="50">
+        <app-show-errors [control]="entityName"></app-show-errors>
+      </div>
+      <label class="col-sm-2 control-label">CI:</label>
+      <div class="col-sm-3">
+        <input type="text" class="form-control" name="entityDocumentCI" [(ngModel)]="ballot.entityDocumentCI"
+          #entityDocumentCI="ngModel" required appMaxLength="12">
+        <app-show-errors [control]="entityDocumentCI"></app-show-errors>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-3 control-label">Lugar de Entrega:</label>
+      <div class="col-sm-4">
+        <select class="form-control" name="placeOfDelivery" [(ngModel)]="ballot.placeOfDelivery" (ngModelChange)="handleChangePlaceDelivery()" #placeOfDelivery>
+          <option value='' disabled>Seleccione una Ciudad</option>
+          <option *ngFor="let region of placeOfDeliveries" value="{{region.code}}">
+            {{region.description}}
+          </option>
+        </select>
+        <app-show-errors [control]="placeOfDelivery"></app-show-errors>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-3 control-label">Agencia:</label>
+      <div class="col-sm-4">
+        <select class="form-control" name="agency" [(ngModel)]="ballot.agency" #agency>
+          <option value='' disabled>Seleccione una agencia</option>
+          <option *ngFor="let agency of agenciesSelected" value="{{agency.agencyId}}">
+            {{agency.agencyName}}
+          </option>
+        </select>
+        <app-show-errors [control]="agency"></app-show-errors>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-12 control-label">Funcionario de Negocios:</label>
+      <div class=" col-sm-12 table-responsive">
+        <table class="table table-striped table-bordered">
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Paterno</th>
+              <th>Materno</th>
+              <th>Notificar</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let data of employs">
+              <td>{{data.name}}</td>
+              <td>{{data.firstLastName}}</td>
+              <td>{{data.secondLastName}}</td>
+              <th>
+                <div class="checkbox">
+                  <label>
+                    <input type="checkbox" name="isChecked" (click)="handleSelectFuncionary(data.id)">
+                  </label>
+                </div>
+              </th>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </fieldset>
+</form>

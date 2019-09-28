@@ -1,0 +1,82 @@
+<div class="panel panel-default">
+  <div class="panel-body">
+    <form class="form-horizontal" name="formSearchBank" #formSearchBank="ngForm" (ngSubmit)="formSearchBank.valid && handleSearchBanks()"
+      novalidate>
+      <fieldset [disabled]="disabled" *ngIf="!disabled">
+        <div class="form-group">
+          <div class="col-sm-6">
+            <div class="checkbox">
+              <label>
+                <input class="form-check-input" type="radio" name="searchType" [value]="'name'" [(ngModel)]="searchType">Buscar por Nombre de Banco:
+              </label>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="checkbox">
+              <label>
+                <input class="form-check-input" type="radio" name="searchType" [value]="'swift'" [(ngModel)]="searchType">Buscar por SWIFT/ABA:
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-sm-9">
+            <input type="text" name="searchText" [(ngModel)]="searchText" class="form-control" required>
+          </div>
+          <div class="col-sm-3">
+            <button type="submit" class="btn btn-primary">Buscar</button>
+          </div>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+</div>
+<form class="form-horizontal" name="formDetailBank" #formDetailBank="ngForm" novalidate>
+  <fieldset [disabled]="disabled" *ngIf="!disabled">
+    <div class="form-group">
+      <div class="col-sm-12">
+        <label *ngIf="!isFirstTime">
+          {{filterBanks.length}} resultado(s) para le criterio de busqueda: {{searchTextSelected}}
+        </label>
+      </div>
+      <div class="col-sm-12">
+        <select class="form-control" [(ngModel)]="bankSelected" name="codeBank" required #codeBank="ngModel" (ngModelChange)="handleSelectBank()">
+          <option *ngFor="let item of filterBanks" [ngValue]="item">{{item.name}}</option>
+        </select>
+        <app-show-errors [control]="codeBank"></app-show-errors>
+      </div>
+    </div>
+  </fieldset>
+  <fieldset [disabled]="true">
+    <div class="form-group">
+      <label class="col-sm-2 control-label">Nombre del Banco:</label>
+      <div class="col-sm-10">
+        <input type="text" name="name" [(ngModel)]="bankSelectedDetail.name" class="form-control" #name="ngModel">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-2 control-label">SWIFT/ABA(EEUU):</label>
+      <div class="col-sm-10">
+        <input type="text" name="code" [(ngModel)]="bankSelectedDetail.code" class="form-control" #code="ngModel">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-2 control-label">Dirección:</label>
+      <div class="col-sm-10">
+        <input type="text" name="address" [(ngModel)]="bankSelectedDetail.address" class="form-control" #address="ngModel">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-2 control-label">Ciudad:</label>
+      <div class="col-sm-10">
+        <input type="text" name="city" [(ngModel)]="bankSelectedDetail.city" class="form-control" #city="ngModel">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-2 control-label">País:</label>
+      <div class="col-sm-10">
+        <input type="text" name="country" [(ngModel)]="bankSelectedDetail.country" class="form-control" #country="ngModel">
+      </div>
+    </div>
+  </fieldset>
+</form>

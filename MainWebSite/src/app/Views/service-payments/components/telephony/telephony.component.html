@@ -1,0 +1,32 @@
+<form *ngIf="visible" class="form-horizontal" name="telephonyForm" novalidate #telephonyForm="ngForm" autocomplete="off">
+  <fieldset [disabled]="disabled">
+    <div class="form-group">
+      <label class="col-xs-12 col-sm-2 control-label">Ciudad: </label>
+      <div class="col-xs-12 col-sm-3">
+        <select name="cities" class="form-control" [(ngModel)]="data.branchOfficeId">
+          <option *ngFor="let branchOffice of constants.branchOffices" [ngValue]="branchOffice.value">
+            {{ branchOffice.name }}
+          </option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-xs-12 col-sm-2 control-label">Proveedor - Concepto pago: </label>
+      <div class="col-xs-12 col-sm-3">
+        <input class="form-control" type="text" name="provider" #provider="ngModel" [(ngModel)]="data.provider" required maxlength="80">
+        <app-show-errors [control]="provider"></app-show-errors>
+      </div>
+      <label class="col-xs-12 col-sm-2 control-label">Nro. teléfono: </label>
+      <div class="col-xs-12 col-sm-3">
+        <input class="form-control" type="text" name="phone" required #phone="ngModel" [(ngModel)]="data.phone" maxlength="20" appOnlyInteger>
+        <app-show-errors [control]="phone"></app-show-errors>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-xs-12 col-sm-12 control-label">Este servicio solo abarca la red troncal (La Paz, Santa Cruz y Cochabamba), el monto a pagar debe ser igual al de su
+        factura. Su solicitud será recibida máximo hasta las 16:00 horas, caso contrario la misma será procesada hasta el
+        siguiente dia hábil.
+      </label>
+    </div>
+  </fieldset>
+</form>

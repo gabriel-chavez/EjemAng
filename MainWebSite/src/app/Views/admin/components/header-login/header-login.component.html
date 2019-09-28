@@ -1,0 +1,65 @@
+<header class="menu--desktop">
+  <div class="col-md-2 col-xs-6">
+    <div class="header--logo">
+      <a href="www.bcp.com.bo">
+        <img src="assets/img/logo-bcp.svg" class="logo--imagen" alt="BCP">
+      </a>
+    </div>
+  </div>
+</header>
+<div class="row ambiente-seguro hidden-xs">
+  <div id="help-points" class="notas--bloque">
+    <ul>
+      <li>
+        <div class="notas--icono">
+          <i class="icon-Seguridad icono-celeste"></i>
+        </div>
+        <div class="notas--txt">
+          <p>Este es un ambiente seguro</p>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed button-toogle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+        aria-expanded="false">
+        <i class="icon-Shape"></i>
+      </button>
+      <p class="hidden-sm hidden-md hidden-lg title-toogle">
+        CredinetWeb
+      </p>
+    </div>
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><a routerLink="/login/">Inicio</a></li>
+        <li [routerLinkActive]="['active']"><a (click)="handleOpenLink('https://www3.bcp.com.bo/contactos/funciones.html')">Funciones
+            y Características</a></li>
+        <li [routerLinkActive]="['active']"><a (click)="handleOpenLink('https://www3.bcp.com.bo/contactos/manuales.html')">Manuales</a></li>
+        <li [routerLinkActive]="['active']"><a (click)="handleOpenLink('https://www3.bcp.com.bo/contactos/demo.html')">Demo</a></li>
+        <li [routerLinkActive]="['active']"><a (click)="handleOpenLink('https://www3.bcp.com.bo/contactos/guiapagosmasivos.html')">Guía
+            Pagos Masivos</a></li>
+        <li [routerLinkActive]="['active']"><a (click)="handleOpenLink('https://www3.bcp.com.bo/contactos/horarios.html')">Horarios
+            y Oficinas</a></li>
+        <li [routerLinkActive]="['active']"><a (click)="handleOpenLink('https://www3.bcp.com.bo/contactos/preguntas_frecuentes.html')">Preguntas
+            Frecuentes</a></li>
+        <li [routerLinkActive]="['active']"><a (click)="handleOpenLink('https://www3.bcp.com.bo/contactos/novedades.html')">Novedades</a></li>
+        <li [routerLinkActive]="['active']"><a (click)="handleOpenLink('https://www3.bcp.com.bo/contactos/contactenos.aspx')">Contáctenos</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<!-- <section class="banner collapse navbar-collapse">
+  <div class="container">
+    <div class="col-sm-6">
+      <p class="tituloGeneral tituloGeneral__center">Ingrese a CredinetWeb</p>
+    </div>
+    <div class="col-sm-6">
+      <div>
+        <img src="assets/img/cw/banner-principal.jpg" class="logo--imagen" alt="BCP">
+      </div>
+    </div>
+  </div>
+</section> -->

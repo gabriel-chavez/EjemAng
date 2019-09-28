@@ -1,0 +1,31 @@
+<br>
+<p class="tituloGeneral h_no-MarginBottom" align="center">
+    ABONO EN OTRO BANCO ACH
+</p>
+<br>
+<app-pagination [totalItems]="detail.detail.length" [maxSize]="10" (onChange)="handlePageChanged($event)"></app-pagination>
+<br>
+<fieldset [disabled]="disabled">
+<div class="table-responsive">
+  <table class="table table-condensed table-bordered table-striped table-hover">
+    <thead>
+      <tr>
+        <th scope="col">Linea</th>
+        <th scope="col">Código</th>
+        <th scope="col">Monto</th>
+        <th scope="col">Cuenta Destino</th>
+        <th scope="col">Razon Beneficiario</th>
+        <th scope="col">Banco</th>
+        <th scope="col">Ciudad</th>
+        <th scope="col">Detalle</th>
+        <th scope="col">E-mail</th>
+        <th scope="col" colspan="2">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let row of detailPerPage" app-row-list-details-achpayment [detail]="row" (action)="handleActionRow($event)"></tr>
+    </tbody>
+  </table>
+</div>
+</fieldset>
+

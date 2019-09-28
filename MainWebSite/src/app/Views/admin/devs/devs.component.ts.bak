@@ -1,0 +1,120 @@
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { CaptchaComponent } from '../../shared/components/captcha/captcha.component'
+import { UserService } from '../../../Services/users/user.service';
+import { GlobalService } from '../../../Services/shared/global.service';
+// import { AditionalDataTransfer } from './../../../Models/transfers/aditionalDataTransfer';
+import { IMyDpOptions, IMyDateModel,IMyDate } from 'mydatepicker';
+import { DetailPayment } from '../../../Models/bulk-payments/detail-payment';
+import { UtilsService } from '../../../Services/shared/utils.service';
+
+@Component({
+  selector: 'app-devs',
+  templateUrl: './devs.component.html',
+  styleUrls: ['./devs.component.css'],
+  providers: [UserService, UtilsService]
+})
+export class DevsComponent implements OnInit {
+
+  textKeyboard: string = '';
+  @ViewChild(CaptchaComponent) captcha: CaptchaComponent;
+  isVisible: boolean = false;
+  isVisibleToken: boolean = false;
+  date: Date;
+  // dataTransfer: AditionalDataTransfer = new AditionalDataTransfer();
+  txtPassword: string = '';
+
+  details: DetailPayment[] = [
+    { id: 1, destinationAccount: "12345671", gloss: "glosa de prueba1", amount: 1143.21, typeOfDocument: 1, extensionDocument: 2, detail1: "detalle1", detail2: "detalle21", holder: "titular1" },
+    { id: 2, destinationAccount: "12345672", gloss: "glosa de prueba2", amount: 2143.21, typeOfDocument: 2, extensionDocument: 2, detail1: "detalle2", detail2: "detalle22", holder: "titular2" },
+    { id: 3, destinationAccount: "12345673", gloss: "glosa de prueba3", amount: 3143.21, typeOfDocument: 3, extensionDocument: 2, detail1: "detalle3", detail2: "detalle23", holder: "titular3" },
+    { id: 4, destinationAccount: "12345674", gloss: "glosa de prueba4", amount: 4143.21, typeOfDocument: 4, extensionDocument: 2, detail1: "detalle4", detail2: "detalle24", holder: "titular4" },
+    { id: 5, destinationAccount: "12345675", gloss: "glosa de prueba5", amount: 5143.21, typeOfDocument: 5, extensionDocument: 2, detail1: "detalle5", detail2: "detalle25", holder: "titular5" },
+    { id: 6, destinationAccount: "12345676", gloss: "glosa de prueba6", amount: 6143.21, typeOfDocument: 6, extensionDocument: 2, detail1: "detalle6", detail2: "detalle26", holder: "titular6" },
+    { id: 7, destinationAccount: "12345677", gloss: "glosa de prueba7", amount: 7143.21, typeOfDocument: 7, extensionDocument: 2, detail1: "detalle7", detail2: "detalle27", holder: "titular7" },
+    { id: 8, destinationAccount: "12345678", gloss: "glosa de prueba8", amount: 8143.21, typeOfDocument: 8, extensionDocument: 2, detail1: "detalle8", detail2: "detalle28", holder: "titular8" },
+  ];
+
+  public myDatePickerOptions: IMyDpOptions = {
+    // other options...
+    editableDateField: false,
+    openSelectorOnInputClick: true,
+    dateFormat: 'dd/mm/yyyy',
+    inline: false,
+  };
+
+  //pagination
+  totalItems: number = 90;
+  currentPage: number = 0;
+
+  // public modelDate: IMyDateModel;
+  public modelDate: any = { date: { year: 2018, month: 10, day: 9 } };
+  constructor(private messageService: GlobalService, private utilsService: UtilsService) { }
+
+  ngOnInit() {
+    
+    this.modelDate;
+    this.modelDate.date = this.utilsService.getToday();
+    //this.myDatePickerOptions.disableUntil = this.utilsService.getToday();
+  }
+
+  handleKeyboard($event) {
+    if ($event === "back") {
+      this.textKeyboard = this.textKeyboard.substring(0, this.textKeyboard.length - 1);
+    }
+    else {
+      this.textKeyboard = this.textKeyboard + $event;
+    }
+  }
+
+  handleVerifyStrength($event) {
+
+  }
+
+  handleMessage($event) {
+    switch ($event) {
+      case 'success':
+        this.messageService.success("titulo", "detale del mensaje");
+        break;
+      case 'danger':
+        this.messageService.danger("titulo", "detale del mensaje");
+        break;
+      case 'info':
+        this.messageService.info("titulo", "detale del mensaje");
+        break;
+      case 'warning':
+        this.messageService.warning("titulo", "detale del mensaje");
+        break;
+      default:
+        break;
+    }
+  }
+
+  handleOpenModal() {
+    this.isVisible = true;
+  }
+
+  handleCloseModal() {
+    this.isVisible = false;
+  }
+
+  handleTokenSubmit($event) {
+    alert(JSON.stringify($event));
+    this.isVisibleToken = false;
+  }
+
+  handleTokenOpen() {
+    this.isVisibleToken = true;
+  }
+
+  onDateChanged(event: IMyDateModel) {
+    // this.dataTransfer.dateFuture = event.jsdate;
+  }
+
+  submitForm() {
+    // alert(JSON.stringify(this.dataTransfer));
+  }
+
+  handleChangePage($event) {
+    this.currentPage = $event;
+  }
+}

@@ -1,0 +1,83 @@
+<form class="form-horizontal" name="formBeneficiary" #formBeneficiary="ngForm" novalidate autocomplete="off">
+  <fieldset [disabled]="disabled">
+    <div class="form-group">
+      <label class="col-sm-2 control-label">Nombre o Razon Social:</label>
+      <div class="col-sm-6">
+        <input type="text" name="businessName" [(ngModel)]="beneficiary.businessName" class="form-control" required #businessName="ngModel"
+          [appOnlyType]="'alphanumericBasicSymbols'" [maxLength]="140">
+        <app-show-errors [control]="businessName"></app-show-errors>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-2 control-label">Número de Documento:</label>
+      <div class="col-sm-4">
+        <input type="text" name="numberDocument" [(ngModel)]="beneficiary.numberDocument" class="form-control" required #ticketOtherCurrency="ngModel"
+          [maxLength]="8" #numberDocument="ngModel" [appOnlyType]="'alphanumericNotSymbols'">
+        <app-show-errors [control]="numberDocument"></app-show-errors>
+      </div>
+      <label class="col-sm-1 control-label">Tipo:</label>
+      <div class="col-sm-3">
+        <select class="form-control" [(ngModel)]="beneficiary.documentType" name="documentType" required #documentType="ngModel">
+          <option value=null disabled>Seleccione Tipo de Documento</option>
+          <option *ngFor="let item of documentTypes" value="{{item.type}}">{{item.description}}</option>
+        </select>
+        <app-show-errors [control]="documentType"></app-show-errors>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-2 control-label">Número de Cuenta/IBAN(Europa):</label>
+      <div class="col-sm-3">
+        <input type="text" name="numberAccount" [(ngModel)]="beneficiary.numberAccount" class="form-control" required #numberAccount="ngModel"
+          [maxLength]="35" [appOnlyType]="'alphanumericNotSpace'">
+        <app-show-errors [control]="numberAccount"></app-show-errors>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-2 control-label">Direccion:</label>
+      <div class="col-sm-3">
+        <input type="text" name="address" [(ngModel)]="beneficiary.address" class="form-control" required #address="ngModel" [appOnlyType]="'otherAlphanumeric'" [maxLength]="50">
+        <app-show-errors [control]="address"></app-show-errors>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-2 control-label">País de Residencia:</label>
+      <div class="col-sm-3">
+        <input type="text" name="countryResidence" [(ngModel)]="beneficiary.countryResidence" class="form-control" required #countryResidence="ngModel"
+          [appOnlyType]="'otherAlphanumeric'" [maxLength]="500">
+        <app-show-errors [control]="countryResidence"></app-show-errors>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-2 control-label">Ciudad de Residencia:</label>
+      <div class="col-sm-3">
+        <input type="text" name="cityResidence" [(ngModel)]="beneficiary.cityResidence" class="form-control" required #cityResidence="ngModel"
+          [appOnlyType]="'otherAlphanumeric'" [maxLength]="200">
+        <app-show-errors [control]="cityResidence"></app-show-errors>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-2 control-label">Teléfono:</label>
+      <div class="col-sm-3">
+        <input type="tel" name="phone" [(ngModel)]="beneficiary.phone" class="form-control" required #phone="ngModel" appOnlyInteger [maxLength]="10">
+        <app-show-errors [control]="phone"></app-show-errors>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-2 control-label">Correo Electrónico:</label>
+      <div class="col-sm-3">
+        <input type="email" name="email" [(ngModel)]="beneficiary.email" class="form-control" required #email="ngModel" appValidate="email" [maxLength]="60">
+        <app-show-errors [control]="email"></app-show-errors>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-2 control-label">Concepto de Pago:</label>
+      <div class="col-sm-9">
+        <textarea class="form-control" rows="3" name="paymentConcept" [(ngModel)]="beneficiary.paymentConcept" required #paymentConcept="ngModel"
+          [appOnlyType]="'otherAlphanumeric'" [maxLength]="60"></textarea>
+        <app-show-errors [control]="paymentConcept"></app-show-errors>
+        <p class="message-invalid">Nota.- Si el Banco destinatario de la transferencia está en Jordania, por favor ingrese el código de concepto de
+          pago detallado en el siguiente archivo PDF.</p>
+      </div>
+    </div>
+  </fieldset>
+</form>

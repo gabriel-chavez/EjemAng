@@ -1,0 +1,31 @@
+:host {
+  overflow: auto;
+  white-space: nowrap;
+  height: 70px;
+}
+.tags-input {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+}
+.tags-input-tag {
+  display: inline-block;
+  margin-bottom: 2px;
+  margin-right: 5px;
+  padding-right: 0.3em;
+  text-align: center;
+  font-size: 14px;
+}
+.tags-input-tag-remove-btn {
+  cursor: pointer;
+  display: inline-block;
+  font-size: 12px;
+  margin: -3px 0 0 3px;
+  padding: 0;
+  vertical-align: top;
+}
+.tags-input-input-field {
+  border: none;
+  flex-grow: 1;
+  outline: none;
+}

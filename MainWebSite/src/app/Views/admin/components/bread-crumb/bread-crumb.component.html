@@ -1,0 +1,17 @@
+<div class="breadcrumbs" *ngIf="module!='' && subModule!=''">
+  <div class="row bread">
+    <div class="col-md-12">
+      <span class="no-link">CredinetWeb</span>
+      <i class="icon-Flecha-siguiente"></i>
+      <a class="link" routerLink="/" (click)="home()"> Inicio</a>
+      <span *ngIf="module!=''">
+      <i class="icon-Flecha-siguiente" ></i>
+      <span class="no-link">{{module}}</span>
+      </span>
+      <span *ngIf="subModule!=''">
+      <i class="icon-Flecha-siguiente"></i>
+      <span class="link-active">{{subModule}}</span>
+      </span>
+    </div>
+  </div>
+</div>

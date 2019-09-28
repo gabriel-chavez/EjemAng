@@ -1,0 +1,50 @@
+<div class="col-no-padding col-xs-12 col-sm-12 col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
+  <app-header-login>
+  </app-header-login>
+  <section class="contenido">
+    <div class="row">
+      <div class="col-xs-12 col-sm-9 col-sm-push-3 col-md-6 col-md-push-3">
+        <div class="container">
+
+          <router-outlet></router-outlet>
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-3 col-sm-pull-9 col-md-3 col-md-pull-6">
+        <app-slider-login></app-slider-login>
+        <div class="summary-card">
+          <header>
+            <i class="icon-info icono-naranjo"></i>
+            <span class="title">Importante</span>
+          </header>
+          <section>
+            <p>Conozca las ventajas del nuevo CredinetWeb.
+            </p>
+          </section>
+        </div>
+        <div>
+          <img class="img-helpdesk" src="assets/img/cw/soporte-principal.jpg" alt="">
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-3">
+        <div class="col-sm-6 col-md-12">
+          <div class="summary-card">
+            <app-security-certificate></app-security-certificate>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-12">
+          <div class="summary-card summary-card-promo">
+            <header>
+              <i class="icon icon-Seguridad icono-naranjo"></i>
+              <span class="title">Cambiar tu clave</span>
+            </header>
+            <section>
+              <p> Para cambiar tu clave ingresa <a class="link" routerLink="/login/changePassword">aquí</a>.
+              </p>
+            </section>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+<app-footer [template]="'login'"></app-footer>

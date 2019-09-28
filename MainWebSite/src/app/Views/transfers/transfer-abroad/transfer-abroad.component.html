@@ -1,0 +1,46 @@
+<p class="description-page">
+  Seleccione la cuenta origen, ingrese el monto, en caso de haber negociado la comisión previamente con Mesa de Dinero
+  seleccione
+  Comisión Preferencial e inserte el Número de Ticket, a continuación complete el formulario
+</p>
+<app-company-name></app-company-name>
+<p class="description-page">
+  <b>
+    El horario límite para envío de Transferencias al Exterior es hasta hrs. 13:00 de Lunes a Viernes, caso contrario
+    la solicitud será rechazada. Las operaciones deben ser autorizadas el mismo día que fueron preparadas.
+  </b>
+</p>
+<p class="tituloGeneral h_no-MarginBottom">
+  CUENTA ORIGEN
+</p>
+<app-source-accounts [disabled]="isDisabledForm" [accountRequest]="sourceAccountRequest" (onChange)="handleSourceAccountChanged($event)"
+  #source></app-source-accounts>
+<app-currency-amount-abroad #currencyAndAmountAbroad [currencies]="parameters.currencies"
+  (onChangeCurrencyDestinationIsDollar)="handleCurrencyDestinationIsDollar($event)" #formCurrencyAmount></app-currency-amount-abroad>
+<app-ticket [disabled]="isDisabledForm" [sourceCurrency]="source.accountSelected.currency" [destinationCurrency]="currencyAndAmountAbroad.data.currencyTransfer"
+  [amount]="currencyAndAmountAbroad.data.amountTransfer" [amountLimitTicket]="maxAmountTransfer" (onChange)="handleGetTicket($event)"
+  #formTicket></app-ticket>
+<app-ticket-comission [charges]="parameters.chargesType" [amount]="currencyAndAmountAbroad.data.amountTransfer"
+  [amountLimitTicket]="maxAmountTransfer" (onGetTicket)="getTicketCommission($event)" (onChangeCharge)="handleChangeCharge($event)"
+  #formTicketCommission></app-ticket-comission>
+<app-ticket-other-currency [amount]="currencyAndAmountAbroad.data.amountTransfer" [isRequiredTicket]="isRequiredTicketOtherCurrency"
+  (onChange)="handleChangeTicketOtherCurrency($event)" #formTicketOtherCurrency></app-ticket-other-currency>
+<app-company-limits></app-company-limits>
+<button type="button" class="btn btn-primary" (click)="
+validateForms(
+  source.handleValidate()
+, formTicket.handleValidate()
+, formCurrencyAmount.handleValidate()
+, formTicketCommission.handleValidate()
+, formTicketOtherCurrency.handleValidate())
+&& handleOpenForm(formCurrencyAmount.data)">
+  Formulario
+</button>
+<app-modal [visible]="excedeedAmount" (onClose)="excedeedAmount=false" [size]="'md'">
+  <div class="app-modal-header">Saldo insuficiente </div>
+  <div class="app-modal-body">
+    Estimado cliente, su operación será rechazada si no cuenta con fondos suficientes al momento
+    de realizar la autorización.
+  </div>
+  <div class="app-modal-footer"><button type="button" class="btn btn-primary" (click)="excedeedAmount=false;handleOpenForm(formCurrencyAmount.data);">Aceptar</button></div>
+</app-modal>

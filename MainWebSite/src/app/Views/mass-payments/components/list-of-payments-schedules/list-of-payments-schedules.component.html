@@ -1,0 +1,19 @@
+<p class="label label-info">Insertar fila en:</p> 
+<form class="form-horizontal" name="listOfPaymentsForm" novalidate #listOfPaymentsForm="ngForm">
+  <fieldset [disabled]="disabled">
+    <div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-4">
+        <select class="form-control" #List>
+      <option value="HAB">Pago de Haberes</option>
+      <option value="PROV">Pago Proveedores</option>
+      <option value="EFE">Pago Efectivo</option>
+      <option value="ACH">Abono en otro banco ACH</option>
+    </select>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-2 col-lg-2">
+        <button type="submit" class="btn btn-primary btn-block btn-md" 
+        (click)="handleChanges(List.value)" [disabled]="isDisableAdd">
+            Insertar 
+          </button>
+        </div>
+  </fieldset>
+</form>

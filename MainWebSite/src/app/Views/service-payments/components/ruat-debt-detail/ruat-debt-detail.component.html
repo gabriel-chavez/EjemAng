@@ -1,0 +1,90 @@
+<div *ngIf="vehicleDebt">
+  <h4>DATOS DEL VEHÍCULO</h4>
+  <div class="table-responsive">
+    <table class="table table-condensed table-bordered table-striped table-hover">
+      <thead class="thead-light">
+        <tr>
+          <th>Clase</th>
+          <th>Marca</th>
+          <th>Modelo</th>
+          <th>Color</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{{vehicleDebt.vehicle.class}}</td>
+          <td>{{vehicleDebt.vehicle.brand}}</td>
+          <td>{{vehicleDebt.vehicle.model}}</td>
+          <td>{{vehicleDebt.vehicle.color}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <h4>GESTIONES ADEUDADAS</h4>
+  Seleccione la(s) gestion(es) a pagar
+  <div class="table-responsive">
+    <table class="table table-condensed table-bordered table-striped table-hover">
+      <thead class="thead-light">
+        <tr>
+          <th style="text-align:center">Gestión</th>
+          <th style="text-align:center">Importe Bs.</th>
+          <th style="text-align:center">Observaciones</th>
+          <th style="text-align:center">Pagar</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let debtDetail of vehicleDebt.debtDetail">
+          <td>{{debtDetail.year}}</td>
+          <td>{{debtDetail.amount}}</td>
+          <td>{{debtDetail.comment}}</td>
+          <td style="text-align:center">
+            <input [(ngModel)]="debtDetail.selected" type="checkbox" class="form-check-input" (change)="handleVehicleDebtChecked(debtDetail)" [disabled]="disabled || !debtDetail.isPaymentPossible">
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div *ngIf="propertyDebt">
+  <h4>DATOS DEL INMUEBLE</h4>
+  <form class="form-horizontal">
+    <div class="form-group">
+      <label class="col-xs-12 col-sm-3 control-label">Tipo de vivienda: </label>
+      <label class="col-xs-12 col-sm-6 control-label">{{propertyDebt.property.type}}</label>
+    </div>
+    <div class="form-group">
+      <label class="col-xs-12 col-sm-3 control-label">Dirección: </label>
+      <label class="col-xs-12 col-sm-6 control-label">{{propertyDebt.property.address}}</label>
+    </div>
+    <div class="form-group">
+      <label class="col-xs-12 col-sm-3 control-label">Código catastral: </label>
+      <label class="col-xs-12 col-sm-6 control-label">{{propertyDebt.property.cadastralCode}}</label>
+    </div>
+  </form>
+  <h4>GESTIONES ADEUDADAS</h4>
+  Seleccione la(s) gestion(es) a pagar
+  <div class="table-responsive">
+    <table class="table table-condensed table-bordered table-striped table-hover">
+      <thead class="thead-light">
+        <tr>
+          <th style="text-align:center">Gestión</th>
+          <th style="text-align:center">Concepto deuda</th>
+          <th style="text-align:center">Importe Bs.</th>
+          <th style="text-align:center">Observaciones</th>
+          <th style="text-align:center">Pagar</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let debtDetail of propertyDebt.debtDetail">
+          <td>{{debtDetail.year}}</td>
+          <td>{{debtDetail.concept}}</td>
+          <td>{{debtDetail.amount}}</td>
+          <td>{{debtDetail.comment}}</td>
+          <td style="text-align:center">
+            <input [(ngModel)]="debtDetail.selected" type="checkbox" class="form-check-input" (change)="handlePropertyDebtChecked(debtDetail)" [disabled]="disabled || !debtDetail.isPaymentPossible">
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

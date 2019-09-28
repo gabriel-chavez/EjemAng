@@ -1,0 +1,32 @@
+<form class="form-horizontal" name="formTicket" #formTicket="ngForm" novalidate autocomplete="off">
+  <fieldset [disabled]="disabled">
+    <div class="form-group">
+      <div class="col-sm-3 no-padding">
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" name="TicketComission" class="form-check-input" [(ngModel)]="isTicketCommission" (change)="handleIsticketCommission()"
+              [disabled]="!isValid()||ticketRequired">Comisión Preferencial
+          </label>
+        </div>
+      </div>
+      <div class="col-sm-3" *ngIf="isTicketCommission">
+        <select class="form-control" [(ngModel)]="request.commissionCharge" (change)="handleChangeCharge()" name="commissionCharge" [disabled]="isGenerate" required
+          #commissionCharge="ngModel">
+          <option value='' disabled>Seleccione Cargo Comisión</option>
+          <option *ngFor="let item of charges" value="{{item.code}}">{{item.description}}</option>
+        </select>
+        <app-show-errors [control]="commissionCharge"></app-show-errors>
+      </div>
+      <div class="col-sm-3" *ngIf="isTicketCommission">
+        <input type="string" name="ticket" [(ngModel)]="result.ticket" class="form-control" [disabled]="isGenerate" (ngModelChange)="handleTextTicketChange()" required #ticketCommission="ngModel">
+        <app-show-errors [control]="ticketCommission"></app-show-errors>
+      </div>
+      <div class="col-sm-3" *ngIf="isTicketCommission">
+        <button class="btn btn-primary" (click)="handleGetTicketCommission()" *ngIf="!isGenerate">Obtener ticket</button>
+      </div>
+      <div class="col-sm-3" *ngIf="isTicketCommission">
+        <button class="btn btn-secondary" *ngIf="isGenerate" (click)="handleReset()">Modificar ticket</button>
+      </div>
+    </div>
+  </fieldset>
+</form>

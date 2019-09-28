@@ -1,0 +1,72 @@
+<td *ngIf="typeOfLoad === 'MAN'">
+  <ng-container>
+    <div class="checkbox">
+      <label>
+        <input type="checkbox" name="isChecked" (click)="handleChecked(detail.isChecked, typeOfLoad)" [(ngModel)]="detail.isChecked"
+          [disabled]="isChange">
+        <span class="cr">
+          <i class="cr-icon icon-correcto"></i>
+        </span>
+      </label>
+    </div>
+  </ng-container>
+</td>
+<td>
+  <ng-container>
+    {{detail.code}}
+  </ng-container>
+</td>
+<td>
+  <ng-container>
+    {{detail.line}}
+  </ng-container>
+</td>
+<td class="td-edit">
+    <form class="needs-validation" name="amountForm" #amountForm="ngForm" autocomplete="off">
+  <ng-container *ngIf="detail.isEdit">
+    <input type="text" class="form-control input-table" name="amount" [(ngModel)]="detail.amount" #amount="ngModel"
+      required mask-money appMaxLength={{maximumDigitsAllowed}} appValidate="majorZero">
+    <app-show-errors [control]="amount"></app-show-errors>
+  </ng-container>
+  <ng-container *ngIf="!detail.isEdit">
+    {{detail.amount | number}}
+  </ng-container>
+  </form>
+</td>
+<td>
+  <ng-container>
+    {{detail.accountNumber}}
+  </ng-container>
+</td>
+<td>
+  <ng-container>
+    {{detail.titularName}}
+  </ng-container>
+</td>
+<td>
+  <ng-container>
+    {{descriptionBank}}
+  </ng-container>
+</td>
+<td>
+  <ng-container>
+    {{descriptionCity}}
+  </ng-container>
+</td>
+<td>
+  <ng-container>
+    {{detail.firstDetail}}
+  </ng-container>
+</td>
+<td>
+  <ng-container>
+    {{detail.mail}}
+  </ng-container>
+</td>
+<td class="td-edit">
+  <button *ngIf="detail.isEdit" type="button" class="btn btn-success" (click)="handleValidateForm()">aceptar</button>
+  <button *ngIf="!detail.isEdit" type="button" class="btn btn-primary" (click)="handleEdit()">editar</button>
+</td>
+<td class="td-edit">
+  <button *ngIf="detail.isEdit" type="button" class="btn btn-danger" (click)="handleCancel(detail.amount)">cancelar</button>
+</td>

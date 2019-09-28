@@ -1,0 +1,118 @@
+<app-company-name></app-company-name>
+<p class="description-page">
+    Este formulario le permite preparar operaciones de: Pago de Haberes, Pago a Proveedores Abono en Cuenta, Pago a Proveedores
+    Efectivo, Pago a Proveedores Abono en otro Banco. Seleccione la cuenta de origen, la moneda de la operacion, y agregue
+    las lista de cuentas de destino.
+</p>
+<app-source-accounts [accountRequest]="sourceAccountDto" [disabled]="isDisabledAfterSave" (onChange)="handleSourceAccountChanged($event)"
+    #sourceAccount></app-source-accounts>
+<app-currency-and-amount [amount]="multiplePaymentData.amount" [disabled]="isDisabledAfterSave" [disabledAfterSave]="isDisabledAfterSave" [isAmountDisabled]="true"
+    [isFlagVisible]="true" (onChange)="handleCurrencyAndAmountChanged($event)" #currencyAndAmount></app-currency-and-amount>
+<app-description-payment (onChange)="handleDescription($event)" [disabled]="isDisabledAfterSave" #description>
+</app-description-payment>
+<app-debit-for-operation (onChange)="handleDebitForOperation($event)" [disabled]="isDisabledAfterSave">
+</app-debit-for-operation>
+<app-date-future [disabled]="isDisabledAfterSave" (onChange)="handleDateFuture($event)" #futureDate>
+</app-date-future>
+<app-ticket [disabled]="isDisabledAfterSave" [isFutureDate]="multiplePaymentData.isScheduledProcess" [sourceCurrency]="sourceAccount.accountSelected.currency"
+    [destinationCurrency]="currencyAndAmount.data.currency" [amount]="currencyAndAmount.data.amount" (onChange)="handleObtainedTicket($event)"
+    #ticket></app-ticket>
+<app-emails-input (onChange)="handleEmails($event)" [disabled]="isDisabledAfterSave">
+</app-emails-input>
+<ng-container *ngIf="isVisibleButtonNew">
+    <fieldset *ngIf="!isPaymentSuccessful">
+        <div align="center">
+            <button class="btn btn-info" (click)="handleButtonFile()">
+                <img src="assets/img/cw/importararchivotxt.gif">
+            </button>
+            <button class="btn btn-info">
+                <img src="assets/img/cw/cargarplanillaanterior.gif" (click)="handlePreviousForms()">
+            </button>
+            <button class="btn btn-info" (click)="handleButtons()">
+                <img src="assets/img/cw/crearplanilla.gif">
+            </button>
+        </div>
+    </fieldset>
+</ng-container>
+<br>
+<app-load-previous-form *ngIf="isVisible" [previousForm]="previousForm" (action)="handleSendId($event)">
+</app-load-previous-form>
+<app-import-files *ngIf="isVisibleComponentFile" (action)="handleFile($event)">
+</app-import-files>
+<app-list-of-payments-schedules [disabled]="isDisabledAfterSave" *ngIf="isVisibleButton" (onChange)="handleList($event)">
+</app-list-of-payments-schedules>
+<ng-container *ngIf="paymentTypeHAB === 'HAB'">
+    <app-form-payments-of-assets [disabled]="isDisabledAfterSave" [detail]="detailSalaries" [requestId]="requestId" *ngIf="!isValidHAB"
+        (action)="handleActionRowAssetPayment($event)" (actionData)="dataHandlerAssetPayment($event)">
+    </app-form-payments-of-assets>
+    <br>
+</ng-container>
+<ng-container *ngIf="paymentTypePROV === 'PROV'">
+    <app-form-providers-payments [disabled]="isDisabledAfterSave" [detail]="detailProviders" [requestId]="requestId" *ngIf="!isValidPROV"
+        (action)="handleActionRowProvidersPayment($event)" (actionData)="dataHandlerProviderPayment($event)">
+    </app-form-providers-payments>
+    <br>
+</ng-container>
+<ng-container *ngIf="paymentTypeEFE === 'EFE'">
+    <app-form-cash-payments [disabled]="isDisabledAfterSave" [detail]="detailCash" [requestId]="requestId" *ngIf="!isValidEFE"
+        (action)="handleActionRowCashPayment($event)" (actionData)="dataHandlerCashPayment($event)">
+    </app-form-cash-payments>
+    <br>
+</ng-container>
+<ng-container *ngIf="paymentTypeACH === 'ACH'">
+    <app-form-achpayments [disabled]="isDisabledAfterSave" [detail]="detailAch" [requestId]="requestId" *ngIf="!isValidACH" (action)="handleActionRowACHPayment($event)"
+        (actionData)="dataHandlerACHPayment($event)">
+    </app-form-achpayments>
+    <br>
+</ng-container>
+
+<app-company-limits [isVisible]="verifyAmount"></app-company-limits>
+<app-approvers-and-controllers [isVisible]="verifyAmount" [approversRequest]="approversRequest" [currency]="currencyAndAmount.data.currency"
+    [amounts]="getAmounts()" [disabled]="isDisabledAfterSave" (onChange)="handleApproversOrControllersChanged($event)"
+    #approversAndControllers></app-approvers-and-controllers>
+
+<div *ngIf="isPaymentSuccessful">
+    <p>
+        Su operación ha sido enviada satisfactoriamente a Pagos Masivos Pendientes desde donde el(los) usuario(s) que cuente(n) con
+        los permisos, podrán controllar y/o autorizar la transacción. Una vez aprobada su operación, es muy importante que
+        pueda verificar en la pantalla de “Seguimiento” hasta comprobar que su operación se procesó correctamente
+        <strong>N° Lote {{processBatchNumber}}.</strong> El tiempo de proceso será máximo 15 minutos. Las lineas de Pago a Proveedores
+        en Efectivo se realizan en batch(lote) y estaran disponibles para su cobro al dia siguiente habil.
+    </p>
+</div>
+<br>
+<div class="form-group row" *ngIf="verifyAmount">
+    <button class="col-xs-12 col-sm-3 col-sm-offset-9  btn btn-primary" (click)="handleValidate(currencyAndAmount.handleValidate(), futureDate.handleValidate(),
+    ticket.handleValidate(), approversAndControllers.handleValidate(), approversAndControllers.validateApproversLimit(),sourceAccount.handleValidate())"
+        *ngIf="!isPaymentSuccessful">
+        <span class="icon-Selected icono-naranjo"> </span>Aceptar
+    </button>
+</div>
+<div class="form-group row">
+    <button class="col-xs-12 col-sm-3 col-sm-offset-9  btn btn-primary" [routerLink]="['/massPayments/multiplePayments']">
+        <span class="icon-calendario icono-naranjo"> </span>Nuevo
+    </button>
+    <br>
+</div>
+
+<app-token-modal [isVisible]="isVisibleToken" (onSubmit)="handleTokenSubmit($event)" (onClose)="isVisibleToken=false"></app-token-modal>
+<app-modal [visible]="isRemoveModalVisible" (onClose)="isRemoveModalVisible=false" [size]="'md'">
+    <div class="app-modal-header"> Operación Realizada </div>
+    <div class="app-modal-body">
+        Su operación ha sido enviada satisfactoriamente a Pagos Masivos Pendientes desde donde el(los) usuario(s) que cuente(n) con
+        los permisos, podrán controllar y/o autorizar la transacción. Una vez aprobada su operación, es muy importante que
+        pueda verificar en la pantalla de “Seguimiento” hasta comprobar que su operación se procesó correctamente
+        <strong>N° Lote {{processBatchNumber}}.</strong> El tiempo de proceso será máximo 15 minutos. Las lineas de Pago a Proveedores
+        en Efectivo se realizan en batch(lote) y estaran disponibles para su cobro al dia siguiente habil.
+    </div>
+    <div class="app-modal-footer">
+        <button type="button" class="btn btn-primary" (click)="isRemoveModalVisible=false">Aceptar</button>
+    </div>
+</app-modal>
+<app-modal [visible]="excedeedAmount" (onClose)="excedeedAmount=false" [size]="'md'">
+    <div class="app-modal-header">Saldo insuficiente</div>
+    <div class="app-modal-body">Estimado cliente, su operación será rechazada si no cuenta con fondos suficientes al momento de realizar la autorización.</div>
+    <div class="app-modal-footer">
+        <button type="button" class="btn btn-primary" (click)="excedeedAmount=false; showToken();">Aceptar</button>
+    </div>
+</app-modal>

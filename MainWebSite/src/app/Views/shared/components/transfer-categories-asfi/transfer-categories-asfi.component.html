@@ -1,0 +1,56 @@
+<form class="form-horizontal" name="formCategoryAsfi" #formCategoryAsfi="ngForm" novalidate>
+  <fieldset [disabled]="disabled">
+    <div class="form-group">
+      <label class="col-sm-2 control-label">Monto a Transferir:</label>
+      <div class="col-sm-3">
+        <input type="text" name="amountTransfer" [ngModel]="categoryAsfiData.amountTransfer" class="form-control"
+          required #amountTransfer="ngModel" readonly="readonly">
+        <app-show-errors [control]="amountTransfer"></app-show-errors>
+      </div>
+      <div class="col-sm-3">
+        <app-currency-flag [flag]="categoryAsfiData.currency" [visible]="true"></app-currency-flag>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-2 control-label">Categoría:</label>
+      <div class="col-sm-4">
+        <select class="form-control" [(ngModel)]="parametersASFISelected" (change)="handleChangeCategory()" name="categoryASFI"
+          required #categoryASFI="ngModel">
+          <option [ngValue]=null disabled>Seleccione una opción</option>
+          <option *ngFor="let item of parametersASFI" [ngValue]="item">{{item.description}}</option>
+        </select>
+        <app-show-errors [control]="categoryASFI"></app-show-errors>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-10 col-sm-offset-2 control-label message-invalid">
+        El cliente declara conocer que conforme al Anexo 4.29 Capítulo III Título II del Libro 5° de la Recopilación de
+        Normas para
+        Bancos y Entidades Financieras emitido por la Autoridad de Supervisión del Sistema Financiero ASFI, se
+        clasifica
+        como “Remesa familiar” a los giros que cumpliendo las características respectivas, no sobrepasen el monto de
+        $us
+        2500. bajo este entendido el cliente acepta que los montos que superen el límite establecido, serán catalogados
+        bajo
+        la categoría “otros”.
+      </label>
+    </div>
+    <div class="form-group">
+      <div class="col-sm-10 col-sm-offset-2 control-label message-invalid">
+        <button type="button" class="btn btn-link" (click)="handleShowGlosary()"> Ver Glosario de Términos</button>
+      </div>
+    </div>
+  </fieldset>
+</form>
+
+<app-modal [visible]="isVisibleGloss" (onClose)="isVisibleGloss=false" [size]="'lg'">
+  <div class="app-modal-header">
+    Comunicado Transferencia al Exterior
+  </div>
+  <div class="app-modal-body">
+    <app-glossary-terms></app-glossary-terms>
+  </div>
+  <div class="app-modal-footer">
+    <button type="button" class="btn btn-primary" (click)="isVisibleGloss=false">Cerrar</button>
+  </div>
+</app-modal>

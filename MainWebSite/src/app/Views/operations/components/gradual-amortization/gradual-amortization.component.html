@@ -1,0 +1,20 @@
+ <!-- Forma de amortización gradual o progresiva: -->
+<div class="form-inline">
+  <div class="row">
+    <div class="col-xs-12 col-md-1">
+      <label>Al :</label>
+    </div>
+    <div class="form-inline col-xs-12 col-md-3">
+      <my-date-picker name="Al" [options]="options" [(ngModel)]="date" locale="es" required #mydateAl (ngModelChange)="handledate($event)"></my-date-picker>
+      <app-show-errors [control]="mydateAl"></app-show-errors>
+    </div>
+    <div class="col-xs-12 col-md-1">
+      <label>US$ :</label>
+    </div>
+    <div class="form-inline col-xs-12 col-md-2">
+      <input type="text" class="form-control" name="Us" [(ngModel)]="dates.description" (ngModelChange)="handleBallotOfWarrantyData()"
+        #txtUs="ngModel" required mask-money maxlength="50">
+      <app-show-errors [control]="txtUs"></app-show-errors>
+    </div>
+  </div><br>
+</div>

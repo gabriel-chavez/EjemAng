@@ -1,0 +1,18 @@
+<form class="form-horizontal" name="formTicket" #formTicket="ngForm" novalidate autocomplete="off">
+  <fieldset [disabled]="disabled">
+    <div class="form-group">
+      <div class="col-sm-3 no-padding">
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" name="TicketOtherCurrency" class="form-check-input" [(ngModel)]="isTicketOtherCurrency" (change)="handleIsTicketOtherCurrency()"
+              [disabled]="true">Tipo de Cambio preferencial otra Moneda
+          </label>
+        </div>
+      </div>
+      <div class="col-sm-3" *ngIf="isTicketOtherCurrency">
+        <input type="text" name="ticket" [(ngModel)]="ticket" class="form-control" (ngModelChange)="handleChangeTicket()" required #ticketOtherCurrency="ngModel">
+        <app-show-errors [control]="ticketOtherCurrency"></app-show-errors>
+      </div>
+    </div>
+  </fieldset>
+</form>

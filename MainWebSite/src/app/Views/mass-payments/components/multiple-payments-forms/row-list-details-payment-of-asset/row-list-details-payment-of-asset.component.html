@@ -1,0 +1,159 @@
+<td>
+    <ng-container>
+        {{detail.line | number}}
+    </ng-container>
+</td>
+<td class="td-edit">
+    <form class="needs-validation" name="accountNumberForm" #accountNumberForm="ngForm" autocomplete="off">
+        <ng-container *ngIf="detail.isEdit">
+            <input type="text" class="form-control input-table" name="accountNumber" [(ngModel)]="detail.accountNumber"
+                appValidate="integer" appOnlyType="integer" required only-number minlength="13" appMaxLength="14"
+                #accountNumber="ngModel">
+            <app-show-errors [control]="accountNumber"></app-show-errors>
+        </ng-container>
+        <ng-container *ngIf="!detail.isEdit">
+            {{detail.accountNumber}}
+        </ng-container>
+    </form>
+</td>
+<td class="td-edit">
+    <form class="needs-validation" name="glossPaymentForm" #glossPaymentForm="ngForm" autocomplete="off">
+        <ng-container *ngIf="detail.isEdit">
+            <input type="text" class="form-control input-table" name="glossPayment" [(ngModel)]="detail.glossPayment"
+                required appValidate="alphanumericBasicSymbols" appOnlyType="alphanumericBasicSymbols" maxlength="40"
+                #glossPayment="ngModel">
+            <app-show-errors [control]="glossPayment"></app-show-errors>
+        </ng-container>
+        <ng-container *ngIf="!detail.isEdit">
+            CW-{{detail.glossPayment | uppercase}}
+        </ng-container>
+    </form>
+</td>
+<td class="td-edit">
+    <form class="needs-validation" name="amountForm" #amountForm="ngForm" autocomplete="off">
+        <ng-container *ngIf="detail.isEdit">
+            <input type="text" class="form-control input-table" name="amount" [(ngModel)]="detail.amount" #amount="ngModel"
+                required mask-money appMaxLength={{maximumDigitsAllowed}} appValidate="majorZero">
+            <app-show-errors [control]="amount"></app-show-errors>
+        </ng-container>
+        <ng-container *ngIf="!detail.isEdit">
+            {{detail.amount | number}}
+        </ng-container>
+    </form>
+</td>
+<td class="td-edit">
+    <ng-container *ngIf="!detail.isEdit">
+        {{descriptionDocType}}
+    </ng-container>
+    <ng-container *ngIf="detail.isEdit">
+        <select class="form-control" style="width:auto;" name="documentType" [(ngModel)]="detail.documentType">
+            <option *ngFor="let documentType of constants.documentTypes" [ngValue]="documentType">
+                {{documentType.name}}
+            </option>
+        </select>
+    </ng-container>
+</td>
+<td class="td-edit">
+    <form class="needs-validation" name="documentNumberForm" #documentNumberForm="ngForm" autocomplete="off">
+        <ng-container *ngIf="detail.isEdit">
+            <input type="text" class="form-control input-table" name="documentNumber" [(ngModel)]="detail.documentNumber"
+                #documentNumber="ngModel" appValidate="integer" appOnlyType="integer" required only-number appMaxLength="12">
+            <app-show-errors [control]="documentNumber"></app-show-errors>
+        </ng-container>
+        <ng-container *ngIf="!detail.isEdit">
+            {{detail.documentNumber}}
+        </ng-container>
+    </form>
+</td>
+<td class="td-edit">
+    <ng-container *ngIf="!detail.isEdit">
+        {{descriptionDocExt}}
+    </ng-container>
+    <ng-container *ngIf="detail.isEdit">
+        <select class="form-control" style="width:auto;" name="extension" [(ngModel)]="detail.documentExtension" *ngIf="detail.documentType.name == 'C.I.'">
+            <option *ngFor="let extension of constants.documentExtensions" [ngValue]="extension">
+                {{extension.name}}
+            </option>
+        </select>
+    </ng-container>
+    <form class="needs-validation" name="documentExtensionForm" #documentExtensionForm="ngForm" autocomplete="off">
+        <ng-container *ngIf="detail.isEdit && detail.documentType.name == 'PASAPORTE'">
+            <input type="text" class="form-control input-table" name="documentExtension" [(ngModel)]="documentExtensionPassport"
+                #documentExtension="ngModel" required maxlength="3">
+            <app-show-errors [control]="documentExtension"></app-show-errors>
+        </ng-container>
+    </form>
+</td>
+<td class="td-edit">
+    <ng-container *ngIf="!detail.isEdit">
+        {{detail.titularName}}
+    </ng-container>
+</td>
+<td class="td-edit">
+    <form class="needs-validation" name="firstDetailForm" #firstDetailForm="ngForm" autocomplete="off">
+        <ng-container *ngIf="detail.isEdit">
+            <input type="text" class="form-control input-table" name="firstDetail" [(ngModel)]="detail.firstDetail"
+                #firstDetail="ngModel" appValidate="alphanumericBasicSymbols" appOnlyType="alphanumericBasicSymbols">
+            <app-show-errors [control]="firstDetail"></app-show-errors>
+        </ng-container>
+        <ng-container *ngIf="!detail.isEdit">
+            {{detail.firstDetail}}
+        </ng-container>
+    </form>
+</td>
+<td class="td-edit">
+    <form class="needs-validation" name="secondDetailForm" #secondDetailForm="ngForm" autocomplete="off">
+        <ng-container *ngIf="detail.isEdit">
+            <input type="text" class="form-control input-table" name="secondDetail" [(ngModel)]="detail.secondDetail"
+                #secondDetail="ngModel" appValidate="alphanumericBasicSymbols" appOnlyType="alphanumericBasicSymbols">
+            <app-show-errors [control]="secondDetail"></app-show-errors>
+        </ng-container>
+        <ng-container *ngIf="!detail.isEdit">
+            {{detail.secondDetail}}
+        </ng-container>
+    </form>
+</td>
+<td class="td-edit">
+    <form class="needs-validation" name="mailForm" #mailForm="ngForm" autocomplete="off">
+        <ng-container *ngIf="detail.isEdit">
+            <input type="email" class="form-control input-table" name="mail" [(ngModel)]="detail.mail" #mail="ngModel"
+                appValidate="email" appMaxLength="30">
+            <app-show-errors [control]="mail"></app-show-errors>
+        </ng-container>
+        <ng-container *ngIf="!detail.isEdit">
+            {{detail.mail}}
+        </ng-container>
+    </form>
+</td>
+<td class="td-edit">
+    <form class="needs-validation" name="telephoneNumberForm" #telephoneNumberForm="ngForm" autocomplete="off">
+        <ng-container *ngIf="detail.isEdit">
+            <input type="email" class="form-control input-table" name="telephoneNumber" [(ngModel)]="detail.telephoneNumber"
+                #telephoneNumber="ngModel" appValidate="integer" appOnlyType="integer" only-number maxlength="8">
+            <app-show-errors [control]="telephoneNumber"></app-show-errors>
+        </ng-container>
+        <ng-container *ngIf="!detail.isEdit">
+            {{detail.telephoneNumber}}
+        </ng-container>
+    </form>
+</td>
+<td class="td-edit">
+    <button *ngIf="detail.isEdit" type="button" class="btn btn-success" (click)="handleValidateForm(detail.documentType, detail.documentExtension, documentExtensionPassport)">aceptar</button>
+    <button *ngIf="!detail.isEdit" type="button" class="btn btn-primary" (click)="handleEdit()">editar</button>
+</td>
+<td class="td-edit">
+    <button *ngIf="detail.isEdit" type="button" class="btn btn-danger" (click)="handleCancel()">cancelar</button>
+    <button *ngIf="!detail.isEdit" type="button" class="btn btn-danger" (click)="isUpdateModalVisible=true">eliminar</button>
+</td>
+<app-modal [visible]="isUpdateModalVisible" (onClose)="isUpdateModalVisible=false" [size]="'sm'">
+    <div class="app-modal-header">
+        <strong>Eliminar Registro</strong>
+    </div>
+    <div class="app-modal-body">
+        ¿Está seguro que desea eliminar el pago de la planilla?
+    </div>
+    <div class="app-modal-footer">
+        <button type="button" class="btn btn-primary" (click)="handleDelete()">Eliminar</button>
+        <button type="button" class="btn btn-default" (click)="isUpdateModalVisible=false">Cancelar</button>
+    </div>
+</app-modal>

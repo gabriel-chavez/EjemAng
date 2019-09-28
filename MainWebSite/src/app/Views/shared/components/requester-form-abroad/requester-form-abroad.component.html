@@ -1,0 +1,91 @@
+<form class="form-horizontal" name="formRequester" #formRequester="ngForm" novalidate autocomplete="off">
+  <fieldset [disabled]="disabled">
+    <div class="form-group">
+      <label class="col-sm-2 control-label">Ordenante:</label>
+      <div class="col-sm-6">
+        <label class="control-label">{{currentUser.company_name}} -- C.I. </label>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-2 control-label">Dirección:</label>
+      <div class="col-sm-3">
+        <input type="text" name="address" [(ngModel)]="requester.address" class="form-control" required #address="ngModel" appOnlyAlphanumericNotSymbols
+        [maxLength]="50">
+        <app-show-errors [control]="address"></app-show-errors>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-2 control-label">Teléfono:</label>
+      <div class="col-sm-3">
+        <input type="tel" name="phone" [(ngModel)]="requester.phone" class="form-control" required #phone="ngModel" appOnlyInteger [maxLength]="25">
+        <app-show-errors [control]="phone"></app-show-errors>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-2 control-label">Cuenta Debito:</label>
+      <div class="col-sm-3">
+        <input type="text" name="numberAccount" [ngModel]="requester.numberAccount" class="form-control" required #numberAccount="ngModel"
+          disabled="disabled">
+        <app-show-errors [control]="numberAccount"></app-show-errors>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-2 control-label">Importe Destino:</label>
+      <div class="col-sm-3">
+        <input type="text" name="destinationAmount" [ngModel]="requester.destinationAmount" class="form-control" required #destinationAmount="ngModel"
+          appOnlyNumber disabled="disabled" mask-money>
+        <app-show-errors [control]="destinationAmount"></app-show-errors>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-2 control-label">Ticket Dólar:</label>
+      <div class="col-sm-3">
+        <input type="text" name="ticket" [ngModel]="requester.ticket" class="form-control" disabled="disabled">
+      </div>
+      <label class="col-sm-2 control-label">TC={{requester.preferentialExchange}}</label>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-2 control-label">Ticket Comisión:</label>
+      <div class="col-sm-3">
+        <input type="text" name="ticketCommission" [(ngModel)]="requester.ticketCommission" disabled="disabled" class="form-control">
+      </div>
+      <label class="col-sm-2 control-label">= {{requester.commissionAmount}}</label>
+      <label class="col-sm-2 control-label">Moneda de Destino:</label>
+      <div class="col-sm-3">
+        <input type="text" name="currency" [(ngModel)]="requester.currency" class="form-control" disabled="disabled" required #currency="ngModel">
+        <app-show-errors [control]="currency"></app-show-errors>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-2 control-label">Detalle de Cargos:</label>
+      <div class="col-sm-3">
+        <select class="form-control" [(ngModel)]="requester.charge" name="commissionCharge" [disabled]="requester.isTicketCommission"
+          required #commissionCharge="ngModel">
+          <option value='' disabled>Seleccione Cargo Comisión</option>
+          <option *ngFor="let item of charges" value="{{item.code}}">{{item.description}}</option>
+        </select>
+        <app-show-errors [control]="commissionCharge"></app-show-errors>
+      </div>
+      <label class="col-sm-2 control-label"><span *ngIf="requester.charge==='OUR'">={{requester.commissionOur}}</span></label>
+      <label class="col-sm-2 control-label">Ticket Otra Moneda:</label>
+      <div class="col-sm-3">
+        <input type="text" name="requester" [ngModel]="requester.ticketOtherCurrency" class="form-control" disabled="disabled">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-2 control-label">Correo Electrónico:</label>
+      <div class="col-sm-3">
+        <input type="email" name="email" [(ngModel)]="requester.email" class="form-control" required #email="ngModel" appValidate="email" [maxLength]="60">
+        <app-show-errors [control]="email"></app-show-errors>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-2 control-label">Motivo Transferencia:</label>
+      <div class="col-sm-9">
+        <textarea class="form-control" rows="3" name="transferReason" [(ngModel)]="requester.transferReason" class="form-control"
+          required #transferReason="ngModel" appOnlyAlphanumericNotSymbols [maxLength]="400"></textarea>
+        <app-show-errors [control]="transferReason"></app-show-errors>
+      </div>
+    </div>
+  </fieldset>
+</form>

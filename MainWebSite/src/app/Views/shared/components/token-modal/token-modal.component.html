@@ -1,0 +1,11 @@
+<app-modal [(visible)]="isVisible" (onClose)="handleOnClose()" [size]="'md'">
+  <div class="app-modal-header">{{validatePasswordInsteadToken ? 'Token': 'Clave de internet'}}</div>
+  <div class="app-modal-body">
+    <div class="row">
+      <app-token *ngIf="validatePasswordInsteadToken" [isUserToken]="isUserToken" [disabled]="disabled" (onSubmit)="handleTokenValidationSubmit($event)" (onClosed)="handleClosed($event)"></app-token>
+      <app-password-validation *ngIf="!validatePasswordInsteadToken" (onSubmit)="handlePasswordValidationSubmit($event)" (onClose)="handleClosed($event)"></app-password-validation>
+    </div>
+  </div>
+  <div class="app-modal-footer">
+  </div>
+</app-modal>

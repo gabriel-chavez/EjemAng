@@ -1,0 +1,65 @@
+<form class="form-horizontal" name="ruatRequestForm" novalidate #ruatRequestForm="ngForm" autocomplete="off">
+  <fieldset [disabled]="disabled">
+    <div *ngIf="!isVehicleService" class="form-group">
+      <label class="col-xs-12 col-sm-3 control-label">Criterio de búsqueda: </label>
+      <div class="col-xs-12 col-sm-3">
+        <select name="criteriasList" class="form-control" [(ngModel)]="data.criteria" (change)="handleCriteriaListChanged()">
+          <option *ngFor="let criteria of criterias" [ngValue]="criteria.value">{{ criteria.description }}</option>
+        </select>
+      </div>
+    </div>
+  </fieldset>
+  <div class="form-group">
+    <label class="col-xs-12 col-sm-3 control-label">{{identifierTitle}}: </label>
+    <div class="col-xs-12 col-sm-3">
+      <fieldset [disabled]="disabled">
+        <input class="form-control" type="text" name="identifier" [(ngModel)]="data.identifier" #identifier="ngModel" required appOnlyType="pta-ruat">
+        <app-show-errors [control]="identifier"></app-show-errors>
+      </fieldset>
+    </div>
+    <div *ngIf="isVehicleService" class="col-xs-12 col-sm-4">
+      <button class="btn btn-primary btn-xs" (click)="handleValidate() && getVehicleDebt()" [disabled]="disabled">Buscar</button>
+      <button class="btn btn-primary btn-xs" (click)="newSearch()">Nueva Búsqueda</button>
+    </div>
+  </div>
+  <fieldset [disabled]="disabled">
+    <div *ngIf="!isVehicleService" class="form-group">
+      <label class="col-xs-12 col-sm-3 control-label">Alcaldía: </label>
+      <div class="col-xs-12 col-sm-3">
+        <select name="cityHallList" class="form-control" [(ngModel)]="data.cityHallCode">
+          <option *ngFor="let cityHall of cityHalls" [ngValue]="cityHall.value">{{ cityHall.description }}</option>
+        </select>
+      </div>
+    </div>
+    <div *ngIf="!isVehicleService" class="form-group">
+      <label class="col-xs-12 col-sm-3 control-label">Tipo de documento: </label>
+      <div class="col-xs-12 col-sm-3">
+        <select name="Types" class="form-control" [(ngModel)]="data.documentType">
+          <option *ngFor="let documentType of documentTypes" [ngValue]="documentType.value">{{ documentType.description }}</option>
+        </select>
+      </div>
+    </div>
+  </fieldset>
+  <div *ngIf="!isVehicleService" class="form-group">
+    <label class="col-xs-12 col-sm-3 control-label">Número de documento: </label>
+    <div class="col-xs-12 col-sm-3 no-padding">
+      <div class="col-xs-8 col-sm-7">
+        <fieldset [disabled]="disabled">
+          <input class="form-control" type="text" name="documentNumber" [(ngModel)]="data.documentNumber" #documentNumber="ngModel" required appOnlyType="alphanumericNotSymbols">
+          <app-show-errors [control]="documentNumber"></app-show-errors>
+        </fieldset>
+      </div>
+      <div class="col-xs-4 col-sm-5">
+        <fieldset [disabled]="disabled">
+          <select name="Extensions" class="form-control" [(ngModel)]="data.documentExtension">
+            <option *ngFor="let documentExtension of documentExtensions" [ngValue]="documentExtension.value">{{ documentExtension.name }}</option>
+          </select>
+        </fieldset>
+      </div>
+    </div>
+    <div class="col-xs-12 col-sm-4">
+      <button class="btn btn-primary btn-xs" (click)="handleValidate() && getPropertyDebt()" [disabled]="disabled">Buscar</button>
+      <button class="btn btn-primary btn-xs" (click)="newSearch()">Nueva Búsqueda</button>
+    </div>
+  </div>
+</form>

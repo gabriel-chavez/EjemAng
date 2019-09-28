@@ -1,0 +1,79 @@
+<div class="row">
+  <p>Seleccione la información disponible con los accesos de Ver Detalle, Autorizador y Controlador.</p>
+</div>
+<div class="row">
+  <app-company-name></app-company-name>
+</div>
+<div class="row">
+  <div class="form-group">
+
+    <div class="col-sm-6">
+      <app-date-range-picker [(ngModel)]="dateRange" [options]="optionsDateRange"></app-date-range-picker>
+    </div>
+    <div class="col-sm-4">
+      <button type="button" class="btn btn-primary" (click)="handleClear()">Limpiar fechas</button>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-3">
+    Estado:
+  </div>
+  <div class="col-sm-3">
+  <select name="drpStatus" class="form-control" [(ngModel)]="statusSelected">
+    <option *ngFor="let status of statuses" [ngValue]="status">
+      {{status.description}}
+    </option>
+  </select>
+</div>
+
+</div>
+
+<div class="row">
+  <div class="col-sm-3">
+    Tipo de operacion:
+  </div>
+  <div class="col-sm-3">
+    <select name="drpOperationTypes" class="form-control" [(ngModel)]="operationTypeSelected">
+      <option *ngFor="let operationType of operationTypes" [ngValue]="operationType">
+        {{ operationType.name }}
+      </option>
+    </select>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-3">
+    Beneficiario:
+  </div>
+  <div class="col-sm-3">
+    <select name="drpBeneficiaries" class="form-control" [(ngModel)]="beneficiarySelected">
+      <option value="0" selected>Todos</option>
+      <option *ngFor="let beneficiary of beneficiaries" [ngValue]="beneficiary">
+        {{ beneficiary }}
+      </option>
+    </select>
+  </div>
+  <div class="col-sm-4">
+    <button type="button" class="btn btn-primary" (click)="handleSearch()">Buscar</button>
+  </div>
+</div><br>
+<br>
+<div class="row">
+  <fieldset>
+    <div class="col-sm-4">
+      Orden:
+      <div class="radio">
+        <label><input type="radio" name="radio" (click)="handleChangeChecked(false)" checked="true">Descendente </label>
+      </div>
+      <div class="radio">
+        <label><input type="radio" name="radio" (click)="handleChangeChecked(true)">Ascendente </label>
+      </div>
+    </div>
+
+  </fieldset>
+</div>
+
+<div class="row" *ngIf="swTable">
+  <app-tracking-list [tracks]="tracks" (onChange)="handleProcessBatches($event)" [tracksDto]="tracksDto"></app-tracking-list>
+</div>

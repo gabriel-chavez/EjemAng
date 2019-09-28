@@ -1,0 +1,54 @@
+<form class="form-horizontal" name="formHist" #formHist="ngForm" novalidate autocomplete="off">
+  <fieldset [disabled]="valueGlobal">
+    <p class="description-page">Seleccione una cuenta, seleccione el periodo de históricos y presione el botón ACTUALIZAR REPORTE; adicionalmente puede exportar el reporte en formatos conocidos presionando el botón EXPORTAR.</p>
+    <div class="form-group col-sm-12">
+        <label class="radio-inline">
+          <input type="radio" name="RadTip" id="RadTip1" value="optFec" (change)="setradio('optFec')" checked> Por fechas
+        </label>
+        <label class="radio-inline">
+          <input type="radio" name="RadTip" id="RadTip2" value="optMes" (change)="setradio('optMes')"> Por meses
+        </label>
+    </div>
+
+    <div class="form-group col-sm-12" *ngIf="val1">
+        <div class="form-group col-sm-12">
+          <app-source-accounts [accountRequest]="sourceAccountRequest" [disabled]="false" (onChange)="handleSourceAccountChanged($event)"
+          [loadFirstAccount]="true" [showBalances]="false" #sourceAccount></app-source-accounts>
+        </div>
+        <div class="form-group">
+            <div class="form-group col-sm-12">
+                <label class="col-xs-2 col-sm-2 control-label">Fecha Inicial:</label>
+                  <my-date-picker name="mydateIni" class="col-sm-3" [options]="myDatePickerOptionsIni" [(ngModel)]="DateIniHead" placeholder="Ingrese fecha inicio."
+                    (dateChanged)="handleChangeDPIni($event)" required>
+                  </my-date-picker>
+            </div>
+            <div class="form-group col-sm-12">
+                <label class="col-sm-2 col-sm-2 control-label">Fecha Final:</label>
+                <my-date-picker name="mydateEnd" class="col-sm-3" [options]="myDatePickerOptionsEnd" [(ngModel)]="DateEndHead" placeholder="Ingrese fecha final."
+                    (dateChanged)="handleChangeDPEnd($event)" required>
+                </my-date-picker>
+            </div>
+        </div>
+    </div>
+    <div class="form-group col-sm-12" *ngIf="val2">
+        <div class="form-group col-sm-12">
+          <app-source-accounts [accountRequest]="sourceAccountRequest" [disabled]="false" (onChange)="handleSourceAccountChanged($event)"
+          [loadFirstAccount]="true" [showBalances]="false" #sourceAccount></app-source-accounts>
+        </div>
+        <div class="form-group">
+            <div class="form-group col-sm-12">
+                <label class="col-sm-2">Seleccione el mes:</label>
+                <div class="col-sm-3">
+                  <select name="dpMonth" class="form-control" [(ngModel)]="MonthSelected" (change)="handleChangedDrpMonth(MonthSelected)" required>
+                      <option value="null" disabled>Seleccione el mes</option>
+                      <option *ngFor="let monthdoce of MonthDoce" [ngValue]="monthdoce">
+                          {{ monthdoce.descriptionDate }}
+                      </option>
+                  </select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <button class="btn btn-primary" (click)="handleReportH()">Actualizar Reportes</button>
+  </fieldset>
+</form>

@@ -1,0 +1,19 @@
+<div [ngSwitch]="true">
+  <app-transfer-abroad-batch-detail *ngSwitchCase="[7].includes(operationTypeId)" [batchId]="batchId"></app-transfer-abroad-batch-detail>
+  <app-salaries-payments-detail *ngSwitchCase="[8].includes(operationTypeId)" [batchId]="batchId"></app-salaries-payments-detail>
+  <app-service-payment-batch-detail *ngSwitchCase="[9,10].includes(operationTypeId) && constants.afpService!==operation"
+    [batchId]="batchId" [service]="operation"></app-service-payment-batch-detail>
+  <app-payment-afp-detail *ngSwitchCase="[9].includes(operationTypeId) && constants.afpService===operation" [batchId]="batchId"></app-payment-afp-detail>
+  <app-transfer-batch-detail *ngSwitchCase="[13,14,15].includes(operationTypeId)" [batchId]="batchId"></app-transfer-batch-detail>
+  <app-providers-payment-detail *ngSwitchCase="[16].includes(operationTypeId)" [batchId]="batchId"></app-providers-payment-detail>
+  <app-configuration-favorite-payment-detail *ngSwitchCase="[17].includes(operationTypeId)" [batchId]="batchId"></app-configuration-favorite-payment-detail>
+  <app-multiple-payments-detail *ngSwitchCase="[20].includes(operationTypeId)" [batchId]="batchId" [isShow]="isShow" [isAuthorize]="isAuthorize" (onChangeDetail)="handleChangeDetail()"></app-multiple-payments-detail>
+  <app-quota-payment-detail *ngSwitchCase="[21].includes(operationTypeId)" [batchId]="batchId"></app-quota-payment-detail>
+  <app-favorite-payments-detail *ngSwitchCase="[23].includes(operationTypeId)" [batchId]="batchId"></app-favorite-payments-detail>
+  <app-payment-bank-ach-detail *ngSwitchCase="[24].includes(operationTypeId)" [batchId]="batchId"></app-payment-bank-ach-detail>
+  <app-cash-payment-detail *ngSwitchCase="[25].includes(operationTypeId)" [batchId]="batchId"></app-cash-payment-detail>
+  <app-providers-check-management-detail *ngSwitchCase="[26].includes(operationTypeId)" [batchId]="batchId"></app-providers-check-management-detail>
+  <app-providers-deposit-other-bank-checks-detail *ngSwitchCase="[27].includes(operationTypeId)" [batchId]="batchId"></app-providers-deposit-other-bank-checks-detail>
+  <app-payment-tax-check-detail *ngSwitchCase="[28].includes(operationTypeId)" [batchId]="batchId"></app-payment-tax-check-detail>
+  <app-payment-ach-odd-detail *ngSwitchCase="[29].includes(operationTypeId)" [batchId]="batchId"></app-payment-ach-odd-detail>
+</div>

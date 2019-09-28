@@ -1,0 +1,16 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\src",
+    "\\src\\app",
+    "\\src\\app\\componentes",
+    "\\src\\app\\modelos",
+    "\\src\\app\\servicios",
+    "\\src\\app\\servicios\\genericos",
+    "\\src\\app\\utilidades",
+    "\\src\\assets",
+    "\\src\\environments"
+  ],
+  "SelectedNode": "\\src\\app\\utilidades\\jwt.interceptor.ts",
+  "PreviewInSolutionExplorer": false
+}

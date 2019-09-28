@@ -1,0 +1,110 @@
+
+
+<br />
+<div >
+    <label class="Formulario">Muestra el detalle de las recaudaciones de la fecha.para Exportar elija el Formato (Excel – PDF – Texto) y presione el botón EXPORTAR </label>
+</div>
+<br>
+<table >
+  <tr  >
+    <td class="col-sm-2">
+      <label class="MensajesNaranja" >Servicio:</label>
+    </td>
+    <td class="col-sm-4">
+        <input type="text" class="marge" readonly [(ngModel)]="ResponseModelPaseHeadObj.codeService" #codeService="ngModel">
+    </td>
+    <td class="col-sm-3">
+        <label class="MensajesNaranja">Monto Recaudacion:</label>
+    </td>
+    <td class="col-sm-3">
+        <input type="text" class="marge" readonly [(ngModel)]="ResponseModelPaseHeadObj.totalAmount" #totalAmount="ngModel">
+    </td>
+
+</tr>
+<tr  class="marge">
+    <td class="col-sm-2">
+        <label class="MensajesNaranja">Empresa:</label>
+      </td>
+      <td class="col-sm-4" >
+          <input type="text" class="marge" style="width: 320px" readonly [(ngModel)]="currentUser.company_name"/>
+      </td>
+      <td class="col-sm-2">
+          <label class="MensajesNaranja">Moneda: </label>
+      </td>
+      <td class="col-sm-4">
+          <input type="text" class="marge" readonly [(ngModel)]="ResponseModelPaseHeadObj.currencyDescriptionTalks" #currencyDescriptionCuts="ngModel">
+      </td>
+</tr>
+<tr  class="marge">
+    <td class="col-sm-2">
+        <label class="MensajesNaranja">Descripción: </label>
+      </td>
+      <td class="col-sm-4">
+          <input type="text" class="marge" style="width: 320px" readonly [(ngModel)]="ResponseModelPaseHeadObj.tradeName" #tradeName="ngModel">
+      </td>
+      <td class="col-sm-2">
+          <label class="MensajesNaranja">Transacciones:  </label>
+      </td>
+      <td class="col-sm-4">
+          <input type="text" class="marge" readonly [(ngModel)]="ResponseModelPaseHeadObj.registrationAmount" #registrationAmount="ngModel">
+      </td>
+</tr>
+</table>
+<div>       
+    <Button Name="btnRegresar" (click)="back()" class="btn btn-primary">Regresar</Button>
+</div>
+<div class="form-group col-sm-12">
+<div class="col-sm-6" >
+    <label class="Formulario">Para exportar seleccione el formato y presione el botón exportar  </label>    
+</div>
+<div class="col-sm-3" >
+    <label class="MensajesNaranja">Formato  </label>
+    <select name="Format" [(ngModel)]="FormatSelected" >        
+      <option value="xls">Excel</option>        
+      <option value="pdf">Adobe Pdf</option>
+      <option value="txt">Texto</option>
+      <option value="sap">SAP(General)</option>
+      <option value="sap-D">SAP(Detalle)</option>
+    </select>
+</div>
+<div class="col-sm-3">       
+    <Button Name="btnExportar" class="btn btn-primary" (click)="export()">Exportar</Button>
+</div>
+</div>
+<div class="form-group col-sm-12">
+<app-pagination [totalItems]= "quantity" [maxSize]="25"  (onChange)="handleChangePage($event)"  > </app-pagination>
+</div> 
+
+
+<table class="table table-condensed table-bordered">    
+    <thead class="CabeceraGrilla">
+    <tr>
+        <td scope="col">Fecha Txn</td>
+        <td scope="col">Nro Txn</td>
+        <td scope="col">Codigo Depositante</td>
+        <td scope="col">Numero Documento</td>
+        <td scope="col">Nombre del Depositante</td>
+        <td scope="col">Importe Pago</td>
+        <td scope="col">Importe Mora</td>
+        <td scope="col">Importe Total</td>
+        <td scope="col">Hora</td>
+        <td scope="col">Oficina</td>
+    </tr>
+</thead>
+    <tbody class="ContenidoGrilla">
+        <tr *ngFor="let list of ResponseModelPase">
+            <td>{{list.dateTxn}}</td>
+            <td>{{list.numberTxn}}</td>
+            <td>{{list.codeDepositor}}</td>
+            <td>{{list.numberDocument}}</td>
+            <td>{{list.nameDepositor}}</td>
+            <td>{{list.amountIPay}}</td>
+            <td>{{list.amountDwells}}</td>
+            <td>{{list.totalAmount}}</td>
+            <td>{{list.hourTxn}}</td>
+            <td>{{list.office}}</td>
+        </tr>
+    </tbody>
+
+</table>
+

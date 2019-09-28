@@ -1,0 +1,47 @@
+<p class="tituloGeneral h_no-MarginBottom">CUENTA ORIGEN</p>
+<app-source-accounts [accountRequest]="accountDto" [disabled]="isDisabledForm" (onChange)="handleSourceAccountChanged($event)" #source></app-source-accounts>
+<app-currency-and-amount [disabled]="isDisabledForm" [isFlagVisible]="true" [isAmountDisabled]="true" [isCurrencyBlocked]="true"
+[amount]="Totalaccount" (onChange)="handleCurrencyAndAmountChanged($event)" #currencyAndAmount></app-currency-and-amount>
+<app-emails-input   #emailInput></app-emails-input>
+<br>
+<p >El pago de aportes a AFP Futuro solo se puede autorizar de horas 8:30 AM a 20:00 PM y el pago de aportes a AFP Previsión solo de 9:00 AM a 20:00 PM. </p>
+<p >NOTA.- El pago de planillas de AFP Futuro debe realizarse el mismo día de la preparación caso contrario su planilla no será procesada.</p>
+<br>
+<p class="tituloGeneral h_no-MarginBottom">Datos de entrada</p>
+<fieldset [disabled]="isDisabledForm">
+        <app-afp-request-form (emitEvent)="handleDebtDetailChanged($event)"></app-afp-request-form>
+</fieldset>
+
+<ng-container *ngIf="isVisible">
+        <p class="tituloGeneral h_no-MarginBottom">Datos de la planilla</p>
+        <app-afp-debt-detail [disabled]="isDisabledForm" [ResponseModelsAfp]="ResponseModelsAfp" (ngOnChanges)="handleDebtDetailChanged($event)"></app-afp-debt-detail>
+</ng-container>
+
+<app-company-limits></app-company-limits>
+<app-approvers-and-controllers [approversRequest]="approversDto" [currency]="currencyAndAmount.data.currency" [amount]="currencyAndAmount.data.amount" [disabled]="isDisabledForm"
+(onChange)="handleApproversAndControllersChanged($event)" #approversAndControllers></app-approvers-and-controllers>
+<div *ngIf="isPaymentSuccessful">
+        <p>
+          Su operación ha sido enviada satisfactoriamente a "Pagos de servicios irmación" desde donde el(los) usuario(s)
+          que cuente(n) con los permisos, podrán confirmar la transacción. Una vez aprobada su operación, es muy importante que pueda
+          verificar en la pantalla de “Seguimiento” hasta comprobar que su operación se procesó correctamente <strong>N° Lote {{processBatchNumber}}.</strong>
+          El tiempo de proceso será máximo 15 minutos
+        </p>
+      </div>
+<div class="panel-button">
+        <button  *ngIf="!isPaymentSuccessful"  class="btn btn-primary" (click)="handleValidate(
+                source.handleValidate(),
+                currencyAndAmount.handleValidate(),                
+                approversAndControllers.handleValidate(),
+                approversAndControllers.validateApproversLimit())">Aceptar
+        </button>
+        <button class="btn btn-primary" [routerLink]="['/service-payments/afp']">Nuevo</button>
+</div>
+<app-token-modal [disabled]="isTokenFormDisabled" [isVisible]="isVisibleToken" (onSubmit)="handleTokenSubmit($event)" (onClose)="isVisibleToken=false"></app-token-modal>
+<app-modal [visible]="excedeedAmount" (onClose)="excedeedAmount=false" [size]="'md'">
+    <div class="app-modal-header">Saldo insuficiente </div>
+    <div class="app-modal-body">Estimado cliente, su operación será rechazada si no cuenta con fondos suficientes al momento de realizar la autorización.</div>
+    <div class="app-modal-footer"><button type="button" class="btn btn-primary" (click)="excedeedAmount=false; showToken();">Aceptar</button></div>
+</app-modal>
+      
+

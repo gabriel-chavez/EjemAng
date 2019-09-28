@@ -1,0 +1,87 @@
+<div *ngIf="creSaguapacDebt != undefined">
+  <h4>Datos Cliente/Cuenta</h4>
+  <div class="table-responsive">
+    <table class="table table-condensed table-bordered table-striped table-hover">
+      <thead class="thead-light">
+        <tr>
+          <th>NOMBRES</th>
+          <th>CÓDIGO</th>
+          <th>DESCRIPCIÓN</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{{creSaguapacDebt.name}}</td>
+          <td>{{creSaguapacDebt.code}}</td>
+          <td>{{creSaguapacDebt.description}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <h4>Periodos deuda</h4>
+  <div class="table-responsive">
+    <table class="table table-condensed table-bordered table-striped table-hover">
+      <thead class="thead-light">
+        <tr>
+          <th>NRO. DOCUMENTO</th>
+          <th>PERIODO</th>
+          <th>MONTO</th>
+          <th>PAGAR</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let debtDetail of creSaguapacDebt.detail">
+          <td>{{debtDetail.documentNumber}}</td>
+          <td>{{debtDetail.period}}</td>
+          <td>{{debtDetail.amount}}</td>
+          <td style="text-align:center">
+            <input [(ngModel)]="debtDetail.selected" type="checkbox" class="form-check-input" (change)="handleCreSaguapacAmountChecked(debtDetail)" [disabled]="disabled">
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div *ngIf="delapazDebt != undefined">
+  <h4>Datos Cliente/Cuenta</h4>
+  <div class="table-responsive">
+    <table class="table table-condensed table-bordered table-striped table-hover">
+      <thead class="thead-light">
+        <tr>
+          <th>CÓDIGO</th>
+          <th>NOMBRES</th>
+          <th>DIRECCIÓN</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{{delapazDebt.clientCode}}</td>
+          <td>{{delapazDebt.name}}</td>
+          <td>{{delapazDebt.address}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <h4>Periodos deuda</h4>
+  <div class="table-responsive">
+    <table class="table table-condensed table-bordered table-striped table-hover">
+      <thead class="thead-light">
+        <tr>
+          <th>DESCRIPCIÓN</th>
+          <th>MONTO</th>
+          <th>PAGAR</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{{delapazDebt.description}}</td>
+          <td>{{delapazDebt.amount}}</td>
+          <td style="text-align:center">
+            <input type="checkbox" class="form-check-input" [(ngModel)]="isPayment" (change)="handleDelapazAmountChecked()" [disabled]="disabled">
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

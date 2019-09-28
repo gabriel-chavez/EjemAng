@@ -1,0 +1,42 @@
+<div class="row">
+<p class="description-page">
+    Seleccione número de cuenta, fecha y presione el botón para buscar
+    los cheques emitidos.
+</p>
+</div>
+<div class="row">
+<app-company-name></app-company-name>
+</div>
+<div class="row">
+  <div class="form-group">      
+    <div class="col-sm-3">Cuenta:
+      <app-my-accounts [loadFirstAccount]="false" [accountRequest]="accountRequest" [returnBalances]="false" (onChange)="handleAccountChanged($event)"></app-my-accounts>
+    </div>
+    <div class="col-sm-3">Fecha de cheque:
+      <my-date-picker name="mydateIni" [options]="myDatePickerOptions" [(ngModel)]="DateCheck" placeholder="Ingrese fecha"
+        locale="es" (dateChanged)="handleChangeDP($event)" required>
+      </my-date-picker>
+    </div>
+    <div class="col-sm-2">
+        <br>
+        <button class="btn btn-primary" (click)="handleSearch()">Ver cheques</button>
+      </div>
+    </div>
+</div>
+<br>
+
+<div class="row" *ngIf="swTable">
+  <app-list-check-sent [checks]="checks.checkList" (onSubmit)="handleImg($event)"></app-list-check-sent>
+</div>
+<app-modal [visible]="existsImage" (onClose)="existsImage=false" [size]="'md'" [onlyImage]="true">
+  <div class="app-modal-body">
+    <img [src]="handleBase64Url()" [alt]="aux.idCheck" >
+  </div>
+  <div class="app-modal-footer">
+    <div class="row">
+      <div class="col-md-3 col-md-offset-9">
+        <button type="button" class="btn btn-primary" (click)="existsImage=false">Continuar</button>
+      </div>
+    </div>
+  </div>
+</app-modal>

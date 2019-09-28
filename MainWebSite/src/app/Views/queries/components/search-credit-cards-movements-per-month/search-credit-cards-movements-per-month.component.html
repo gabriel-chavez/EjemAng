@@ -1,0 +1,110 @@
+<div class="row">
+  <br>
+  <h3>Nota: La información corresponde al día anterior</h3>
+</div>
+<br>
+<div class="form-horizontal">
+  <div class="form-group">
+    <label class="col-xs-12 col-sm-2 col-md-2 col-lg-2 control-label">Usuario</label>
+    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+      <input type="text" class="form-control" value="{{account?.userName}}" disabled>
+    </div>
+    <label class="col-xs-12 col-sm-2 col-md-2 col-lg-2 control-label">Total Cargos</label>
+    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+      <input type="text" class="form-control" value="{{totalDebit}}" disabled>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-xs-12 col-sm-2 col-md-2 col-lg-2 control-label">Cuenta </label>
+    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+      <input type="text" class="form-control" value="{{account?.accountNumber}}" disabled>
+    </div>
+    <label class="col-xs-12 col-sm-2 col-md-2 col-lg-2 control-label">Total Abonos</label>
+    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+      <input type="text" class="form-control" value="{{totalCredit}}" disabled>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-xs-12 col-sm-2 col-md-2 col-lg-2 control-label">Tipo </label>
+    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+      <input type="text" class="form-control" value="{{account?.typeAccount}}" disabled>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-xs-12 col-sm-2 col-md-2 col-lg-2 control-label">Estado </label>
+    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+      <input type="text" class="form-control" value="{{account?.estateAccount}}" disabled>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-xs-12 col-sm-2 col-md-2 col-lg-2 control-label">Moneda</label>
+    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+      <input type="text" class="form-control" value="{{account?.currency}}" disabled>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-xs-12 col-sm-2 col-md-2 col-lg-2 control-label">Disponible Actual </label>
+    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+      <input type="text" class="form-control" value="{{account?.availableBalance}}" disabled>
+    </div>
+  </div>
+  <app-list-of-months [quantity]="numberOfMonths" [isOptionAllVisible]="true" [optionText]="'Filtrar por mes'" (onChange)="handleGetMonths($event)"></app-list-of-months>
+  <div class="form-group" *ngIf="isVisibleComponents">
+    <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
+      <h4>Total de operaciones en el periodo: {{monthName}}</h4>
+    </div>
+    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+      <button type="submit" class="btn btn-primary btn-block" (click)="getMovements()">
+        <span class="icon icon-spinner9 icono-naranjo"></span>
+        Actualizar Reporte
+      </button>
+    </div>
+  </div>
+</div>
+<div class="table-responsive" *ngIf="isVisible">
+  <app-pagination [totalItems]="totalMovements" [maxSize]="pageItems" (onChange)="handlePageChanged($event)"></app-pagination>
+  <br>
+  <table class="table table-striped table-bordered">
+    <thead>
+      <tr>
+        <th>Fecha</th>
+        <th>Glosa</th>
+        <th>Tipo Movimiento</th>
+        <th>Monto</th>
+        <th>Saldo</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let movement of movements">
+        <td>{{movement.dateMovement}}</td>
+        <td>{{movement.glossMovement}}</td>
+        <td>{{movement.typeMovement}}</td>
+        <td>{{movement.amountMovement}}</td>
+        <td>{{movement.balanceMovement}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="description-page" *ngIf="isVisibleComp">
+  <div class="tituloGeneral h_no-MarginBottom">
+    No existen operaciones en el periodo: {{monthName}}
+  </div>
+</div>
+<br>
+
+<div class="form-group">
+  <div class="row">
+    <div class="col-xs-5 col-sm-3 col-sm-offset-1">
+      <button class="btn btn-primary btn-block" routerLink="/queries/creditCards">
+        <span class="icon-Flecha-volver icono-naranjo"></span>
+        Regresar</button>
+    </div>
+    <div class="col-xs-7 col-sm-offset-5 col-sm-3" *ngIf="isVisible && !isVisibleComp">
+      <button class="btn btn-primary btn-block" (click)="getReport()">Generar Reporte
+        <span class="icon-Descargar icono-naranjo">
+        </span>
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,33 @@
+<p class="description-page">Seleccione la cuenta de Cargo, ingrese el Monto, digite las instrucciones; si es necesario el Número de factura y presione el botón ACEPTAR.</p>
+<app-company-name></app-company-name>
+<p class="tituloGeneral h_no-MarginBottom">CUENTA ORIGEN</p>
+<app-source-accounts [accountRequest]="accountRequest" [disabled]="isDisabledForm" (onChange)="handleSourceAccountChanged($event)" #sourceAccount></app-source-accounts>
+<app-currency-and-amount [disabled]="isDisabledForm" [isFlagVisible]="true" [amount]="paymentInformation.amount" [isAmountDisabled]="!isTelephony"
+                         [isCurrencyBlocked]="true" (onChange)="handleCurrencyAndAmountChanged($event)" #currencyAndAmount></app-currency-and-amount>
+<p class="tituloGeneral h_no-MarginBottom"> DATOS DEL PAGO DE SERVICIO</p>
+<app-service-list [disabled]="isDisabledForm" (onChange)="handleServiceListChanged($event)" #serviceList></app-service-list>
+<app-client-code [disabled]="isDisabledForm" [visible]="isClientCode" [service]="getDebtRequest.service" (onChange)="handleGetDebtChanged($event)" (onCheckedChange)="handleFavoritePaymentCheckChanged($event)" (onNewSearch)="handleOnNewSearch()" #clientCode></app-client-code>
+<app-telephony [visible]="isTelephony" [disabled]="isDisabledForm" (onChange)="handleTelephonyChanged($event)" #telephony></app-telephony>
+<app-debt-detail [disabled]="isDisabledForm" [creSaguapacDebt]="creSaguapacDebt" [delapazDebt]="delapazDebt" [service]="getDebtRequest.service" (onChange)="handleDebtDetailChanged($event)"></app-debt-detail>
+<app-send-bill [disabled]="isDisabledForm" [visible]="creSaguapacDebt!=undefined" (onChange)="handleSendBillChanged($event)" #sendBill></app-send-bill>
+<app-date-future [visible]="isTelephony" [disabled]="isDisabledForm" (onChange)="handleFutureDateChanged($event)" #futureDate></app-date-future>
+<app-emails-input [disabled]="isDisabledForm" (onChange)="handleEmailsChanged($event)" #emailInput></app-emails-input>
+<app-save-favorites [visible]="(delapazDebt!=undefined || creSaguapacDebt!=undefined) && !clientCode.isFavorite" [disabled]="isDisabledForm" [title]="'Guardar en mis pagos de servicios favoritos'" (onChange)="handleSaveFavoriteChanged($event)" #saveFavorite></app-save-favorites>
+<app-company-limits></app-company-limits>
+<app-approvers-and-controllers [approversRequest]="approversDto" [currency]="currencyAndAmount.data.currency" [amount]="currencyAndAmount.data.amount" [disabled]="isDisabledForm"
+                               (onChange)="handleApproversAndControllersChanged($event)" #approversAndControllers></app-approvers-and-controllers>
+<div *ngIf="isPaymentSuccessful"><p>{{successfulPaymentMessage}} {{processBatchNumber}}.</p></div>
+<div class="panel-button">
+  <button *ngIf="!isPaymentSuccessful" class="btn btn-primary" (click)="handleValidate(
+    currencyAndAmount.handleValidate(), telephony.handleValidate(), clientCode.handleValidate(), serviceList.handleValidate(), saveFavorite.handleValidate(), sendBill.handleValidate(),
+    approversAndControllers.handleValidate(), approversAndControllers.validateApproversLimit(), sourceAccount.handleValidate())">
+    Aceptar
+  </button>
+  <button class="btn btn-primary" [routerLink]="['/service-payments/service-payments']">Nuevo</button>
+</div>
+<app-token-modal [disabled]="isTokenFormDisabled" [isVisible]="isVisibleToken" (onSubmit)="handleTokenSubmit($event)" (onClose)="isVisibleToken=false"></app-token-modal>
+<app-modal [visible]="excedeedAmount" (onClose)="excedeedAmount=false" [size]="'md'">
+  <div class="app-modal-header">Saldo insuficiente </div>
+  <div class="app-modal-body">Estimado cliente, su operación será rechazada si no cuenta con fondos suficientes al momento de realizar la autorización.</div>
+  <div class="app-modal-footer"><button type="button" class="btn btn-primary" (click)="excedeedAmount=false; showToken();">Aceptar</button></div>
+</app-modal>

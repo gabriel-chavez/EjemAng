@@ -1,0 +1,14 @@
+<div class="col-no-padding col-xs-12 col-sm-12 col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
+    <app-header></app-header>
+    <section class="contenido">
+        <div class="container">
+            <div class="row">
+                <div class="col-no-padding col-xs-12 col-sm-12 col-md-12">
+                    <router-outlet *ngIf="!this.dataService.noAccounts"></router-outlet>
+                    <app-information-panel *ngIf="this.dataService.noAccounts" [message]="'No existen cuentas para la operación solicitada, por favor comuniquese con el administrador'"></app-information-panel>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<app-footer [template]="'login'"></app-footer>

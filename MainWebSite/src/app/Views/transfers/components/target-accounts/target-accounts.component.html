@@ -1,0 +1,13 @@
+<form class="form-horizontal" name="targetAccountForm" novalidate #targetAccountForm="ngForm" autocomplete="off">
+  <fieldset [disabled]="disabled">
+    <div class="form-group">
+      <label class="col-xs-12 col-sm-2 control-label">Cuenta:</label>
+      <div class="col-xs-10 col-sm-3">
+        <app-my-accounts [accountRequest]="accountRequest" [companyAccounts]="true" (onChange)="handleAccountChanged($event)"></app-my-accounts>
+      </div>
+      <div class="col-xs-2 col-sm-2">
+        <app-currency-flag [flag]="flag" [visible]="true"></app-currency-flag>
+      </div>
+    </div>
+  </fieldset>
+</form>

@@ -1,0 +1,255 @@
+[
+  {
+    "label": "Consultas",
+    "module": "queries",
+    "items": [
+      {
+        "label": "Saldos y movimientos",
+        "module": "queries",
+        "routerLink": "balances"
+      },
+      {
+        "label": "Historicos",
+        "module": "queries",
+        "routerLink": "HistoricalAccounts"
+      },
+      {
+        "label": "Identificacion Abonos",
+        "module": "queries",
+        "routerLink": "identification-deposits"
+      },
+      {
+        "label": "Tarjetas de Crédito",
+        "module": "queries",
+        "routerLink": "creditCards"
+      },
+      {
+        "label": "Recaudaciones",
+        "module": "queries",
+        "routerLink": "pase"
+      },
+      {
+        "label": "Pendientes",
+        "module": "queries",
+        "routerLink": "pendings"
+      },
+      {
+        "label": "Seguimiento",
+        "module": "queries",
+        "routerLink": "tracking"
+      }
+    ]
+  },
+  {
+    "label": "Transferencias",
+    "module": "transfers",
+    "items": [
+      {
+        "label": "Propias",
+        "module": "transfers",
+        "routerLink": "internal"
+      },
+      {
+        "label": "Terceros",
+        "module": "transfers",
+        "routerLink": "third-party"
+      },
+      {
+        "label": "Exterior APOM",
+        "module": "transfers",
+        "routerLink": "transfer-abroad"
+      }
+    ]
+  },
+  {
+    "label": "Creditos",
+    "module": "credits",
+    "items": [
+      {
+        "label": "Pago de Cuotas",
+        "module": "credits",
+        "routerLink": "quota-payment"
+      },
+      {
+        "label": "Comprobante de pago de cuotas",
+        "module": "credits",
+        "routerLink": "quota-vouchers"
+      },
+      {
+        "label": "Comprobante desembolso",
+        "module": "credits",
+        "routerLink": "disbursement-vouchers"
+      },
+      {
+        "label": "Plan de pagos",
+        "module": "credits",
+        "routerLink": "payment-plans"
+      }
+    ]
+  },
+  {
+    "label": "Pagos Masivos",
+    "module": "massPayments",
+    "items": [
+      {
+        "label": "Pago de Haberes",
+        "module": "massPayments",
+        "routerLink": "salariesPayments"
+      },
+      {
+        "label": "Pago a proveedores abono cuenta",
+        "module": "massPayments",
+        "routerLink": "providersPayments"
+      },
+      {
+        "label": "Proveedores pago en efectivo",
+        "module": "massPayments",
+        "routerLink": "cashPayments"
+      },
+      {
+        "label": "Proveedores abono en otro Banco Cheque",
+        "module": "massPayments",
+        "routerLink": "providersDepositInOtherBankCheck"
+      },
+      {
+        "label": "Proveedores abono en otro Banco ACH",
+        "module": "massPayments",
+        "routerLink": "PaymentsACH"
+      },
+      {
+        "label": "Proveedores con Cheque de Gerencia",
+        "module": "massPayments",
+        "routerLink": "providersCheckManagement"
+      },
+      {
+        "label": "Pagos Multiples",
+        "module": "massPayments",
+        "routerLink": "multiplePayments"
+      },
+      {
+        "label": "Proveedores Favoritos",
+        "module": "massPayments",
+        "routerLink": "favoritePayments"
+      },
+      {
+        "label": "ACH Ordenes de Debito",
+        "module": "massPayments",
+        "routerLink": "PaymentsOddACH"
+      },
+      {
+        "label": "Pago de Impuestos con Cheque de Gerencia",
+        "module": "massPayments",
+        "routerLink": "taxPaymentCheckManagement"
+      }
+    ]
+  },
+  {
+    "label": "Servicios",
+    "module": "service-payments",
+    "items": [
+      {
+        "label": "Pago de servicios",
+        "module": "service-payments",
+        "routerLink": "service-payments"
+      },
+      {
+        "label": "RUAT",
+        "module": "service-payments",
+        "routerLink": "ruat"
+      },
+      {
+        "label": "AFP",
+        "module": "service-payments",
+        "routerLink": "afp"
+      }
+    ]
+  },
+  {
+    "label": "Comprobantes",
+    "module": "vouchers",
+    "items": [
+      {
+        "label": "Actuales",
+        "module": "vouchers",
+        "routerLink": "current"
+      },
+      {
+        "label": "Un Mes Atrás",
+        "module": "vouchers",
+        "routerLink": "aMonthAgo"
+      },
+      {
+        "label": "Dos Meses Atrás",
+        "module": "vouchers",
+        "routerLink": "twoMonthsAgo"
+      },
+      {
+        "label": "Tres Meses Atrás",
+        "module": "vouchers",
+        "routerLink": "threeMonthsAgo"
+      },
+      {
+        "label": "Un Año Atrás",
+        "module": "vouchers",
+        "routerLink": "aYearAgo"
+      },
+      {
+        "label": "SWIFT",
+        "module": "vouchers",
+        "routerLink": "swift"
+      },
+      {
+        "label": "Comprobante Electronico",
+        "module": "vouchers",
+        "routerLink": "voucherElectronic"
+      },
+      {
+        "label": "Consulta de Facturación electronica",
+        "module": "vouchers",
+        "routerLink": "electronicBill"
+      },
+      {
+        "label": "Comprobantes por operación",
+        "module": "vouchers",
+        "routerLink": "vouchersByOperation"
+      },
+      {
+        "label": "Cheque",
+        "module": "vouchers",
+        "routerLink": "check"
+      }
+    ]
+  },
+  {
+    "label": "Operaciones",
+    "module": "operations",
+    "items": [
+      {
+        "label": "Solicitud Modificaciones",
+        "module": "operations",
+        "routerLink": "modification-request"
+      },
+      {
+        "label": "Boleta de Garantia",
+        "module": "operations",
+        "routerLink": "ballotOfWarranty"
+      },
+      {
+        "label": "Solicitud de Reclamo",
+        "module": "operations",
+        "routerLink": "claimRequest"
+      },
+      {
+        "label": "Configuración de Pagos Favoritos",
+        "module": "operations",
+        "routerLink": "favoritePaymentsSettings"
+      }
+    ]
+  },
+
+  {
+    "label": "Soporte",
+    "module": "Soporte",
+    "items": []
+  }
+]

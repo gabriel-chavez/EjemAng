@@ -1,0 +1,19 @@
+<div class="row" *ngIf="!isVisible">
+  <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3">
+    <button class="btn btn-default" (click)="handleSendId(requestId.id)">
+        <img src="assets/img/cw/cargarplanilla.gif">
+    </button>
+  </div>
+  <div class="col-xs-6 col-sm-9 col-md-9 col-lg-9">
+      <select class="form-control" [(ngModel)]="requestId">
+          <option *ngFor="let form of previousForm" [ngValue]="form">
+            Descp: {{form.description}} 
+            Cta: {{form.accountNumber}} 
+            Monto: {{form.amount | number:0}} {{form.currency}} 
+            Fecha: {{form.dateForm | date:'yyyy-MM-dd'}}
+          </option>
+        </select>
+  </div>
+</div>
+<br>
+

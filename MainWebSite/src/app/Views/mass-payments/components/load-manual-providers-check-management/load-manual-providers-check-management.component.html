@@ -1,0 +1,27 @@
+<div class="row">
+  <button type="button" class="btn btn-primary" (click)="handleNewRow()" [disabled]="isDisableAdd">
+    <span class="icon-afiliacion icono-naranjo"></span>
+        Insertar Fila
+  </button><br>
+  <br>
+  <app-pagination [totalItems]="detail.detail.length" [maxSize]="10" (onChange)="handlePageChanged($event)"></app-pagination>
+</div>
+<div class="table-responsive">
+  <table class="table table-condensed table-bordered table-striped table-hover">
+    <thead>
+      <tr>
+        <th scope="col">Monto</th>
+        <th scope="col">Razón Beneficiario</th>
+        <th scope="col">Instrucciones</th>
+        <th scope="col">Lugar de Entrega</th>
+        <th scope="col">Detalle</th>
+        <th scope="col">E-mail Proveedor</th>
+        <th scope="col">Editar</th>
+        <th scope="col">Eliminar</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let row of detail.detail" app-row-list-details-providers-check-management [detail]="row" (action)="handleActionRow($event)"></tr>
+    </tbody>
+  </table>
+</div>

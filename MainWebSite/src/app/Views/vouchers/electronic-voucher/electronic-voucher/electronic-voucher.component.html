@@ -1,0 +1,29 @@
+<form class="form-horizontal" name="formEltVoucher" #formEltVoucher="ngForm" novalidate autocomplete="off">
+    <div class= "form-group col-sm-12">
+          <app-company-name></app-company-name>
+    </div>
+    <div class="form-group">
+      <div class="form-group col-sm-12">
+        <p class="description-page">Seleccione fecha inicial, fecha final, escoja transferencias enviadas o recibidas y presione el botón Buscar para buscar las operaciones realizadas.</p>
+
+        <div class="form-group col-sm-12">
+            <div class="form-group col-sm-12">
+              <app-source-accounts [accountRequest]="sourceAccountRequest" [disabled]="false" (onChange)="handleSourceAccountChanged($event)"
+              [loadFirstAccount]="true" [showBalances]="false" #sourceAccount></app-source-accounts>
+            </div>
+        </div>
+        <div class="form-group col-sm-12" no-padding>
+            <app-range-date-picker (dateInitOut)="handleDateInit($event)" (dateEndOut)="handleDateEnd($event)" ></app-range-date-picker>
+      </div>
+        <div class="form-group col-sm-12" no-padding>
+            <button class="btn btn-primary" (click)="handleGenerate()">Generar Reporte</button>
+        </div>
+        <div class="form-group col-sm-12" no-padding>
+          <div *ngIf="swTable">
+            <app-table-electronic-voucher [listElectronicVoucher]="listElectronicVoucher" ></app-table-electronic-voucher>
+          </div>
+        </div>
+      </div>
+    </div>
+
+</form>

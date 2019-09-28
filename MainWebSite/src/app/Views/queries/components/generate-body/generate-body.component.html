@@ -1,0 +1,298 @@
+<fieldset [disabled]="valueGlobal">
+<div *ngIf="isVisiblePanelBody">
+  <div class="form-group col-sm-12">
+    <br>
+    <div class="form-group col-sm-12">
+      <label class="col-sm-6">Para exportar la información, presione el botón exportar</label>
+      <label class="col-sm-1">Formato: </label>
+      <div class="col-sm-2">
+        <select name="drpTrasnfer" id ="drpTrasnfer" class="form-control" #typeReport>
+            <option selected ="PDF" value="pdf">PDF</option>
+            <option value="xls">Excel</option>
+            <option value="sapc">SAP (Cabecera)</option>
+            <option value="sapd">SAP (Detalle)</option>
+        </select>
+      </div>
+      <button class="btn btn-primary col-sm-2" (click)="getReport(miModel, typeReport.value)">Exportar</button>
+    </div>
+  </div>
+
+  <div class="form-group col-sm-12">
+  <p class="text-danger"><strong>Total de operaciones en el periodo : {{numberRowMsg}}</strong> </p>
+  </div>
+  <div class="form-group col-sm-12">
+  <p>Personalizar extracto bancario. </p>
+  </div>
+  <div class="form-group col-sm-12">
+      <div class="checkbox" class="col-sm-2">
+        <label for="NroLot">
+          Nro. Lote: <input type="checkbox" name="NroLote" [(ngModel)]="NroLote">
+        </label>
+      </div>
+      <div class="checkbox" class="col-sm-2">
+        <label for="Ordenan">
+          Ordenante: <input type="checkbox" name="Ordenante" [(ngModel)]="Ordenante">
+        </label>
+      </div>
+      <div class="checkbox" class="col-sm-2">
+        <label for="Benif">
+          Beneficiario: <input type="checkbox" name="Benifi" [(ngModel)]="Benifi">
+        </label>
+      </div>
+      <div class="checkbox" class="col-sm-4">
+        <label for="Operat">
+          Descripción de la operación: <input type="checkbox" name="Operation" [(ngModel)]="Operation">
+        </label>
+      </div>
+  </div>
+  <div class="form-group col-sm-12">
+    <app-pagination [totalItems]="numeroFilas" [maxSize]="20" (onChange)="handleChangePage($event)">  </app-pagination>
+  </div>
+  <div class="form-group col-sm-12">
+  <div class="row justify-content-center">
+    <div *ngIf="isVisiblePanelBody" class="table-responsive">
+      <br/>
+      <p class="tituloGeneral h_no-MarginBottom" align="center">
+          LISTADO MOVIMIENTO DE CUENTAS - CONSULTAS HISTORICOS
+      </p>
+
+      <table>
+            <tr>
+                <table class="table table-condensed table-bordered table-striped table-hover">
+                   <thead>
+                    <tr>
+                        <th scope="col">FECHA</th>
+                        <th scope="col">HORA</th>
+                        <th scope="col">GLOSA</th>
+                        <th scope="col">IMPORTE</th>
+                        <th scope="col">SALDO DISPONIBLE</th>
+                        <th scope="col">TIPO</th>
+                        <th scope="col">SUCURSAL AGENCIA</th>
+                        <th scope="col">USUARIO</th>
+                        <th scope="col">NRO. OPERACION</th>
+                        <th *ngIf="flagHistTr" scope="col">NRO. TRANS.</th>
+                    </tr>
+                  </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="checkbox">
+                                    <span>
+                                      <label for="col001" class="col-sm-1 control-label">
+                                          <input type="checkbox" name="isDateFuture" [(ngModel)]="col01" checked>
+                                      </label>
+                                    </span>
+                              </div>
+                            </td>
+                            <td>
+                                <div class="checkbox">
+                                  <span>
+                                    <label for="col002" class="col-sm-1 control-label">
+                                        <input type="checkbox" name="chkb02" [(ngModel)]="col02" checked>
+                                    </label>
+                                  </span>
+                                </div>
+                            </td>
+                            <td>
+                              <div class="checkbox">
+                                <span>
+                                  <label for="col003" class="col-sm-1 control-label">
+                                      <input type="checkbox" name="chkb03" [(ngModel)]="col03" checked>
+                                  </label>
+                                </span>
+                              </div>
+                            </td>
+                            <td>
+                                <div class="checkbox">
+                                  <span>
+                                    <label for="col004" class="col-sm-1 control-label">
+                                        <input type="checkbox" name="chkb04" [(ngModel)]="col04" checked>
+                                    </label>
+                                  </span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="checkbox">
+                                  <span>
+                                    <label for="col005" class="col-sm-1 control-label">
+                                        <input type="checkbox" name="chkb05" [(ngModel)]="col05" checked>
+                                    </label>
+                                  </span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="checkbox">
+                                  <span>
+                                    <label for="col006" class="col-sm-1 control-label">
+                                        <input type="checkbox" name="chkb06" [(ngModel)]="col06" checked>
+                                    </label>
+                                  </span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="checkbox">
+                                  <span>
+                                    <label for="col007" class="col-sm-1 control-label">
+                                        <input type="checkbox" name="chkb07" [(ngModel)]="col07" checked>
+                                    </label>
+                                  </span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="checkbox">
+                                    <span>
+                                      <label for="col008" class="col-sm-1 control-label">
+                                          <input type="checkbox" name="chkb08" [(ngModel)]="col08" checked>
+                                      </label>
+                                    </span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="checkbox">
+                                    <span>
+                                      <label for="col009" class="col-sm-1 control-label">
+                                          <input type="checkbox" name="chkb09" [(ngModel)]="col09" checked>
+                                      </label>
+                                    </span>
+                                </div>
+                            </td>
+                            <td *ngIf="flagHistTr">
+                                <div class="checkbox">
+                                    <span>
+                                      <label for="col010" class="col-sm-1 control-label">
+                                          <input type="checkbox" name="chkb10" [(ngModel)]="col10" checked>
+                                      </label>
+                                    </span>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </tr>
+              <tr>
+                  <table class="table table-condensed table-bordered table-striped table-hover">
+                      <thead>
+                          <tr>
+                              <th scope="col" *ngIf="col01">FECHA  </th>
+                              <th scope="col" *ngIf="col02">HORA </th>
+                              <th scope="col" *ngIf="col03">GLOSA </th>
+                              <th scope="col" *ngIf="col04">IMPORTE </th>
+                              <th scope="col" *ngIf="col05">SALDO DISPONIBLE</th>
+                              <th scope="col" *ngIf="col06">TIPO</th>
+                              <th scope="col" *ngIf="col07">SUCURSAL AGENCIA</th>
+                              <th scope="col" *ngIf="col08">USUARIO</th>
+                              <th scope="col" *ngIf="col09">NRO. OPERACION</th>
+                              <th scope="col" *ngIf="flagHistTr && col10">NRO. TRANS.</th>
+                              <th>SOLICITAR CERTIFICADO</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <tr *ngFor="let list of result.tableInitial">
+                              <td *ngIf="col01">{{list.onlyDate}}</td>
+                              <td *ngIf="col02">{{list.hora}}</td>
+                              <td *ngIf="col03">{{list.moveName}}</td>
+                              <td *ngIf="col04">{{list.amount}}</td>
+                              <td *ngIf="col05">{{list.balanceClosing}}</td>
+                              <td *ngIf="col06">{{list.utc}}</td>
+                              <td *ngIf="col07">{{list.agency}}</td>
+                              <td *ngIf="col08">{{list.users}}</td>
+                              <td *ngIf="col09">{{list.sequentialCode}}</td>
+                              <td *ngIf="flagHistTr && col10">{{list.transactionNumber}}</td>
+                              <td></td>
+                          </tr>
+                      </tbody>
+                  </table>
+              </tr>
+              <tr>
+                  <table class="table table-condensed table-bordered table-striped table-hover"> <!--class="table table-condensed table-bordered" -->
+                      <thead>
+                          <tr>
+                              <th scope="col" *ngIf=false>ID  </th>
+                              <th scope="col" *ngIf="col01">FECHA</th>
+                              <th scope="col" *ngIf="col02">HORA</th>
+                              <th scope="col" *ngIf="NroLote">NRO. LOTE</th>
+                              <th scope="col" *ngIf="Ordenante">ORDENANTE</th>
+                              <th scope="col" *ngIf="Benifi">BENIFICIARIO</th>
+                              <th scope="col" *ngIf="Operation">DESCRIPCION OPERACION</th>
+                              <th scope="col" *ngIf="col03">GLOSA</th>
+                              <th scope="col" *ngIf="col04">IMPORTE</th>
+                              <th scope="col" *ngIf="col05">SALDO DISPONIBLE</th>
+                              <th scope="col" *ngIf="col06">TIPO</th>
+                              <th scope="col" *ngIf="col07">SUCURSAL AGENCIA</th>
+                              <th scope="col" *ngIf="col08">USUARIO</th>
+                              <th scope="col" *ngIf="col09"> NRO. OPERACION </th>
+                              <th scope="col" *ngIf="flagHistTr && col10">NRO. TRANS.</th>
+                              <th>SOLICITAR CERTIFICADO</th>
+                          </tr>
+                        </thead>
+                      <tbody>
+                          <tr *ngFor="let list of result.tableBody">
+                              <td *ngIf="col01">{{list.onlyDate}}</td>
+                              <td *ngIf="col02">{{list.hora}}</td>
+                              <td *ngIf="NroLote">{{list.numberLot}}</td>
+                              <td *ngIf="Ordenante">{{list.ordenador}}</td>
+                              <td *ngIf="Benifi">{{list.beneficiary}}</td>
+                              <td *ngIf="Operation"> {{list.description}} </td>
+                              <td *ngIf="col03">{{list.moveName}}</td>
+                              <td *ngIf="col04">{{list.amount}}</td>
+                              <td *ngIf="col05">{{list.balanceClosing}}</td>
+                              <td *ngIf="col06">{{list.utc}}</td>
+                              <td *ngIf="col07">{{list.agency}}</td>
+                              <td *ngIf="col08">{{list.users}}</td>
+                              <td *ngIf="col09">{{list.sequentialCode}}</td>
+                              <td scope="col" *ngIf="flagHistTr && col10">{{list.transactionNumber}}</td>
+                              <td style="text-align:center">
+                                <input type="checkbox" class="form-check-input" (change)="handleCheckedRow(list.id)">
+                              </td>
+                          </tr>
+                      </tbody>
+                  </table>
+              </tr>
+              <tr>
+                  <table class="table table-condensed table-bordered table-striped table-hover">  <!--class="table table-condensed table-bordered"-->
+                      <thead>
+                          <tr>
+                              <th scope="col" *ngIf="col01">FECHA</th>
+                              <th scope="col" *ngIf="col02">HORA</th>
+                              <th scope="col" *ngIf="col03">GLOSA</th>
+                              <th scope="col" *ngIf="col04">IMPORTE</th>
+                              <th scope="col" *ngIf="col05">SALDO DISPONIBLE</th>
+                              <th scope="col" *ngIf="col06">TIPO</th>
+                              <th scope="col" *ngIf="col07">SUCURSAL AGENCIA</th>
+                              <th scope="col" *ngIf="col08">USUARIO</th>
+                              <th scope="col" *ngIf="col09">NRO. OPERACION</th>
+                              <th scope="col" *ngIf="flagHistTr && col10">NRO. TRANS.</th>
+                              <th>SOLICITAR CERTIFICADO</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <tr *ngFor="let list of result.tableEnd">
+                              <td *ngIf="col01">{{list.onlyDate}}</td>
+                              <td *ngIf="col02">{{list.hora}}</td>
+                              <td *ngIf="col03">{{list.moveName}}</td>
+                              <td *ngIf="col04">{{list.amount}}</td>
+                              <td *ngIf="col05">{{list.balanceClosing}}</td>
+                              <td *ngIf="col06">{{list.utc}}</td>
+                              <td *ngIf="col07">{{list.agency}}</td>
+                              <td *ngIf="col08">{{list.users}}</td>
+                              <td *ngIf="col09">{{list.sequentialCode}}</td>
+                              <td *ngIf="flagHistTr && col10">{{list.transactionNumber}}</td>
+                              <td></td>
+                          </tr>
+                      </tbody>
+                  </table>
+              </tr>
+      </table>
+    </div>
+  </div>
+
+    <ng-template #unavailableService>
+        <div class="col-md-8">
+            <div class="alert alert-danger" role="alert">
+                Servicio No disponible
+            </div>
+        </div>
+    </ng-template>
+  </div>
+  </div>
+</fieldset>

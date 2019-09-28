@@ -1,0 +1,14 @@
+<div class="row">
+    <div class="col-xs-12 col-sm-6 no-margin">
+        <div class="captcha" [ngStyle]="{'background-image':'url(' + image.image + ')'}"></div>
+        <button type="button" class="btn btn-link" (click)="handleChangeCaptcha()">Mostrar otra Imagen</button>
+    </div>
+    <div class="col-xs-12  col-sm-6 no-margin">
+        <div class="form-group" [ngClass]="{ 'has-error': validate && !valueToVerify.valid }">
+            <label>Ingrese el texto de la imagen</label>
+            <input type="text" class="form-control" name="valueToVerify" [(ngModel)]="toVerify.captchaValueToVerify" (keydown)="handleKeyDown($event)"
+                required #valueToVerify="ngModel" tabindex="3"/>
+            <div *ngIf="validate && !valueToVerify.valid" class="help-block">Este campo es requerido</div>
+        </div>
+    </div>
+</div>

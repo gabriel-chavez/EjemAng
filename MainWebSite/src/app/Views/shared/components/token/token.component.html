@@ -1,0 +1,16 @@
+<form name="form" (ngSubmit)="f.valid && handleSubmit()" #f="ngForm" novalidate autocomplete="off">
+  <fieldset [disabled]="disabled">
+    <div class="form-group">
+      <label>Número de Token: </label>
+      <select name="drpTokens" class="form-control" [(ngModel)]="selectedToken" (change)="handleTokenListChanged()" required>
+        <option *ngFor="let token of tokens" [ngValue]="token">{{ token.number }}</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Clave: </label>
+      <app-number-pad (onChangeText)="handleKeyPad($event)" #tokenPad></app-number-pad>
+    </div>
+    <button type="submit" class="btn btn-primary" [disabled]="!(tokens.length !== 0 && tokenPad.isValid())">Aceptar</button>
+    <button type="button" class="btn btn-primary" (click)="handleClosed()">Cancelar</button>
+  </fieldset>
+</form>

@@ -1,0 +1,33 @@
+<br>
+<p class="tituloGeneral h_no-MarginBottom" align="center">
+  PAGO A PROVEEDORES EN EFECTIVO
+</p>
+<br>
+  <app-pagination [totalItems]="detail.detail.length" [maxSize]="10" (onChange)="handlePageChanged($event)"></app-pagination>
+  <br>
+<fieldset [disabled]="disabled">
+  <div class="table-responsive">
+    <table class="table table-condensed table-bordered table-striped table-hover">
+      <thead>
+        <tr>
+          <th scope="col">Linea</th>
+          <th scope="col">Monto</th>
+          <th scope="col">Razon Beneficiario</th>
+          <th scope="col">Apellido Paterno</th>
+          <th scope="col">Apellido Materno</th>
+          <th scope="col">Tipo Documento</th>
+          <th scope="col">Documento </th>
+          <th scope="col">Ext. Doc</th>
+          <th scope="col">Instrucciones</th>
+          <th scope="col">Ciudad</th>
+          <th scope="col">Detalle</th>
+          <th scope="col">E-mail</th>
+          <th scope="col" colspan="2">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let row of detailPerPage" app-row-list-details-cash-payments [detail]="row" (action)="handleActionRow($event)"></tr>
+      </tbody>
+    </table>
+  </div>
+</fieldset>

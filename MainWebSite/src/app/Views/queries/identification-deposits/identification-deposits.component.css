@@ -1,0 +1,37 @@
+.container{
+    border: solid #4D4DB1;
+    border-width: .2rem;
+}
+h1 {
+    color: #071896;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 709%;
+  }
+
+
+  h5 {
+    color: #EE730F;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 109%;
+    }
+  
+  h2 {
+    color: #EE730F;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 249%;
+  }
+  
+  h3 {
+    color: #071896;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 109%;
+  }
+  
+  h4 {
+    color: #071896;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 97%;
+  }
+  .list-deposits{
+    margin-top:20px;
+  }

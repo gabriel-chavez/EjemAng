@@ -1,0 +1,6 @@
+<div class="tags-input">
+  <span class="tags-input-tag label label-primary" *ngFor="let tag of tags" disabled>{{tag}}</span>
+  <input class="tags-input-input-field" type="text" name="tagInput" (keyup.enter)="addTag(tagInput)" (keyup.shift.;)="addTagWithSemicolon(tagInput)"
+         (keydown.backspace)="removeLastTag(tagInput)" (keyup)="verifyEmailFormat(tagInput)" appValidate="email" #tagInput />
+  <ul *ngIf="isError"><li class="message-invalid">{{error}}</li></ul>
+</div>

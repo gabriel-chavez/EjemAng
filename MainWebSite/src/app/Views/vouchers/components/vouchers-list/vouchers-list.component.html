@@ -1,0 +1,47 @@
+<div class="table-responsive">
+
+  <div class="col-sm-4">
+    <app-pagination [totalItems]="vouchers.length" [maxSize]="pageSize" (onChange)="handlePageChanged($event)"></app-pagination>
+  </div>
+  <div class="col-sm-5"></div>
+
+  <div class="panel-button-right">
+    <button class="btn btn-primary btn-sm" [disabled]="vouchersIds.length == 0" (click)="handleDownloadZip()">Descargar</button>
+  </div>
+
+  <table class="table table-condensed table-bordered table-striped table-hover">
+    <thead class="thead-light">
+      <tr>
+        <th>Lote</th>
+        <th>Linea</th>
+        <th>Nro. Operación</th>
+        <th>Transacción</th>
+        <th>Cuenta origen</th>
+        <th>Importe</th>
+        <th>Moneda</th>
+        <th>Fecha transacción</th>
+        <th align="center">
+          Comprobante
+          <input type="checkbox" class="form-check-input" [(ngModel)]="allVouchersSelected" (change)="handleAllVouchersChecked()">
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let voucher of listVouchers">
+        <td align="right">{{voucher.id}}</td>
+        <td align="right">{{voucher.line}}</td>
+        <td>{{voucher.operationNumberDebitHost}}</td>
+        <td align="left">{{voucher.nameOperation}}</td>
+        <td>{{voucher.formattedAccount}}</td>
+        <td align="right">{{voucher.amount}}</td>
+        <td align="left">{{voucher.currency}}</td>
+        <td>{{voucher.dateCreation | date: 'dd/MM/yyyy'}}</td>
+        <td align="center">
+          <a class="btn btn-primary btn-sm icon-Usuario icono-naranjo" (click)="handleDownloadReport(voucher)"></a>
+          <input type="checkbox" class="form-check-input" [(ngModel)]="voucher.isSelected" (change)="handleVoucherChecked(voucher)">
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>

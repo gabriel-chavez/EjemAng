@@ -1,0 +1,261 @@
+<app-company-name></app-company-name>
+<p>Seleccione una cuenta, seleccione el periodo de históricos y presione el botón ACTUALIZAR REPORTE; adicionalmente
+  puede exportar
+  el reporte en formatos conocidos presionando el botón EXPORTAR </p>
+<br>
+<br>
+<form class="form-horizontal" name="formHist" #formHist="ngForm" novalidate autocomplete="off">
+  <div class="form-group">
+    Tipo de operación a identificar :
+    <br>
+    <label class="radio-inline">
+      <input name="RadioAbonoRetiro" type="radio" id="RadTip3" value="optAbo" (change)="setradio('optAbo')" (click)="reload()"
+        checked>Abonos </label>&emsp;
+    <label class="radio-inline">
+      <input name="RadioAbonoRetiro" type="radio" id="RadTip4" value="optRet" (change)="setradio('optRet')"> Retiros
+    </label>
+  </div>
+  <br>
+  <br>
+  <div class="form-group">
+    <label class="radio-inline">
+      <input name="RadioFechaMes" type="radio" [value]="'optByDates'" (change)="setradio('optFec')" [(ngModel)]="typeFilter">
+      Por Fechas </label>&emsp;
+    <label class="radio-inline">
+      <input name="RadioFechaMes" type="radio" [value]="'optByMonths'" (change)="setradio('optMes')" [(ngModel)]="typeFilter">
+      Por Meses </label>
+  </div>
+  <br>
+  <div class="form-group">
+    <label class="col-sm-3  control-label"> Número de Cuenta :</label>
+    <div class="col-sm-3 ">
+      <app-my-accounts [accountRequest]="request" [loadFirstAccount]="false" [returnBalances]="false" (onChange)="handleAccountChanged($event)"
+        (change)="setradio('optNcu1')"></app-my-accounts>
+    </div>
+  </div>
+  <label *ngIf="typeFilter==='optByDates'">Seleccione las fechas :</label>
+  <div class="form-group">
+    <div class="col-sm-6" *ngIf="typeFilter==='optByDates'">
+      <app-date-range-picker name="dateRange" [(ngModel)]="dateRange" [options]="optionsDateRange" [optionsGrid]="[5,4,5,4]"></app-date-range-picker>
+    </div>
+    <label class="col-sm-3 control-label" *ngIf=val2>Seleccione el Mes :</label>
+    <div class="col-sm-7 " *ngIf=val2>
+      <app-list-of-months [quantity]="12" [optionText]="false" (onChange)="handleGetMonths($event)"></app-list-of-months>
+    </div>
+  </div>
+  <div class="form-group" *ngIf=val3>
+    <label class="col-sm-3">
+      <!-- <span id="TipoCuenta"> -->
+      Tipo de Cuenta:</label>
+    <div class="col-sm-3">
+      <input name="TipoCuenta" type="text" [value]="accountSelected.application" style="width:170px;" disabled> </div>
+  </div>
+  <div class="form-group" *ngIf=val3>
+    <label class="col-sm-3">
+      <!-- <span id="Moneda"> -->
+      Moneda:</label>
+    <div class="col-sm-3">
+      <input type="text" [value]="accountSelected.currency" style="width:170px;" disabled> </div>
+  </div>
+  <div>
+    <button type="button" class="btn btn-primary" (click)="handleUpdateReport();setradio('optAdi');">Actualizar Reporte</button>
+  </div>
+  <br>
+</form>
+<div class="list-deposits">
+  <div class="row" *ngIf=val5>
+    <div class="col-sm-9">
+      <app-pagination [totalItems]="totalItems" [maxSize]="sizePage" (onChange)="handleChangePage($event)">
+      </app-pagination>
+    </div>
+    <div class="col-sm-3">
+      <input name="chbVerDetalle" id="chbVerDetalle" [(ngModel)]="checkMoreDetails" type="checkbox">
+      <b>Ver información adicional</b>
+    </div>
+  </div>
+  <div class="row justify-content-center" *ngIf=val6>
+    <div ngcontent-c5 class="table-responsive">
+      <table ngcontent-c5 class="table table-condensed table-bordered table-striped table-hover">
+        <thead ngcontent-c5>
+          <tr>
+            <th>Canal</th>
+            <th>Fecha del Abono</th>
+            <th>Hora del Abono</th>
+            <th>Monto
+              <BR>Abonado</th>
+            <th scope="col" *ngIf="checkMoreDetails">Monto
+              <BR>Operacion</th>
+            <th scope="col" *ngIf="checkMoreDetails">Moneda
+              <BR>Operacion</th>
+            <th>Glosa</th>
+            <th scope="col" *ngIf="checkMoreDetails">Titular</th>
+            <th>Ver</th>
+            <th>Comprobante</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of list">
+            <td>{{item.channel}}</td>
+            <td>{{item.lotDateProcess | date: 'dd/MM/yyyy'}}</td>
+            <td>{{item.lotDateProcess | date: 'HH:mm:ss'}}</td>
+            <td>{{item.amountDeposit}}</td>
+            <td *ngIf="checkMoreDetails">{{item.amountLot}}</td>
+            <td *ngIf="checkMoreDetails">{{item.currencyLot}}</td>
+            <td>{{item.comment}}</td>
+            <td *ngIf="checkMoreDetails">{{item.accountNameEnterpriseOriginal}}</td>
+            <td class="text-center">
+              <button class="btn btn-primary btn-sm icon-Lupa icono-naranjo" (click)="handleOpenModal(item)"></button>
+            </td>
+            <td class="text-center">
+              <a class="btn btn-default"><img src='assets/img/cw/pdf-ico.gif' (click)="getReporte(item)" alt=""></a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<div *ngIf=val7>
+  <div class="row">
+    <div class="col-sm-3">
+      <select name="TipoExportar" class="form-control" [(ngModel)]="FormatSelected">
+        <option value=undefined disabled>-- Seleccione una opción --</option>
+        <option value="xls">Excel</option>
+        <option value="pdf">PDF</option>
+      </select>
+    </div>
+    <div class="col-sm-3">
+      <img src="assets/img/cw/exportar.gif" (click)="getReport()" alt="">
+    </div>
+  </div>
+</div>
+<br>
+<br>
+<div align=center *ngIf=val4>
+  <h3>
+    <b> No se encontraron movimientos de abono para el período seleccionado.</b>
+  </h3>
+</div>
+<br>
+<br>
+
+<app-modal [visible]="isVisible" (onClose)="isVisible=false" [size]="'md'">
+  <div class="app-modal-header">
+    <img src="assets/img/cw/bcpcw1.jpg" alt="">
+    <div align=left>
+      <h2> Credinet Web</h2>
+    </div>
+    <br>
+    <div align=center>
+      <h2>
+        <b>
+          <u>Detalle de Transacción</u>
+        </b>
+      </h2>
+    </div>
+  </div>
+  <div class="app-modal-body">
+    <table>
+      <thead>
+        <tr>
+          <td></td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <h5>
+              <b>Empresa</b>
+            </h5>
+          </td>
+          <td>
+            <h3>
+              <b>:{{user.company_name}}</b>
+            </h3>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <h5>
+              <b>Titular Origen</b>
+            </h5>
+          </td>
+          <td>
+            <h3>
+              <b>:{{movementDepositSelected.accountNameEnterpriseOriginal}}</b>
+            </h3>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <h5>
+              <b>Fecha</b>
+            </h5>
+          </td>
+          <td>
+            <h3>
+              <b>:{{movementDepositSelected.lotDateProcess | date: 'dd/MM/yyyy'}}</b>
+            </h3>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <h5>
+              <b>Importe Abonado</b>
+            </h5>
+          </td>
+          <td>
+            <h3>
+              <b>:{{movementDepositSelected.amountDeposit}}</b>
+            </h3>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <h5>
+              <b>Moneda</b>
+            </h5>
+          </td>
+          <td>
+            <h3>
+              <b>:{{movementDepositSelected.currencyLot}}</b>
+            </h3>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <h5>
+              <b>Canal</b>
+            </h5>
+          </td>
+          <td>
+            <h3>
+              <b>:{{movementDepositSelected.channel}}</b>
+            </h3>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="app-modal-footer">
+    <h4>
+      <b>Para obtener el comprobante original afiliese al servicio de identificación de depósitos.</b>
+    </h4>
+    <br>
+    <button type="button" class="btn btn-primary" (click)="handleCloseModal()">Cerrar</button>
+  </div>
+</app-modal>
+
+<app-modal [visible]="isVisibleConfirmation" [size]="'lg'" data-backdrop="static" [manualCloseModal]="true">
+  <div class="app-modal-header">
+    <h3><b>CONDICIONES DE USO PARA IDENTIFICACIÓN DE ABONOS</b></h3>
+  </div>
+  <div class="app-modal-body">
+    <p [innerHTML]="confirmation.containContract"></p><br>
+    <label class="checkbox-inline"><input type="checkbox" value="" (change)="handleConfirmation($event)">Declaro haber
+      leído y estar de acuerdo con estas condiciones.</label>
+  </div>
+  <div class="app-modal-footer">
+        <button type="button" class="btn btn-primary" (click)="handleCloseModalConfirmation()" *ngIf="isVisibleBtn">Aceptar</button>
+  </div>
+</app-modal>

@@ -1,0 +1,33 @@
+<form *ngIf="visible" class="form-horizontal" name="clientCodeForm" novalidate #clientCodeForm="ngForm" autocomplete="off">
+  <fieldset [disabled]="disabled">
+    <div class="form-group">
+      <label class="col-xs-12 col-sm-2 control-label">Código Fijo: </label>
+      <div *ngIf="!isFavorite" class="col-xs-12 col-sm-3">
+        <input class="form-control" type="text" name="clientCode" [(ngModel)]="getDebtRequest.code" #clientCode="ngModel" required appOnlyInteger maxlength="10">
+        <app-show-errors [control]="clientCode"></app-show-errors>
+      </div>
+      <div *ngIf="isFavorite" class="col-xs-12 col-sm-3">
+        <select name="favoriteList" class="form-control" [(ngModel)]="selectedFavorite" (change)="handleFavoriteListChanged()">
+          <option *ngFor="let favorite of favorites" [ngValue]="favorite">
+            {{ favorite.name }}
+          </option>
+        </select>
+      </div>
+      <div class="col-xs-12 col-sm-1">
+        <button class="btn btn-primary btn-xs" (click)="handleValidate() && getDebt()">Buscar</button>
+      </div>
+      <div class="checkbox">
+        <label class="col-sm-3 control-label">
+          <input type="checkbox" class="form-check-input" name="isFavorite" [(ngModel)]="isFavorite" (change)="handleSearchFavoritesChanged()"> Buscar pagos favoritos
+        </label>
+      </div>
+    </div>
+  </fieldset>
+</form>
+<app-modal [visible]="errorMessage != ''" (onClose)="errorMessage=''" [size]="'sm'">
+  <div class="app-modal-header">Mensaje de alerta </div>
+  <div class="app-modal-body">{{errorMessage}}</div>
+  <div class="app-modal-footer">
+    <button type="button" class="btn btn-primary" (click)="errorMessage=''">Aceptar</button>
+  </div>
+</app-modal>

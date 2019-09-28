@@ -1,0 +1,11 @@
+<form class="form-horizontal" name="currencyAndAmountForm" novalidate #currencyAndAmountForm="ngForm">
+    <fieldset [disabled]="disabled">
+      <div class="form-group">
+        <label for="description" class="col-sm-2 control-label">{{txtTitle}}:</label>
+        <div class="col-sm-5">
+          <input type="text" class="form-control" name="txtValue" [(ngModel)]="txtValue" (ngModelChange)="handleSendDescription()" #textValue="ngModel" required maxlength="30" autocomplete="off" >
+          <app-show-errors [control]="textValue"></app-show-errors>
+        </div>
+      </div>
+    </fieldset>
+  </form>

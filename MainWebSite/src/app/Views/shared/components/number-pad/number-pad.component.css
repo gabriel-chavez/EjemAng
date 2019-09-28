@@ -1,0 +1,113 @@
+.row{
+    margin-bottom: 1px;
+}
+
+   .teclado-numerico {
+    float: right;
+    width: 140px;
+    padding-left: 1px;
+    padding-top: 1px;
+    border-radius: 4px;
+    border: 1px solid #083785;
+    background-color: #FFF;
+  }
+  
+   .teclado-numerico li {
+    float: left;
+    border: 1px solid #E1E1E1;
+    margin-left: -1px;
+    margin-top: -1px;
+    width: 34%;
+  }
+  
+   .teclado-numerico li span {
+    background-color: #FFF;
+    color: #FFF;
+    float: left;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    padding-left: 19px;
+    padding-right: 18px;
+    color: #083785;
+    font-size: 13px;
+    cursor: pointer;
+    transition: 0.3s;
+    width: 100%;
+  }
+  
+   .teclado-numerico li span:hover {
+    background-color: #EAEAEA;
+  }
+  
+   .teclado-numerico li .border-left {
+    border-left: 0px;
+  }
+  
+   .teclado-numerico li .border-right {
+    border-left: 0px;
+  }
+  
+   .teclado-numerico .lastitem {
+    background-color: #FFF;
+    padding: 3px 13px 4px 10px;
+    font-size: 11px;
+    transition: 0.3s;
+    cursor: pointer;
+  }
+  
+   .teclado-numerico .lastitem i {
+    font-size: 21px;
+    margin-right: 6px;
+    color: red;
+    float: left;
+    margin-top: 2px;
+    margin-left: -4px;
+  }
+  
+   .teclado-numerico .lastitem p {
+    color: #083785;
+    font-weight: 700;
+    float: left;
+    line-height: 21px;
+  }
+  
+   .teclado-numerico .lastitem:hover {
+    background-color: #EAEAEA;
+  }
+  
+   .teclado-numerico .border-borrar {
+    border-right: 0;
+    width: 50%;
+  }
+  
+   .container-detalle-teclado {
+    float: left;
+    display: inline-block;
+    width: 133px;
+    padding: 0px 10px;
+  }
+  
+   .container-detalle-teclado a {
+    float: right;
+    width: 100%;
+    text-align: left;
+    display: block;
+    padding-right: 6px;
+  }
+  
+   .container-detalle-teclado i {
+    float: left;
+    font-size: 35px;
+    color: #083785;
+  }
+  
+   .container-detalle-teclado p {
+    float: left;
+    font-size: 13px;
+    padding-top: 5px;
+  }
+  
+   .container-detalle-teclado p span {
+    color: #FF4F10;
+    font-size: 15px;
+  }

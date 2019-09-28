@@ -1,0 +1,340 @@
+<p class="tituloGeneral h_no-MarginBottom">
+  Herramientas Devs
+</p>
+<p class="subtituloGeneral">
+  Guia de componentes re-utilizables
+</p>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Password</h3>
+  </div>
+  <div class="panel-body">
+    
+    <input type="text" #input class="form-control" name="password" [(ngModel)]="inputPassword" #password="ngModel" required/>
+    <input type="text" #input class="form-control" name="password" [(ngModel)]="inputPassword" #password="ngModel" required/>
+    <p>
+      {{inputPassword}}
+    </p>
+    <button type="button" class="btn btn-primary" (click)="handleTestPassword(input)">Click me</button>
+
+  </div>
+  <pre><![CDATA[
+
+      ]]></pre>
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Paginación</h3>
+  </div>
+  <div class="panel-body">
+    <app-pagination [totalItems]="totalItems" [maxSize]="10" (onChange)="handleChangePage($event)"></app-pagination>
+    <p>Pagina Seleccionada: {{this.currentPage}}</p>
+  </div>
+  <pre><![CDATA[
+        <app-pagination [totalItems]="totalItems" [maxSize]="10" (onChange)="handleChangePage($event)"></app-pagination>
+        _________________________________________________
+  
+        handleChangePage($event) {
+          this.currentPage = $event;
+        }
+        ]]></pre>
+</div>
+
+<!-- <div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Formularios y Validaciones</h3>
+  </div>
+  <div class="panel-body">
+    <form class="form-horizontal" name="formTransfer" #formTransfer="ngForm" (ngSubmit)="formTransfer.valid && submitForm()"
+      novalidate autocomplete="off">
+      <div class="form-group">
+        <label for="amount" class="control-label col-sm-3">Monto a abonar: </label>
+        <div class="col-sm-9">
+          <input type="text" class="form-control" name="amount" [(ngModel)]="dataTransfer.amount" #amount="ngModel" required appValidate="decimal">
+          <app-show-errors [control]="amount"></app-show-errors>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="checkbox">
+          <label for="dateFuture" class="control-label col-sm-3">
+              <input type="checkbox" name="isDateFuture" [(ngModel)]="dataTransfer.isDateFuture">Fecha Futura:
+          </label>
+          <div class="col-sm-9" *ngIf="dataTransfer.isDateFuture">
+            <my-date-picker name="mydate" [options]="myDatePickerOptions" (dateChanged)="onDateChanged($event)" [(ngModel)]="dateModel"
+              required></my-date-picker>
+            <app-show-errors [control]="dateFuture"></app-show-errors>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="drpCurrency" class="col-sm-3 control-label">Moneda: </label>
+        <div class="col-sm-9">
+          <select name="drpCurrency" class="form-control" [(ngModel)]="dataTransfer.currency" #drpCurrency="ngModel" required>
+                <option value="USD" selected>USD</option>
+                <option value="BOL">BOL</option>
+              </select>
+          <app-show-errors [control]="drpCurrency"></app-show-errors>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-sm-offset-3 col-sm-9">
+          <button type="submit" class="btn btn-primary" [disabled]="!formTransfer.valid">Enviar</button>
+        </div>
+      </div>
+    </form>
+    <p>FOMULARIO VALIDO {{formTransfer.valid}}</p>
+    <p>FORMULARIO {{formTransfer.value|json}}</p>
+    <p>VALORES DATA {{dataTransfer|json}}</p>
+  </div>
+  <pre><![CDATA[
+    <form class="form-horizontal" name="formTransfer" #formTransfer="ngForm" (ngSubmit)="formTransfer.valid && submitForm()" novalidate>
+        <div class="form-group">
+          <label for="amount" class="col-sm-3 control-label">Monto a abonar: </label>
+          <div class="col-sm-9">
+            <input type="text" class="form-control" name="amount" [(ngModel)]="dataTransfer.amount" #amount="ngModel" required appValidate="decimal">
+            <app-show-errors [control]="amount"></app-show-errors>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="checkbox">
+            <label for="dateFuture" class="col-sm-3 control-label">
+                <input type="checkbox" name="isDateFuture" [(ngModel)]="dataTransfer.isDateFuture">Fecha Futura:
+            </label>
+            <div class="col-sm-9" *ngIf="dataTransfer.isDateFuture">
+              <my-date-picker name="mydate" [options]="myDatePickerOptions" (dateChanged)="onDateChanged($event)" [(ngModel)]="date" required></my-date-picker>
+              <app-show-errors [control]="dateFuture"></app-show-errors>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="drpCurrency" class="col-sm-3 control-label">Moneda: </label>
+          <div class="col-sm-9">
+            <select name="drpCurrency" class="form-control" [(ngModel)]="dataTransfer.currency" #drpCurrency="ngModel" required>
+                  <option value="USD" selected>USD</option>
+                  <option value="BOL">BOL</option>
+                </select>
+            <app-show-errors [control]="drpCurrency"></app-show-errors>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-sm-offset-3 col-sm-9">
+            <button type="submit" class="btn btn-primary" [disabled]="!formTransfer.valid">Enviar</button>
+          </div>
+        </div>
+      </form>    _________________________________________________
+
+      onDateChanged(event: IMyDateModel) {
+        this.dataTransfer.dateFuture = event.jsdate;
+      }
+    
+      submitForm() {
+        alert(JSON.stringify(this.dataTransfer));
+      }
+    ]]></pre>
+</div> -->
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Botones y Mensajes</h3>
+  </div>
+  <div class="panel-body">
+    <button class="btn btn-primary" (click)="handleMessage('success')">primary</button>
+    <button class="btn btn-success" (click)="handleMessage('success')">success</button>
+    <button class="btn btn-danger" (click)="handleMessage('danger')">danger</button>
+    <button class="btn btn-info" (click)="handleMessage('info')">info</button>
+    <button class="btn btn-warning" (click)="handleMessage('warning')">warning</button>
+    <button class="btn btn-default" (click)="handleMessage('success')">success</button>
+  </div>
+  <pre><![CDATA[
+    <button class="btn btn-success" (click)="handleMessage('success')">success</button>
+    <button class="btn btn-danger" (click)="handleMessage('danger')">danger</button>
+    <button class="btn btn-info" (click)="handleMessage('info')">info</button>
+    <button class="btn btn-warning" (click)="handleMessage('warning')">warning</button>
+    ------------------------------------------------------------
+    //En el constructor
+      constructor(private messageService: GlobalService) { }
+
+      handleMessage($event) {
+        
+        switch ($event) {
+          case 'success':
+            this.messageService.success("titulo", "detale del mensaje");
+            break;
+          case 'danger':
+            this.messageService.danger("titulo", "detale del mensaje");
+            break;
+          case 'info':
+            this.messageService.info("titulo", "detale del mensaje");
+            break;
+          case 'warning':
+            this.messageService.warning("titulo", "detale del mensaje");
+            break;
+          default:
+            break;
+        }
+      }]]></pre>
+</div>
+
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Datepicker</h3>
+  </div>
+  <div class="panel-body">
+    <form #myForm="ngForm" novalidate>
+      <my-date-picker name="mydate" [options]="myDatePickerOptions" [(ngModel)]="modelDate" required></my-date-picker>
+    </form>
+    <p>documentacion <a href="http://kekeh.github.io/mydatepicker/">http://kekeh.github.io/mydatepicker/</a></p>
+  </div>
+  <pre><![CDATA[
+        <form #myForm="ngForm" novalidate>
+          <my-date-picker name="mydate" [options]="myDatePickerOptions" [(ngModel)]="modelDate" required></my-date-picker>
+        </form> 
+          _________________________________________________  
+        import { IMyDpOptions, IMyDateModel } from 'mydatepicker';
+        public myDatePickerOptions: IMyDpOptions = {
+          // other options...
+          editableDateField: false,
+          openSelectorOnInputClick: true,
+          dateFormat: 'dd/mm/yyyy',
+          inline: false
+        };
+        public modelDate: any = { date: { year: 2018, month: 10, day: 9 } };
+        ]]></pre>
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Modal</h3>
+  </div>
+  <div class="panel-body">
+    <button type="button" class="btn btn-primary" (click)="handleOpenModal()">Modal</button>
+    <app-modal [visible]="isVisible" (onClose)="isVisible=false" [size]="'lg'">
+      <div class="app-modal-header">
+        header
+      </div>
+      <div class="app-modal-body">
+        Estaba la pajara pinta, a la sombra del verde limon
+        <input type="text">
+      </div>
+      <div class="app-modal-footer">
+        <button type="button" class="btn btn-default" (click)="handleCloseModal()">Cerrar</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </app-modal>
+    <pre><![CDATA[
+      <button type="button" class="btn btn-primary" (click)="handleOpenModal()">Modal</button>
+      <!-- size es opcional por defecto md, tamaños=> sm,md,lg -->
+      <app-modal [visible]="isVisible" (onClose)="isVisible=false" [size]="'lg'">
+        <div class="app-modal-header">
+          header
+        </div>
+        <div class="app-modal-body">
+          Estaba la pajara pinta, a la sombra del verde limon
+          <input type="text">
+        </div>
+        <div class="app-modal-footer">
+          <button type="button" class="btn btn-default" (click)="handleCloseModal()">Cerrar</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </app-modal>
+      ------------------------------------------------------------
+      isVisible: boolean = false;
+
+      handleOpenModal() {
+        this.isVisible = true;
+      }
+
+      handleCloseModal() {
+        this.isVisible = false;
+      }
+      ]]></pre>
+  </div>
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Teclado Virtual</h3>
+  </div>
+  <div class="panel-body">
+    <app-virtual-path (onKeyChange)="handleKeyboard($event)"></app-virtual-path>
+    {{textKeyboard}}
+  </div>
+  <pre><![CDATA[
+      <app-virtual-path (onKeyChange)="handleKeyboard($event)"></app-virtual-path>
+      ------------------------------------------------------------
+      handleKeyboard($event) {
+        if ($event === "back") {
+          this.textKeyboard = this.textKeyboard.substring(0, this.textKeyboard.length - 1);
+        }
+        else {
+          this.textKeyboard = this.textKeyboard + $event;
+        }
+      }
+      ]]></pre>
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Captcha</h3>
+  </div>
+  <div class="panel-body">
+    <app-captcha></app-captcha>
+    {{captcha.toVerify|json}}
+  </div>
+  <pre><![CDATA[
+      <app-captcha></app-captcha>
+        ]]></pre>
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Fuerza Password</h3>
+  </div>
+  <div class="panel-body">
+    <input type="text" [(ngModel)]="txtPassword" />
+    <app-strength-password [passwordToVerify]="txtPassword" (onVerifyStrength)="handleVerifyStrength($event)"
+      (minLength)="4" (maxLength)="20"></app-strength-password>
+  </div>
+  <pre><![CDATA[
+      <input type="text" [(ngModel)]="txtPassword" />
+      <app-strength-password [passwordToVerify]="txtPassword" (onVerifyStrength)="handleVerifyStrength($event)" (minLength)="4"
+          ]]></pre>
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Token</h3>
+  </div>
+  <div class="panel-body">
+    <app-token></app-token>
+  </div>
+  <pre><![CDATA[
+    <app-token></app-token>
+          ]]></pre>
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Token Modal</h3>
+  </div>
+  <div class="panel-body">
+    <button type="button" class="btn btn-primary" (click)="handleTokenOpen()">token</button>
+    <app-token-modal [isVisible]="isVisibleToken" (onClose)="isVisibleToken=false" (onSubmit)="handleTokenSubmit($event)"></app-token-modal>
+  </div>
+  <pre><![CDATA[
+    <button type="button" (click)="handleTokenOpen()">token</button>
+    <app-token-modal [isVisible]="isVisibleToken" (onClose)="isVisibleToken=false" (onSubmit)="handleTokenSubmit($event)"></app-token-modal>
+    _________________________________________________
+
+    handleTokenSubmit($event) {
+      alert(JSON.stringify($event));
+      this.isVisibleToken = false;
+    }
+
+    handleTokenOpen() {
+      this.isVisibleToken = true;
+    }
+    ]]></pre>
+</div>

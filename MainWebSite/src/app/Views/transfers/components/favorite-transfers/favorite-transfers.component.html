@@ -1,0 +1,45 @@
+<form class="form-horizontal" name="favoriteTransfersForm" #favoriteTransfersForm="ngForm" novalidate autocomplete="off">
+  <fieldset [disabled]="disabled">
+    <div class="form-group">
+      <div class="checkbox">
+        <label class="col-sm-3 control-label">
+        <input type="checkbox" class="form-check-input" name="favoriteTransfer" [(ngModel)]="isCheckedFavoriteTransfer" (ngModelChange)="handleChangeChecked($event)"> Transferencias favoritas
+      </label>
+        <div *ngIf="isCheckedFavoriteTransfer" class="col-sm-3">
+          <select class="form-control" name="drpFavoriteTransfer" [(ngModel)]="selectedTransfer" (change)="handleChangedFavoriteTransfer()">
+          <option value="null" disabled>Seleccione una opción</option>
+          <option *ngFor="let transfer of favoriteTransfers" [ngValue]="transfer">{{transfer.name}}</option>
+        </select>
+        </div>
+        <div *ngIf="selectedTransfer != null && isCheckedFavoriteTransfer" class="col-sm-3">
+          <button class="btn btn-primary btn-xs" (click)="isRemoveModalVisible=true">Eliminar</button>
+          <button class="btn btn-primary btn-xs" (click)="isUpdateModalVisible=true">Mod. Info</button>
+        </div>
+      </div>
+    </div>
+  </fieldset>
+</form>
+<app-modal [visible]="isUpdateModalVisible" (onClose)="isUpdateModalVisible=false" [size]="'sm'">
+  <div class="app-modal-header">
+    Actualización de información
+  </div>
+  <div class="app-modal-body">
+    ¿Está seguro de modificar los datos de esta transferencia favorita?
+  </div>
+  <div class="app-modal-footer">
+    <button type="button" class="btn btn-default" (click)="isUpdateModalVisible=false">Cancelar</button>
+    <button type="button" class="btn btn-primary" (click)="handleUpdateFavoriteTransfer()">Actualizar</button>
+  </div>
+</app-modal>
+<app-modal [visible]="isRemoveModalVisible" (onClose)="isRemoveModalVisible=false" [size]="'sm'">
+  <div class="app-modal-header">
+    Eliminación de información
+  </div>
+  <div class="app-modal-body">
+    ¿Está seguro de eliminar esta transferencia de sus favoritas?
+  </div>
+  <div class="app-modal-footer">
+    <button type="button" class="btn btn-default" (click)="isRemoveModalVisible=false">Cancelar</button>
+    <button type="button" class="btn btn-primary" (click)="handleRemoveFavoriteTransfer()">Eliminar</button>
+  </div>
+</app-modal>

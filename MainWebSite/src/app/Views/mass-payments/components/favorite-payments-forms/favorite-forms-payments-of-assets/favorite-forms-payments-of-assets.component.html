@@ -1,0 +1,35 @@
+<br>
+<p class="tituloGeneral h_no-MarginBottom" align="center">
+    PAGO DE HABERES
+</p>
+<br>
+<app-pagination [totalItems]="detail.detail.length" [maxSize]="10" (onChange)="handlePageChanged($event)"></app-pagination>
+<br>
+<fieldset [disabled]="disabled">
+<div class="table-responsive">
+  <table class="table table-condensed table-bordered table-striped table-hover">
+    <thead>
+      <tr>
+        <th scope="col" *ngIf="typeOfLoad === 'MAN'">Seleccionar Pago</th>
+        <th scope="col">Código</th>
+        <th scope="col">Linea</th>
+        <th scope="col">Cuenta Destino</th>
+        <th scope="col">Glosa</th>
+        <th scope="col">Monto</th>
+        <th scope="col">Tipo Documento</th>
+        <th scope="col">Documento	</th>
+        <th scope="col">Ext. Doc</th>
+        <th scope="col">Titular</th>
+        <th scope="col">Detalle 1</th>
+        <th scope="col">Detalle 2</th>
+        <th scope="col">E-mail Proveedor</th>
+        <th scope="col">Nro de Celular</th>
+        <th scope="col" colspan="2">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let row of detailPerPage" app-favorite-row-list-details-payment-of-asset [detail]="row" [typeOfLoad]="typeOfLoad" (action)="handleActionRow($event)"></tr>
+    </tbody>
+  </table>
+</div>
+</fieldset>

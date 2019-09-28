@@ -1,0 +1,29 @@
+<app-company-name></app-company-name>
+<div class="table-responsive">
+  <table class="table table-condensed table-bordered table-striped table-hover">
+    <thead class="thead-light">
+      <tr>
+        <th>Lote</th>
+        <th>Operación</th>
+        <th>Cuenta origen</th>
+        <th>Monto</th>
+        <th>Moneda</th>
+        <th>Estado</th>
+        <th>Resultado</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let batch of batches">
+        <td>{{batch.id}}</td>
+        <td>{{batch.operation}}</td>
+        <td>{{batch.sourceAccount}}</td>
+        <td>{{batch.amount}}</td>
+        <td>{{batch.currency}}</td>
+        <td>{{batch.status}}</td>
+        <td>{{batch.result}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<button class="btn btn-primary" [routerLink]="['/queries/pendings']">Regresar</button>

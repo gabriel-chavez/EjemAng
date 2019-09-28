@@ -1,0 +1,34 @@
+.title {
+    font-size: 30px;
+    color :rgb(14, 82, 186);
+    text-align: center
+}
+h3{
+    color :rgb(235, 107, 19);
+}
+.border{
+    border: solid rgb(9, 9, 135);
+    border-width: .1rem;
+}
+
+#ext {
+width: 790px;
+height: 90px;
+line-height: 0px;
+color: transparent; font-size: 12px;
+font-family: Arial Black, sans-serif;
+font-weight: 70;
+/* background-color: chocolate; */
+/* text-transform: uppercase; */
+-webkit-transition: all 0.5s ease;
+-moz-transition: all 0.5s ease;
+-ms-transition: all 0.5s ease;
+transition: all 0.5s ease;
+}
+#ext:hover {
+line-height: 19px;
+color: #0f28e6;
+}
+#ext img{ float: left;
+margin: 0 2px;
+}

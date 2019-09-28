@@ -1,0 +1,14 @@
+<form class="form-horizontal" name="serviceListForm" novalidate #serviceListForm="ngForm" autocomplete="off">
+  <fieldset [disabled]="disabled">
+    <div class="form-group">
+      <label class="col-xs-12 col-sm-{{columnWidthForLabel}} control-label">Servicio: </label>
+      <div class="col-xs-12 col-sm-3">
+        <select name="serviceList" class="form-control" [(ngModel)]="selectedService" (change)="handleServiceListChanged()" required #serviceList="ngModel">
+          <option *ngIf="!isFirstSelected" [ngValue]='null' disabled>Seleccione un servicio</option>
+          <option *ngFor="let service of services" [ngValue]="service">{{ service.name }}</option>
+        </select>
+        <app-show-errors [control]="serviceList"></app-show-errors>
+      </div>
+    </div>
+  </fieldset>
+</form>

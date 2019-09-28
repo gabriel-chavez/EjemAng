@@ -1,0 +1,54 @@
+.arrowText 
+{
+    position:relative;
+    margin: 10px;
+    width:200px;
+    height: 28px;
+    background: #FF6532;
+    border:solid 1px #FF6532;
+    float: left;
+    align-content: center;
+    }
+    .arrowText:before, .arrowText:after 
+    {
+    content: " ";
+    position: absolute;
+    display: block;
+    width: 0;
+    height: 0;
+    }
+    .arrowRight:before, .arrowRight:after 
+    {
+    border-bottom: 15px solid transparent;
+    border-top: 15px solid transparent;
+    top:-2px;
+    }
+    .arrowRight:after 
+    {
+    border-left: 16px solid #FF6532;
+    right: -15px;
+    z-index: 2;
+    }
+   .arrowRight:before 
+   {
+    border-left: 16px solid #FF6532;
+    right: -16px;
+    z-index: 1;
+    }
+    .go-top 
+    {
+          position: fixed;
+          bottom: 2em;
+          right: 2em;
+          text-decoration: none;
+          color: #fff;
+          background-color: rgba(0, 0, 0, 0.3);
+          font-size: 12px;
+          padding: 1em;
+          display: none;
+        }
+        .go-top:hover 
+        {
+          background-color: rgba(0, 0, 0, 0.6);
+        }
+        

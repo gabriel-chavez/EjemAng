@@ -1,0 +1,23 @@
+<form class="form-horizontal" name="form" (ngSubmit)="formAcces.valid && handleSubmit()" #formAcces="ngForm" novalidate autocomplete="off">
+  <div class="form-group">
+    <label for="numberAccess">
+      Número de Acceso:
+    </label>
+    <input type="text" class="form-control" name="numberAccess" #numberAccount="ngModel" [(ngModel)]="validatePin.card" [readOnly]="readOnlyAccessNumber"
+           required [appMaxLength]="16" appOnlyNumber autofocus>
+  </div>
+  <div class="form-group">
+    <label>Número de PIN: </label>
+    <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-no-padding">
+      <app-number-pad (onChangeText)="handleKeyPad($event)" [maxLength]="4" #pin>
+      </app-number-pad>
+    </div>
+  </div>
+  <div class="form-group">
+    <app-captcha #captcha></app-captcha>
+  </div>
+  <div class="panel-right">
+    <button type="submit" class="btn btn-primary" [disabled]="!formAcces.valid || !pin.isValid() || !captcha.isValid()">Aceptar</button>
+    <button type="button" class="btn btn-secondary" routerLink="/login" *ngIf="isVisibleCancel">Cancelar</button>
+  </div>
+</form>

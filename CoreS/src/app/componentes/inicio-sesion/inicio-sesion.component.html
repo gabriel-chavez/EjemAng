@@ -1,0 +1,46 @@
+<div fxLayout="row" fxLayoutAlign="center center">
+  <div fxFlex="25%" style="z-index:1">
+    <div class="mlt-carousel">
+      <div fxLayout="column" class="item active">
+        <img fxFlex="20%" class="mat-card-image" [src]="'assets/logo.JPG'">
+        <div fxFlex="70%" class="item-content">
+          <h3>UNIVidaNet CoreSOAT</h3>
+          <p>Sistema....</p>
+          <p>blah blah blah...</p>
+          <p>blah blah blah...</p>
+          <p>blah blah blah...</p>
+          <p>blah blah blah...</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div fxFlex="40%" fxLayoutAlign="center">
+    <div class="mlt-content" fxLayout="column" fxLayoutAlign="center">
+      <form class="form-uv" name="inicioSesion" [formGroup]="inicioSesionForm" (ngSubmit)="iniciarSesion()" novalidate>
+        <div >
+          <div >
+            <mat-form-field class="input-full-width">
+              <input class="input-uv" matInput placeholder="Usuario" formControlName="usuario" >
+              <mat-error *ngIf="verificarError('usuario', 'required')">
+                El nombre de usuario es un campo requerido.
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div >
+          <div >
+            <mat-form-field class="input-full-width">
+              <input matInput class="input-uv" placeholder="Contraseña" type="password" formControlName="clave">
+              <mat-error *ngIf="verificarError('clave', 'required')">
+                La contraseña es un campo requerido.
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div >
+          <button mat-raised-button class="lt-register-btn" [disabled]="inicioSesionForm.status !== 'VALID'">Iniciar sesión </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

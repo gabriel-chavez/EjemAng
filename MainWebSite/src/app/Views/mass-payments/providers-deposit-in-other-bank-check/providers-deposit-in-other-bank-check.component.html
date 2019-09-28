@@ -1,0 +1,99 @@
+<app-company-name></app-company-name><br><br>
+<div>
+    <h3>Verifique que los datos del Pago en otros Bancos, si esta conforme presione el boton <b>ACEPTAR</b></h3>
+</div>
+<br>
+<div class="disable-form">
+    <app-source-accounts [accountRequest]="request" (onChange)="handleSourceAccountChanged($event)" [disabled]="isDisabledAfterSave" #source >
+    </app-source-accounts>
+    <app-currency-and-amount [alwaysShowFundDeclarationForm]="true" [amount]="ProvidersDepositInOtherBankCheckData.amount"
+        [disabled]="isDisabledAfterSave" [disabledAfterSave]="isDisabledAfterSave" [isAmountDisabled]="true" [isFlagVisible]="true" (onChange)="handleCurrencyAndAmountChanged($event)"
+        #amountandcurrency></app-currency-and-amount>
+    <app-description-payment (onChange)="handleDescription($event)" [disabled]="isDisabledFormAccount" #description></app-description-payment>
+    <app-date-future [disabled]="isDisabledAfterSave" (onChange)="handleDateFuture($event)" #futureDate>
+    </app-date-future>
+</div>
+<app-ticket [disabled]="isDisabledAfterSave" [sourceCurrency]="source.accountSelected.currency" [destinationCurrency]="amountandcurrency.data.currency"
+    [amount]="amountandcurrency.data.amount" (onChange)="handleObtainedTicket($event)" #ticket></app-ticket>
+<app-emails-input (onChange)="handleEmails($event)" [disabled]="isDisabledAfterSave"></app-emails-input> <br>
+<div class="panel-button-right" *ngIf="!isValid">
+    <button class="col-xs-10 col-sm-2 col-sm-offset-9 btn btn-primary" (click)="handleFirstVerify(true)"> <span class="icon-calendario icono-naranjo">
+        </span>Insertar Detalle</button>
+</div>
+<br>
+<div *ngIf="isValid">
+    <div class="description-page text-primary">
+        <h3> El horario límite para envio de esta solicitud es hasta hrs. 10:00 de Lunes a Viernes, caso contrario la
+            solicitud será procesada hasta el siguiente dia habil.</h3>
+    </div>
+</div>
+<br>
+<div align="center" *ngIf="isValid && typeDetailSelected === 0">
+    <button (click)="typeDetailSelected = 1" class="btn btn-info">
+        <img src="assets/img/cw/importararchivotxt.gif"></button>
+    <button (click)="typeDetailSelected = 2" class="btn btn-info" (click)="getPreviousForm()">
+        <img src="assets/img/cw/cargarplanillaanterior.gif"></button>
+    <button (click)="typeDetailSelected = 3" class="btn btn-info">
+        <img src="assets/img/cw/crearplanilla.gif"></button>
+</div>
+<ng-container *ngIf="!isPaymentSuccessful" [ngSwitch]="typeDetailSelected">
+    <app-import-files *ngSwitchCase="1" (action)="handleFile($event)"></app-import-files>
+    <app-load-previous-form-providers-deposit-in-other-bank-check *ngSwitchCase="2" [previousForm]="previousForm"
+        (action)="handleSendId($event)"> </app-load-previous-form-providers-deposit-in-other-bank-check>
+    <app-load-manual-providers-deposit-in-other-bank-check *ngSwitchCase="3" [disabled]="isDisabledAfterSave" [detail]="detail"
+        [requestId]="requestId" (action)="handleActionRow($event)"></app-load-manual-providers-deposit-in-other-bank-check>
+</ng-container>
+<app-company-limits [isVisible]="isVisibleAuthandControllers"></app-company-limits>
+<app-approvers-and-controllers [isVisible]="isVisibleAuthandControllers" [approversRequest]="approversRequest" [currency]="amountandcurrency.data.currency"
+    [disabled]="isDisabledAfterSave" [amounts]="getAmounts()" (onChange)="handleApproversOrControllersChanged($event)" #approversAndControllers></app-approvers-and-controllers>
+
+<br>
+<div class="form-group row" *ngIf="verifyamount == true">
+    <button class="col-xs-12 col-sm-3 col-sm-offset-9  btn btn-primary" (click)="handleValidate(amountandcurrency.handleValidate(), 
+    futureDate.handleValidate(), ticket.handleValidate(), approversAndControllers.handleValidate(),
+    approversAndControllers.validateApproversLimit(), source.handleValidate())"
+        *ngIf="!isPaymentSuccessful">
+        <span class="icon-Selected icono-naranjo"> </span>Aceptar
+    </button>
+
+</div>
+
+<div *ngIf=val0 align=right class="form-group row">
+    <button class="col-xs-12 col-sm-3 col-sm-offset-9  btn btn-primary" [routerLink]="['/massPayments/providersDepositInOtherBankCheck']">Cancelar</button>
+</div><br>
+<app-token-modal [isVisible]="isVisibleToken" (onSubmit)="handleTokenSubmit($event)" (onClose)="isVisibleToken=false"></app-token-modal>
+<app-modal [visible]="isRemoveModalVisible" (onClose)="isRemoveModalVisible=false" [size]="'md'">
+    <div class="app-modal-header"> Operación Realizada </div>
+    <div class="app-modal-body">
+        Su operación ha sido enviada satisfactoriamente a "Pagos Masivos Pendientes de Confirmación" desde donde
+        el(los) usuario(s)
+        que cuente(n) con los permisos, podrán confirmar la transacción. Una vez aprobada su operación, es muy
+        importante
+        que pueda verificar en la pantalla de “Seguimiento” hasta comprobar que su operación se procesó correctamente
+        <strong>N° Lote {{processBatchNumber}}.</strong> El tiempo de proceso será máximo 15 minutos
+    </div>
+    <div class="app-modal-footer">
+        <button type="button" class="btn btn-primary" (click)="newFin=true" (click)="isRemoveModalVisible=false"
+            (click)="isVisibleAuthandControllers=false" (click)="val0=false">Aceptar</button>
+    </div>
+</app-modal>
+<div class="form-group row" *ngIf="newFin==true">
+    <div>
+        <h3>
+            Su operación ha sido enviada satisfactoriamente a "Pagos Masivos Pendientes de Confirmación" desde donde
+            el(los) usuario(s)
+            que cuente(n) con los permisos, podrán confirmar la transacción. Una vez aprobada su operación, es muy
+            importante
+            que pueda verificar en la pantalla de “Seguimiento” hasta comprobar que su operación se procesó
+            correctamente
+            <strong>N° Lote {{processBatchNumber}}.</strong> El tiempo de proceso será máximo 15 minutos</h3>
+    </div><br>
+    <button class="col-xs-12 col-sm-3 col-sm-offset-9  btn btn-primary" [routerLink]="['/massPayments/providersDepositInOtherBankCheck']"> Nuevo </button>
+    <br>
+</div>
+<app-modal [visible]="excedeedAmount" (onClose)="excedeedAmount=false" [size]="'md'">
+    <div class="app-modal-header">Saldo insuficiente</div>
+    <div class="app-modal-body">Estimado cliente, su operación será rechazada si no cuenta con fondos suficientes al
+        momento de realizar la autorización.</div>
+    <div class="app-modal-footer"><button type="button" class="btn btn-primary" (click)="excedeedAmount=false; showToken();">Aceptar</button></div>
+</app-modal>

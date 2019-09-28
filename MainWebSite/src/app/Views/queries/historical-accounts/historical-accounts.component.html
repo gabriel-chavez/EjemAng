@@ -1,0 +1,12 @@
+<app-company-name></app-company-name>
+<app-generate-head (movementAccountDto)="inDataMovementAccount($event)" (isVisiblePanelBody)="handlePanelBody($event)"
+ (accountSourceDetail)="inAccountSourceDetail($event)">
+</app-generate-head>
+<div *ngIf="isVisiblePanelBody">
+    <app-generate-body (onChange)="handlePasaParametro($event)" (onChangeTwo)="handlePasaParametroTwo($event)"
+      [miModel]="miModel" [isVisiblePanelBody]="isVisiblePanelBody" [valueGlobal]="valueGlobal">
+    </app-generate-body>
+    <app-generate-end [vectorIn]= "vector" [vectorListAccountMovement]="vectorListAccountMovement" (onChangeNew)="handlePressButton($event)"
+    [miModel]="miModel" (valueGlobal)="handlevalueGlobal($event)" [inDetailAccountSource]="detailAccountSource" *ngIf="false" >
+    </app-generate-end>
+</div>

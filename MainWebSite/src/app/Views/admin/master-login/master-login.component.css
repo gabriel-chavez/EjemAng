@@ -1,0 +1,20 @@
+.row {
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
+.carousel-inner > .item > img, .carousel-inner > .item > a > img {
+    display: block;
+    margin: 0 auto;
+}
+.col-no-padding
+{
+    float: none;
+}
+
+.img-helpdesk{
+    margin: 0 auto;
+    display: block;
+    width: 100%;
+    max-width: 280px;
+}
