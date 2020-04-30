@@ -24,7 +24,7 @@
     "bootstrap": "^3.3.7",
     "core-js": "^2.4.1",
     "fingerprintjs2": "^1.5.1",
-    "jquery": "^3.2.1",
+    "jquery": "^3.5.0",
     "popper.js": "^1.12.5",
     "rxjs": "^5.4.2",
     "webpack": "^3.11.0",
